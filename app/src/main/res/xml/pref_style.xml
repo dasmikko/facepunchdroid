@@ -1,0 +1,16 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="enable_custom_styles"
+        android:summary="@string/pref_description_enable_styles"
+        android:title="@string/pref_title_enable_styles" />
+
+    <Preference
+        android:title="Custom style file"
+        android:summary="Select your own custom css style"
+        android:dependency="enable_custom_styles"
+        android:key="custom_style_file">
+    </Preference>
+
+</PreferenceScreen>

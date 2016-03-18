@@ -1,0 +1,358 @@
+body {
+    min-width: 100% !important;
+}
+/* Frontpage */
+
+table.forums .forumhead h2 {
+    font-size: 24px;
+    padding-left: 2%;
+}
+h2.forumtitle {
+    font-size: 26pt;
+}
+
+.forumbit_post .foruminfo .forumdata .forumtitle a {
+	font-size: 20px;
+}
+TABLE.forums DIV.forumdata P.forumdescription {
+    font-size: 20pt;
+    display: none;
+}
+
+table.forums .forumbit_post td {
+	padding: 18px !important;
+    background-image: none !important;
+}
+
+table.forums .forumbit_post td .forumdata { margin: 0px; }
+
+.forumbit_post .foruminfo .forumdata .viewing { display: none; }
+
+TD.last_post_column { display: none; }
+
+/* Header */
+.above_body {
+    padding-bottom: 15px;
+    margin-bottom: 30px;
+    max-height: 85px;
+}
+#header {
+	background: none;
+    box-shadow: none;
+    border-bottom: none;
+    height: auto;
+}
+#header div:not(#navbar-login) {
+    display: none;
+}
+#navbar-login {
+    height: 100%;
+    font-size: 14px;
+    margin-right: 5%;
+    padding: 0px;
+    margin-top: 15px;
+}
+#header #breadcrumb {
+    display: block !important;
+    height: auto !important;
+ 	margin-left: 5%;
+    margin-top: 15px;
+}
+#header #breadcrumb>a,
+#header #breadcrumb .navbit {
+    display: inline-block;
+    margin-bottom: 5px !important;
+}
+
+#header #breadcrumb .navbit:nth-child(4){
+    /*overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 1;
+    display: -webkit-inline-box;
+    -webkit-box-orient: vertical;*/
+}
+#header #breadcrumb .navbit,
+#header #breadcrumb a {
+    font-size: 12px;
+}
+#header #breadcrumb #lastelement {
+    display:block;
+    padding: 0px;
+    font-size: 20px;
+}
+
+/* Header end */
+
+
+table.forums .forumhead h2 {
+    color: #fff;
+}
+#content_inner {
+    margin: 0px 3%;
+}
+.above_threadlist {
+    display: none;
+}
+
+/* Thread list */
+.threadlastpost,
+.threadreplies,
+.threadviews,
+.threadicon {
+    display: none;
+}
+
+table#threads h3.threadtitle .title {
+ 	font-size: 20px !important;
+    display: block;
+    margin-bottom: 10px;
+    word-break: break-word !important;
+}
+table#threads tr.threadbit td.threadinfo .threadpagenav {
+ 	display: block;
+    margin-bottom: 10px;
+    font-size: 12px;
+}
+
+table#threads .threadmeta .author a {
+ 	font-size: 12px;
+}
+
+table#threads .inner {
+    position: relative;
+    padding: 10px 18px;
+}
+table#threads .threadmeta .minicons { display: none; }
+
+table#threads tr.threadbit td.threadinfo .newposts {
+    right: 0px;
+    margin: 5px 0;
+    margin-bottom: 10px;
+    font-size: 14px !important;
+    font-weight: bold !important;
+    padding: 5px;
+}
+.threadinfo { font-size: 14px; }
+
+table#threads tr.threadbit td.threadinfo .newposts img { display: none; }
+table#threads td.threaddeleted { display: none; }
+
+table#threads tr.threadlisthead td {
+ 	font-size: 20px !important;
+}
+
+.newcontent_textcontrol {
+	position: relative !important;
+    font-size: 14px;
+}
+
+/* Thread list END */
+
+/* Pagination */
+.pagination span a {
+	font-size: 12px !important;
+    padding: 3px !important;
+}
+
+#above_postlist {
+    margin-bottom: 20px !important;
+}
+
+#below_threadlist {
+    height: 56px;
+}
+
+.threadpagenav {
+    float: none;
+}
+
+div#below_threadlist div.threadpagenav {
+ 	margin: 0px;
+}
+
+
+/* thread */
+ol#posts .postbitlegacy .postdetails .video {
+	/*height: auto;*/
+}
+ol#posts .postbitlegacy .postdetails .postbody {
+	margin-left: 10px;
+    margin-right: 10px;
+    clear: both
+}
+
+ol#posts .postbitlegacy .postdetails .postbody .postcontent img {
+	max-width: 100% !important;
+}
+
+ol#posts .postbitlegacy .postdetails .postbody .postcontent {
+    padding-right: 10px;
+    font-size: 12px;
+}
+/* Quotes */
+ol#posts .postbitlegacy .postdetails .postbody .postcontent .quote {
+ 	display: block;
+}
+ol#posts .postbitlegacy .postdetails .postbody .postcontent .quote .message {
+    font-size: 12px;
+}
+
+ol#posts .postbitlegacy .postdetails .userinfo {
+    width: 100%;
+}
+
+ol#posts .postbitlegacy .postdetails .userinfo .username_container,
+ol#posts .postbitlegacy .postdetails .userinfo .usertitle {
+ 	margin-left: 75px;
+    float: left;
+}
+
+ol#posts .postbitlegacy .postdetails .userinfo .username_container {
+    margin-top: 15px;
+}
+ol#posts .postbitlegacy .postdetails .userinfo .username_container a.username {
+	font-size: 12px;
+    margin-bottom: 10px;
+    margin-top: 20px !important;
+}
+
+ol#posts .postbitlegacy .postdetails .userinfo .usertitle {
+ 	font-size: 12px !important;
+}
+ol#posts .postbitlegacy .postdetails .userinfo .usertitle * {
+ 	font-size: 16px;
+}
+
+ol#posts .postbitlegacy .postdetails .userinfo #userdata div.imlinks {
+   width: 60px !important;
+	display: none;
+}
+
+ol#posts .postbitlegacy .postdetails .userinfo #userdata #userstats {
+	font-size: 12px;
+    display: none;
+}
+#userdata {
+ 	height: 60px;
+    padding-top: 0px !important;
+}
+#userdata a {
+    display: inline-block;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    text-align: center;
+    width: 60px;
+}
+
+.rating_results span {
+	visibility: collapse;
+    position: relative;
+    display: inline-block;
+    width: auto;
+    height: 22px;
+    vertical-align: middle;
+    font-size: 0px;
+}
+
+.rating_results span a,
+.rating_results span strong {
+ 	visibility: visible;
+}
+
+.rating_results span strong {
+ 	margin-left: 2px;
+    margin-right: 2px;
+    font-size: 11px;
+}
+.rating_results span strong:before {
+    content: 'x ';
+    font-weight: normal;
+}
+
+
+#userdata a img {
+ 	max-height: 60px;
+}
+
+ol#posts .postbitlegacy .postfoot {
+    height: 80px !important;
+    padding-top: 0px;
+
+}
+ol#posts .postbitlegacy .postfoot .postcontrols { width: 100%; }
+ol#posts .postbitlegacy .postfoot .postcontrols .postrating {
+ 	float: left;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    position: absolute;
+    bottom: 25px;
+    padding-top: 10px;
+}
+ol#posts .postbitlegacy .postfoot .postcontrols a.editpost  {
+ 	font-size: 12px;
+	position: absolute;
+    bottom: 0px;
+    right: 67px;
+}
+
+ol#posts .postbitlegacy .postfoot .postcontrols a.newreply  {
+ 	font-size: 12px;
+	position: absolute;
+    bottom: 0px;
+    right: 0;
+}
+
+div.threadhead h2 span a {
+ 	font-size: 12px;
+}
+
+ol#posts .postbitlegacy .postfoot {
+	height: auto;
+}
+
+ol#posts .postbitlegacy .postfoot .postlinking {
+   display: none;
+}
+
+ol#posts .postbitlegacy .postfoot .rating_results {
+ 	margin-left: 10px;
+    position: absolute;
+	top: inherit;
+    bottom: 5px;
+    white-space: normal;
+    vertical-align: bottom;
+}
+
+ol#posts .postbitlegacy .postfoot .rating_results span a {
+    content: \" x \";
+}
+
+ol#posts .postbitlegacy .postfoot .rating_results a.rating_users {
+ 	margin: 5px 0px 0px 0px;
+
+}
+
+
+.popupbox {
+    margin-top: 0px;
+}
+
+
+/* Footer */
+div#footer .footer_links {
+ 	font-size: 12px;
+}
+
+/* Member Page */
+.member_summary {
+ 	width: 100%;
+}
+.member_tabs {
+	margin-left: 0px;
+}
+
+/* Disable fullscreen image viewer */
+.PopupImage {
+    display: none !important;
+}

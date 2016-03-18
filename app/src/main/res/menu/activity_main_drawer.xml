@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group
+        android:id="@+id/group_navigation"
+        android:checkableBehavior="none">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home_black_24dp"
+            android:title="Home" />
+        <item
+            android:id="@+id/nav_events"
+            android:icon="@drawable/ic_event_black_24dp"
+            android:title="Events" />
+        <item
+            android:id="@+id/nav_popular"
+            android:icon="@drawable/ic_favorite_black_24dp"
+            android:title="Popular" />
+        <item
+            android:id="@+id/nav_read"
+            android:icon="@drawable/ic_markunread_mailbox_black_24dp"
+            android:title="Read" />
+        <item
+            android:id="@+id/nav_search"
+            android:icon="@drawable/ic_search_black_24dp"
+            android:title="Search" />
+    </group>
+
+    <group
+        android:id="@+id/group_loggedin"
+        android:checkableBehavior="none"
+        android:visible="false">
+        <item
+            android:id="@+id/nav_loggedin_settings"
+            android:icon="@drawable/ic_settings_black_24dp"
+            android:title="Settings" />
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_lock_open_black_24dp"
+            android:title="Logout" />
+    </group>
+    <group
+        android:id="@+id/group_notloggedin"
+        android:checkableBehavior="none">
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/ic_settings_black_24dp"
+            android:title="Settings" />
+    </group>
+
+</menu>
