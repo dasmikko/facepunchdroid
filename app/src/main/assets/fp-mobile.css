@@ -134,7 +134,7 @@ table#threads tr.threadbit td.threadinfo .newposts {
 }
 .threadinfo { font-size: 14px; }
 
-table#threads tr.threadbit td.threadinfo .newposts img { display: none; }
+table#threads tr.threadbit td.threadinfo .newposts img { display: inline-block; }
 table#threads td.threaddeleted { display: none; }
 
 table#threads tr.threadlisthead td {
@@ -187,14 +187,14 @@ ol#posts .postbitlegacy .postdetails .postbody .postcontent img {
 
 ol#posts .postbitlegacy .postdetails .postbody .postcontent {
     padding-right: 10px;
-    font-size: 12px;
+    font-size: 1.0037500100376em;
 }
 /* Quotes */
 ol#posts .postbitlegacy .postdetails .postbody .postcontent .quote {
  	display: block;
 }
 ol#posts .postbitlegacy .postdetails .postbody .postcontent .quote .message {
-    font-size: 12px;
+    font-size: 1.0037500100376em;
 }
 
 ol#posts .postbitlegacy .postdetails .userinfo {
@@ -208,7 +208,7 @@ ol#posts .postbitlegacy .postdetails .userinfo .usertitle {
 }
 
 ol#posts .postbitlegacy .postdetails .userinfo .username_container {
-    margin-top: 15px;
+    margin-top: 8px;
 }
 ol#posts .postbitlegacy .postdetails .userinfo .username_container a.username {
 	font-size: 12px;
@@ -224,10 +224,17 @@ ol#posts .postbitlegacy .postdetails .userinfo .usertitle * {
 }
 
 ol#posts .postbitlegacy .postdetails .userinfo #userdata div.imlinks {
-   width: 60px !important;
-	display: none;
+    position: absolute;
+    left: 63px;
+    top: 50px;
+    text-align: left;
+    vertical-align: top;
+    width: auto !important;
 }
-
+ol#posts .postbitlegacy .postdetails .userinfo #userdata div.imlinks a {
+	margin-right: 5px;
+    vertical-align: top;
+}
 ol#posts .postbitlegacy .postdetails .userinfo #userdata #userstats {
 	font-size: 12px;
     display: none;
@@ -236,7 +243,7 @@ ol#posts .postbitlegacy .postdetails .userinfo #userdata #userstats {
  	height: 60px;
     padding-top: 0px !important;
 }
-#userdata a {
+#userdata>a {
     display: inline-block;
     position: absolute;
     top: 10px;
@@ -246,7 +253,7 @@ ol#posts .postbitlegacy .postdetails .userinfo #userdata #userstats {
 }
 
 .rating_results span {
-	visibility: collapse;
+	visibility: visible;
     position: relative;
     display: inline-block;
     width: auto;
@@ -273,6 +280,7 @@ ol#posts .postbitlegacy .postdetails .userinfo #userdata #userstats {
 
 #userdata a img {
  	max-height: 60px;
+    max-width: 50px;
 }
 
 ol#posts .postbitlegacy .postfoot {
@@ -286,9 +294,16 @@ ol#posts .postbitlegacy .postfoot .postcontrols .postrating {
     margin-left: 10px;
     margin-bottom: 10px;
     position: absolute;
-    bottom: 25px;
+    bottom: 47px;
     padding-top: 10px;
 }
+ol#posts .postbitlegacy .postfoot .postcontrols .postrating a:first-child  {
+	margin-left: 0px;
+}
+ol#posts .postbitlegacy .postfoot .postcontrols .postrating a {
+ 	margin-left: 6px;
+}
+
 ol#posts .postbitlegacy .postfoot .postcontrols a.editpost  {
  	font-size: 12px;
 	position: absolute;
@@ -311,9 +326,24 @@ ol#posts .postbitlegacy .postfoot {
 	height: auto;
 }
 
+/* Useragent and browser */
 ol#posts .postbitlegacy .postfoot .postlinking {
-   display: none;
+   	display: block;
+	position: absolute;
+    bottom: 30px;
+    left: 7px;
+
 }
+ol#posts .postbitlegacy .postfoot .postlinking a {
+    display: none;
+}
+ol#posts .postbitlegacy .postfoot .postlinking img {
+	margin-right: 7px;
+}
+ol#posts .postbitlegacy .postfoot .postlinking img:nth-child(3) {
+	display: none;
+}
+
 
 ol#posts .postbitlegacy .postfoot .rating_results {
  	margin-left: 10px;

@@ -24,6 +24,10 @@
             android:id="@+id/nav_search"
             android:icon="@drawable/ic_search_black_24dp"
             android:title="Search" />
+        <item
+            android:id="@+id/nav_usercp"
+            android:icon="@drawable/ic_build_black_24dp"
+            android:title="Control Panel" />
     </group>
 
     <group

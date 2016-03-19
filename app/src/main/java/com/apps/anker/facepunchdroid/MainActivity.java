@@ -394,6 +394,8 @@ public class MainActivity extends AppCompatActivity
             webview.loadUrl(baseURL + "fp_read.php"); // Read
         } else if (id == R.id.nav_search) {
             webview.loadUrl(baseURL + "search.php"); // Search
+        } else if (id == R.id.nav_usercp) {
+            webview.loadUrl(baseURL + "usercp.php"); // User control panel
         } else if (id == R.id.nav_logout) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage("Are you sure you want to log out?")
@@ -417,8 +419,6 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_settings || id == R.id.nav_loggedin_settings) {
             Intent i = new Intent(this, SettingsActivity.class);
             startActivity(i);
-        } else if (id == R.id.nav_donate) {
-            webview.loadUrl("https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=dasmikko%40gmail%2ecom&lc=DK&no_note=0&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHostedGuest");
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
