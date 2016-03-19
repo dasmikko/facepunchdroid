@@ -4,18 +4,18 @@ body {
 /* Frontpage */
 
 table.forums .forumhead h2 {
-    font-size: 24px;
+    font-size: 1.8461538461538463em;
     padding-left: 2%;
 }
 h2.forumtitle {
-    font-size: 26pt;
+    font-size: 2em;
 }
 
 .forumbit_post .foruminfo .forumdata .forumtitle a {
-	font-size: 20px;
+	font-size: 1.5384615384615385em;
 }
 TABLE.forums DIV.forumdata P.forumdescription {
-    font-size: 20pt;
+    font-size: 1.5384615384615385em;
     display: none;
 }
 
@@ -47,7 +47,7 @@ TD.last_post_column { display: none; }
 }
 #navbar-login {
     height: 100%;
-    font-size: 14px;
+    font-size: 1.0769230769230769em;
     margin-right: 5%;
     padding: 0px;
     margin-top: 15px;
@@ -73,12 +73,12 @@ TD.last_post_column { display: none; }
 }
 #header #breadcrumb .navbit,
 #header #breadcrumb a {
-    font-size: 12px;
+    font-size: 0.9230769230769231em;
 }
 #header #breadcrumb #lastelement {
     display:block;
     padding: 0px;
-    font-size: 20px;
+    font-size: 1.5384615384615385em;
 }
 
 /* Header end */
@@ -103,7 +103,7 @@ table.forums .forumhead h2 {
 }
 
 table#threads h3.threadtitle .title {
- 	font-size: 20px !important;
+ 	font-size: 1.5384615384615385em !important;
     display: block;
     margin-bottom: 10px;
     word-break: break-word !important;
@@ -111,11 +111,11 @@ table#threads h3.threadtitle .title {
 table#threads tr.threadbit td.threadinfo .threadpagenav {
  	display: block;
     margin-bottom: 10px;
-    font-size: 12px;
+    font-size: 0.9230769230769231em;
 }
 
 table#threads .threadmeta .author a {
- 	font-size: 12px;
+ 	font-size: 0.9230769230769231em;
 }
 
 table#threads .inner {
@@ -128,11 +128,11 @@ table#threads tr.threadbit td.threadinfo .newposts {
     right: 0px;
     margin: 5px 0;
     margin-bottom: 10px;
-    font-size: 14px !important;
+    font-size: 1.0769230769230769em !important;
     font-weight: bold !important;
     padding: 5px;
 }
-.threadinfo { font-size: 14px; }
+.threadinfo { font-size: 1.0769230769230769em; }
 
 table#threads tr.threadbit td.threadinfo .newposts img { display: inline-block; }
 table#threads td.threaddeleted { display: none; }
@@ -143,14 +143,14 @@ table#threads tr.threadlisthead td {
 
 .newcontent_textcontrol {
 	position: relative !important;
-    font-size: 14px;
+    font-size: 1.0769230769230769em;
 }
 
 /* Thread list END */
 
 /* Pagination */
 .pagination span a {
-	font-size: 12px !important;
+	font-size: 0.9230769230769231em !important;
     padding: 3px !important;
 }
 
@@ -211,13 +211,13 @@ ol#posts .postbitlegacy .postdetails .userinfo .username_container {
     margin-top: 8px;
 }
 ol#posts .postbitlegacy .postdetails .userinfo .username_container a.username {
-	font-size: 12px;
+	font-size: 0.9230769230769231em;
     margin-bottom: 10px;
     margin-top: 20px !important;
 }
 
 ol#posts .postbitlegacy .postdetails .userinfo .usertitle {
- 	font-size: 12px !important;
+ 	font-size: 0.9230769230769231em !important;
 }
 ol#posts .postbitlegacy .postdetails .userinfo .usertitle * {
  	font-size: 16px;
@@ -236,7 +236,7 @@ ol#posts .postbitlegacy .postdetails .userinfo #userdata div.imlinks a {
     vertical-align: top;
 }
 ol#posts .postbitlegacy .postdetails .userinfo #userdata #userstats {
-	font-size: 12px;
+	font-size: 0.9230769230769231em;
     display: none;
 }
 #userdata {
@@ -270,7 +270,7 @@ ol#posts .postbitlegacy .postdetails .userinfo #userdata #userstats {
 .rating_results span strong {
  	margin-left: 2px;
     margin-right: 2px;
-    font-size: 11px;
+    font-size: 0.8461538461538461em;
 }
 .rating_results span strong:before {
     content: 'x ';
@@ -305,21 +305,21 @@ ol#posts .postbitlegacy .postfoot .postcontrols .postrating a {
 }
 
 ol#posts .postbitlegacy .postfoot .postcontrols a.editpost  {
- 	font-size: 12px;
+ 	font-size: 0.9230769230769231em;
 	position: absolute;
     bottom: 0px;
     right: 67px;
 }
 
 ol#posts .postbitlegacy .postfoot .postcontrols a.newreply  {
- 	font-size: 12px;
+ 	font-size: 0.9230769230769231em;
 	position: absolute;
     bottom: 0px;
     right: 0;
 }
 
 div.threadhead h2 span a {
- 	font-size: 12px;
+ 	font-size: 0.9230769230769231em;
 }
 
 ol#posts .postbitlegacy .postfoot {
@@ -371,7 +371,7 @@ ol#posts .postbitlegacy .postfoot .rating_results a.rating_users {
 
 /* Footer */
 div#footer .footer_links {
- 	font-size: 12px;
+ 	font-size: 0.9230769230769231em;
 }
 
 /* Member Page */
