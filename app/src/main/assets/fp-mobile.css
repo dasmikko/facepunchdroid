@@ -34,7 +34,6 @@ TD.last_post_column { display: none; }
 .above_body {
     padding-bottom: 15px;
     margin-bottom: 30px;
-    max-height: 85px;
 }
 #header {
 	background: none;
@@ -155,7 +154,7 @@ table#threads tr.threadlisthead td {
 }
 
 #above_postlist {
-    margin-bottom: 20px !important;
+    margin-bottom: 0px !important;
 }
 
 #below_threadlist {
@@ -175,6 +174,11 @@ div#below_threadlist div.threadpagenav {
 ol#posts .postbitlegacy .postdetails .video {
 	/*height: auto;*/
 }
+
+DIV.quote img, DIV.quote video, IMG.thumbnail {
+	max-width: 100% !important;
+}
+
 ol#posts .postbitlegacy .postdetails .postbody {
 	margin-left: 10px;
     margin-right: 10px;
@@ -270,11 +274,12 @@ ol#posts .postbitlegacy .postdetails .userinfo #userdata #userstats {
 .rating_results span strong {
  	margin-left: 2px;
     margin-right: 2px;
-    font-size: 0.8461538461538461em;
+    font-size: 12px;
 }
 .rating_results span strong:before {
     content: 'x ';
     font-weight: normal;
+    font-size: 12px;
 }
 
 
