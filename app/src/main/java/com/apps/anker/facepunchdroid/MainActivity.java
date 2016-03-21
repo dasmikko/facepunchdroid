@@ -72,6 +72,9 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
+
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
 
 
@@ -228,6 +231,20 @@ public class MainActivity extends AppCompatActivity
             webview.restoreState(savedInstanceState);
         else
             webview.loadUrl(baseURL);
+
+
+        // Handle Share to intent
+        // Get intent, action and MIME type
+        Intent intent = getIntent();
+        String action = intent.getAction();
+        String type = intent.getType();
+
+        if (Intent.ACTION_SEND.equals(action) && type != null) {
+            if ("text/plain".equals(type)) {
+                webview.loadUrl(intent.getStringExtra(Intent.EXTRA_TEXT));
+            }
+        }
+
     }
 
     @Override
