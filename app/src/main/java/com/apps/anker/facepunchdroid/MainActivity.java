@@ -216,6 +216,10 @@ public class MainActivity extends AppCompatActivity
         webview.getSettings().setLoadWithOverviewMode(true);
         webview.getSettings().setUseWideViewPort(false);
 
+        // Set new UA
+        String ua = webview.getSettings().getUserAgentString();
+        webview.getSettings().setUserAgentString(ua + " FacepunchDroid");
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             webview.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE);
         }
