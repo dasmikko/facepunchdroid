@@ -245,6 +245,11 @@ public class MainActivity extends AppCompatActivity
             }
         }
 
+        if (Intent.ACTION_VIEW.equals(action)) {
+            Uri IntentData = intent.getData();
+            webview.loadUrl(IntentData.toString());
+        }
+
     }
 
     @Override
