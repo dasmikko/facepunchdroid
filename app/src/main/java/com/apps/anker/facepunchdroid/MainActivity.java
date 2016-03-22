@@ -220,8 +220,8 @@ public class MainActivity extends AppCompatActivity
         webview.getSettings().setUseWideViewPort(false);
 
         // Set new UA
-        String ua = webview.getSettings().getUserAgentString();
-        webview.getSettings().setUserAgentString(ua + " FacepunchDroid");
+        //String ua = webview.getSettings().getUserAgentString();
+        webview.getSettings().setUserAgentString("");
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             webview.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE);
@@ -422,6 +422,8 @@ public class MainActivity extends AppCompatActivity
             webview.loadUrl(baseURL + "search.php"); // Search
         } else if (id == R.id.nav_usercp) {
             webview.loadUrl(baseURL + "usercp.php"); // User control panel
+        } else if (id == R.id.nav_messages) {
+            webview.loadUrl(baseURL + "private.php"); // Private messages
         } else if (id == R.id.nav_logout) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage("Are you sure you want to log out?")
