@@ -572,6 +572,15 @@ div#footer .footer_links {
     margin-top: 20px;
 }
 
+/* Search */
+#searchtypelist {
+    width: 100%;
+	margin: 0px;
+    margin-top: 20px;
+}
+
+/* Search end */
+
 /* New thread end*/
 
 /* Disable fullscreen image viewer */
