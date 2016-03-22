@@ -399,6 +399,156 @@ div#footer .footer_links {
     display: block;
 }
 
+#showpm DIV.quote img, DIV.quote video, IMG.thumbnail {
+	max-width: 100% !important;
+}
+
+#showpm ol .postbitlegacy .postdetails .postbody {
+	margin-left: 10px !important;
+    margin-right: 10px !important;
+    clear: both;
+}
+
+#showpm ol .postbitlegacy .postdetails .postbody .postcontent img {
+	max-width: 100% !important;
+}
+
+#showpm ol .postbitlegacy .postdetails .postbody .postcontent {
+    padding-right: 10px !important;
+    font-size: 1.0037500100376em !important;
+}
+/* PM Quotes */
+#showpm ol .postbitlegacy .postdetails .postbody .postcontent .quote {
+ 	display: block;
+}
+#showpm ol .postbitlegacy .postdetails .postbody .postcontent .quote .message {
+    font-size: 1.0037500100376em;
+}
+
+#showpm ol .postbitlegacy .postdetails .userinfo {
+    width: 100% !important;
+}
+
+#showpm ol .postbitlegacy .postdetails .userinfo .username_container,
+#showpm ol .postbitlegacy .postdetails .userinfo .usertitle {
+ 	margin-left: 75px;
+    float: left;
+}
+
+#showpm ol .postbitlegacy .postdetails .userinfo .username_container {
+    margin-top: 8px;
+}
+#showpm ol .postbitlegacy .postdetails .userinfo .username_container a.username {
+	font-size: 0.9230769230769231em;
+    margin-bottom: 10px;
+    margin-top: 20px !important;
+}
+
+#showpm ol .postbitlegacy .postdetails .userinfo .usertitle {
+ 	font-size: 0.9230769230769231em !important;
+}
+#showpm ol .postbitlegacy .postdetails .userinfo .usertitle * {
+ 	font-size: 16px;
+}
+
+#showpm ol .postbitlegacy .postdetails .userinfo #userdata div.imlinks {
+    position: absolute;
+    left: 63px;
+    top: 50px;
+    text-align: left;
+    vertical-align: top;
+    width: auto !important;
+}
+#showpm ol .postbitlegacy .postdetails .userinfo #userdata div.imlinks a {
+	margin-right: 5px;
+    vertical-align: top;
+}
+#showpm ol .postbitlegacy .postdetails .userinfo #userdata #userstats {
+	font-size: 0.9230769230769231em;
+    display: none;
+}
+#showpm #userdata {
+ 	height: 60px;
+    padding-top: 0px !important;
+}
+#showpm #userdata>a {
+    display: inline-block;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    text-align: center;
+    width: 60px;
+}
+
+#showpm #userdata a img {
+ 	max-height: 60px;
+    max-width: 50px;
+}
+
+#showpm ol#posts .postbitlegacy .postfoot {
+    height: 80px !important;
+    padding-top: 0px;
+
+}
+#showpm ol .postbitlegacy .postfoot .postcontrols { width: 100%; }
+#showpm ol .postbitlegacy .postfoot .postcontrols .postrating {
+ 	float: left;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    position: absolute;
+    bottom: 47px;
+    padding-top: 10px;
+}
+#showpm ol .postbitlegacy .postfoot .postcontrols .postrating a:first-child  {
+	margin-left: 0px;
+}
+#showpm ol .postbitlegacy .postfoot .postcontrols .postrating a {
+ 	margin-left: 6px;
+}
+
+#showpm ol .postbitlegacy .postfoot .postcontrols a.editpost  {
+ 	font-size: 0.9230769230769231em;
+	position: absolute;
+    bottom: 0px;
+    right: 67px;
+}
+
+#showpm ol .postbitlegacy .postfoot .postcontrols a.newreply  {
+ 	font-size: 0.9230769230769231em;
+	position: absolute;
+    bottom: 0px;
+    right: 0;
+}
+
+#showpm div.threadhead h2 span a {
+ 	font-size: 0.9230769230769231em;
+}
+
+#showpm ol .postbitlegacy .postfoot {
+	height: auto;
+}
+
+#showpm ol .postbitlegacy .postdetails .userinfo {
+    width: 100%;
+}
+
+#showpm ol .postbitlegacy .postdetails .userinfo #userdata div.imlinks {
+    position: absolute;
+    left: 63px;
+    top: 50px;
+    text-align: left;
+    vertical-align: top;
+    width: auto !important;
+}
+
+
+#showpm ol .postbitlegacy .postfoot .postcontrols a.forwardpost {
+    font-size: 0.9230769230769231em;
+    position: absolute;
+    bottom: 0px;
+    right: 67px;
+}
+/* PM END */
 
 /* Disable fullscreen image viewer */
 .PopupImage {
