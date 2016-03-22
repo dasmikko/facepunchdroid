@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.webkit.MimeTypeMap;
 import android.widget.ImageView;
@@ -65,6 +66,7 @@ public class ImageViewer extends AppCompatActivity {
                     } else {
                         mAttacher = new PhotoViewAttacher(imgView);
                     }
+                    mAttacher.setOnPhotoTapListener(new PhotoTapListener());
                 }
             }
         };
@@ -77,7 +79,25 @@ public class ImageViewer extends AppCompatActivity {
                 .setCallback(imageLoadedCallback);
 
 
+
     }
+
+    private class PhotoTapListener implements PhotoViewAttacher.OnPhotoTapListener {
+
+        @Override
+        public void onPhotoTap(View view, float x, float y) {
+            float xPercentage = x * 100f;
+            float yPercentage = y * 100f;
+
+            finish();
+        }
+    }
+
+    public void onViewTap(View view, float x, float y) {
+        finish();
+    }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
