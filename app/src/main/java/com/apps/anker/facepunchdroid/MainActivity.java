@@ -226,7 +226,7 @@ public class MainActivity extends AppCompatActivity
 
         // Set new UA
         //String ua = webview.getSettings().getUserAgentString();
-        webview.getSettings().setUserAgentString("");
+        webview.getSettings().setUserAgentString("Mozilla/5.0 (Linux; Android) FacepunchDroid");
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             webview.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE);
