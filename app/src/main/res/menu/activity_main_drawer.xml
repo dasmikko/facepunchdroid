@@ -28,6 +28,10 @@
             android:id="@+id/nav_usercp"
             android:icon="@drawable/ic_build_black_24dp"
             android:title="Control Panel" />
+        <item
+            android:id="@+id/nav_messages"
+            android:icon="@drawable/ic_mail_outline_black_24dp"
+            android:title="Messages" />
     </group>
 
     <group

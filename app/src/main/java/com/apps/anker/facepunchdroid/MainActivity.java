@@ -72,6 +72,9 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
+
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
 
 
@@ -216,6 +219,10 @@ public class MainActivity extends AppCompatActivity
         webview.getSettings().setLoadWithOverviewMode(true);
         webview.getSettings().setUseWideViewPort(false);
 
+        // Set new UA
+        //String ua = webview.getSettings().getUserAgentString();
+        webview.getSettings().setUserAgentString("");
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             webview.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE);
         }
@@ -224,6 +231,25 @@ public class MainActivity extends AppCompatActivity
             webview.restoreState(savedInstanceState);
         else
             webview.loadUrl(baseURL);
+
+
+        // Handle Share to intent
+        // Get intent, action and MIME type
+        Intent intent = getIntent();
+        String action = intent.getAction();
+        String type = intent.getType();
+
+        if (Intent.ACTION_SEND.equals(action) && type != null) {
+            if ("text/plain".equals(type)) {
+                webview.loadUrl(intent.getStringExtra(Intent.EXTRA_TEXT));
+            }
+        }
+
+        if (Intent.ACTION_VIEW.equals(action)) {
+            Uri IntentData = intent.getData();
+            webview.loadUrl(IntentData.toString());
+        }
+
     }
 
     @Override
@@ -295,10 +321,14 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
         if (event.getAction() == KeyEvent.ACTION_DOWN) {
             switch (keyCode) {
                 case KeyEvent.KEYCODE_BACK:
-                    if (webview.canGoBack()) {
+                    if(drawer.isDrawerOpen(GravityCompat.START)) {
+                        drawer.closeDrawer(GravityCompat.START);
+                    } else if (webview.canGoBack()) {
                         webview.goBack();
                     } else {
                         finish();
@@ -396,6 +426,8 @@ public class MainActivity extends AppCompatActivity
             webview.loadUrl(baseURL + "search.php"); // Search
         } else if (id == R.id.nav_usercp) {
             webview.loadUrl(baseURL + "usercp.php"); // User control panel
+        } else if (id == R.id.nav_messages) {
+            webview.loadUrl(baseURL + "private.php"); // Private messages
         } else if (id == R.id.nav_logout) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage("Are you sure you want to log out?")
