@@ -2,14 +2,20 @@ package com.apps.anker.facepunchdroid;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.app.PendingIntent;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentSender;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
+import android.os.IBinder;
+import android.os.RemoteException;
 import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -36,10 +42,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.vending.billing.IInAppBillingService;
 import com.koushikdutta.ion.Ion;
 import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -65,14 +73,11 @@ public class MainActivity extends AppCompatActivity
 
     boolean useCustomStyles;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
+        
 
 
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
@@ -264,6 +269,7 @@ public class MainActivity extends AppCompatActivity
         webview.onResume();
     }
 
+
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         webview.saveState(outState);
@@ -451,6 +457,9 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_settings || id == R.id.nav_loggedin_settings) {
             Intent i = new Intent(this, SettingsActivity.class);
             startActivity(i);
+        } else if (id == R.id.nav_donate) {
+            Intent i = new Intent(this, DonationsActivity.class);
+            startActivityForResult(i, 1);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
