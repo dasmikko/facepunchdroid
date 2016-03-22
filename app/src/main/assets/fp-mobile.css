@@ -387,6 +387,19 @@ div#footer .footer_links {
 	margin-left: 0px;
 }
 
+/* Private messages */
+#usercp_nav {
+	width: 100%;
+}
+#usercp_content .cp_content {
+ margin-left: 0px;
+}
+
+.pmlist .blockrow .threadicon {
+    display: block;
+}
+
+
 /* Disable fullscreen image viewer */
 .PopupImage {
     display: none !important;
