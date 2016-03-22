@@ -321,10 +321,14 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
         if (event.getAction() == KeyEvent.ACTION_DOWN) {
             switch (keyCode) {
                 case KeyEvent.KEYCODE_BACK:
-                    if (webview.canGoBack()) {
+                    if(drawer.isDrawerOpen(GravityCompat.START)) {
+                        drawer.closeDrawer(GravityCompat.START);
+                    } else if (webview.canGoBack()) {
                         webview.goBack();
                     } else {
                         finish();
