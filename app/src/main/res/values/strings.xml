@@ -73,4 +73,11 @@
     <string name="pref_header_styles">Custom themes</string>
     <string name="pref_title_enable_styles">Enable custom style</string>
     <string name="pref_description_enable_styles">Use your own custom styles</string>
+
+    <string-array name="donation_google_catalog_values">
+        <item>1 Dollar</item>
+        <item>2 Dollars</item>
+        <item>5 Dollars</item>
+        <item>10 Dollars</item>
+    </string-array>
 </resources>

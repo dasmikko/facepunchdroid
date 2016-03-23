@@ -550,6 +550,39 @@ div#footer .footer_links {
 }
 /* PM END */
 
+/* New thread */
+.formcontrols .blockrow .primary.full {
+    width: 100%;
+}
+
+.formcontrols .posticons {
+    overflow-y: hidden;
+    overflow-x: scroll;
+}
+
+.formcontrols .blockrow .group.checkradio {
+    margin: 25px 0 0 0;
+    clear: both;
+    float: none;
+    max-width: 100%;
+}
+
+.formcontrols .blockrow dl.dep_group dd {
+ 	margin: 0px;
+    margin-top: 20px;
+}
+
+/* Search */
+#searchtypelist {
+    width: 100%;
+	margin: 0px;
+    margin-top: 20px;
+}
+
+/* Search end */
+
+/* New thread end*/
+
 /* Disable fullscreen image viewer */
 .PopupImage {
     display: none !important;

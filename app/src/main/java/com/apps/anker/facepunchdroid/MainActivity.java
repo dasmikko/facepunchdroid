@@ -2,18 +2,26 @@ package com.apps.anker.facepunchdroid;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.app.PendingIntent;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentSender;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
+import android.os.IBinder;
+import android.os.RemoteException;
 import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -36,10 +44,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.vending.billing.IInAppBillingService;
 import com.koushikdutta.ion.Ion;
 import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -65,14 +75,13 @@ public class MainActivity extends AppCompatActivity
 
     boolean useCustomStyles;
 
-
+    SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
+        
 
 
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
@@ -160,9 +169,10 @@ public class MainActivity extends AppCompatActivity
                     case "www.facepunch.com":
                         return false;
                     default:
-                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                        startActivity(intent);
-                        return true;
+                        return false;
+                        //Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                        //startActivity(intent);
+                        //return true;
                 }
             }
 
@@ -220,8 +230,10 @@ public class MainActivity extends AppCompatActivity
         webview.getSettings().setUseWideViewPort(false);
 
         // Set new UA
-        //String ua = webview.getSettings().getUserAgentString();
-        webview.getSettings().setUserAgentString("");
+        String ua = webview.getSettings().getUserAgentString();
+        //webview.getSettings().setUserAgentString("Mozilla/5.0 (Linux; U; Android) FacepunchDroid");
+        webview.getSettings().setUserAgentString(ua + " FacepunchDroid");
+
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             webview.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE);
@@ -231,7 +243,6 @@ public class MainActivity extends AppCompatActivity
             webview.restoreState(savedInstanceState);
         else
             webview.loadUrl(baseURL);
-
 
         // Handle Share to intent
         // Get intent, action and MIME type
@@ -250,6 +261,18 @@ public class MainActivity extends AppCompatActivity
             webview.loadUrl(IntentData.toString());
         }
 
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.refresh);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                webview.reload();
+                mSwipeRefreshLayout.setRefreshing(false);
+
+            }
+
+        });
+
+
     }
 
     @Override
@@ -263,6 +286,7 @@ public class MainActivity extends AppCompatActivity
         super.onResume();
         webview.onResume();
     }
+
 
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -451,6 +475,9 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_settings || id == R.id.nav_loggedin_settings) {
             Intent i = new Intent(this, SettingsActivity.class);
             startActivity(i);
+        } else if (id == R.id.nav_donate) {
+            Intent i = new Intent(this, DonationsActivity.class);
+            startActivityForResult(i, 1);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
