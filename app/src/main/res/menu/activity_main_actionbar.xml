@@ -7,6 +7,10 @@
         <!-- Settings, should always be in the overflow -->
         <item android:id="@+id/action_refresh"
             android:title="@string/action_refresh"
-            app:showAsAction="never"/>
+            android:icon="@drawable/ic_refresh_white_24dp"
+            app:showAsAction="always"/>
+        <item android:id="@+id/pinpage"
+                android:title="Pin to drawer"
+                app:showAsAction="never"/>
 
 </menu>

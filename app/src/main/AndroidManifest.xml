@@ -9,55 +9,81 @@
     <uses-permission android:name="com.android.vending.BILLING" />
 
     <application
+        android:name="com.orm.SugarApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="DATABASE"
+            android:value="fpdroid.db" />
+        <meta-data
+            android:name="VERSION"
+            android:value="1" />
+        <meta-data
+            android:name="QUERY_LOG"
+            android:value="true" />
+        <meta-data
+            android:name="DOMAIN_PACKAGE_NAME"
+            android:value="com.apps.anker.facepunchdroid" />
+
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
-                <category android:name="android.intent.category.DEFAULT"/>
+
+                <category android:name="android.intent.category.DEFAULT" />
+
                 <data android:mimeType="application/*" />
                 <data android:mimeType="multipart/*" />
                 <data android:mimeType="text/*" />
             </intent-filter>
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
-                <data android:scheme="https" android:host="facepunch.com"/>
-                <data android:pathPattern=".*"/>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="facepunch.com"
+                    android:scheme="https" />
+                <data android:pathPattern=".*" />
             </intent-filter>
         </activity>
         <activity
             android:name=".ImageViewer"
-            android:theme="@style/Theme.Tranparent"
-            android:configChanges="orientation|keyboardHidden|screenSize">
-        </activity>
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/Theme.Tranparent"></activity>
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppThemeSettings">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.apps.anker.facepunchdroid.MainActivity" />
         </activity>
         <activity
             android:name=".DonationsActivity"
+            android:excludeFromRecents="true"
             android:label="Donations"
-            android:theme="@style/Theme.AppCompat.Dialog.Alert"
-            android:excludeFromRecents="true">
+            android:theme="@style/Theme.AppCompat.Dialog.Alert">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.apps.anker.facepunchdroid.MainActivity" />
         </activity>
+        <activity
+            android:name=".EditPinnedItemsActivity"
+            android:label="@string/title_activity_edit_pinned_items"
+            android:theme="@style/AppThemeEditPinnedItems"
+            android:parentActivityName=".MainActivity"></activity>
     </application>
 
 </manifest>
