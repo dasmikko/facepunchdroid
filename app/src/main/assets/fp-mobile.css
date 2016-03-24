@@ -26,7 +26,11 @@ table.forums .forumbit_post td {
 
 table.forums .forumbit_post td .forumdata { margin: 0px; }
 
-.forumbit_post .foruminfo .forumdata .viewing { display: none; }
+.forumbit_post .foruminfo .forumdata .viewing {
+    float: right;
+    font-weight: bold;
+    font-size: 1.25em !important;
+}
 
 TD.last_post_column { display: none; }
 
