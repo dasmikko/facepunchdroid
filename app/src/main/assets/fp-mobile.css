@@ -108,7 +108,6 @@ table#threads h3.threadtitle .title {
     word-break: break-word !important;
 }
 table#threads tr.threadbit td.threadinfo .threadpagenav {
- 	display: block;
     margin-bottom: 10px;
     font-size: 0.9230769230769231em;
 }
@@ -125,7 +124,6 @@ table#threads .threadmeta .minicons { display: none; }
 
 table#threads tr.threadbit td.threadinfo .newposts {
     right: 0px;
-    margin: 5px 0;
     margin-bottom: 10px;
     font-size: 1.0769230769230769em !important;
     font-weight: bold !important;
