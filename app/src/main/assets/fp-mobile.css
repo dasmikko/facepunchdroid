@@ -587,3 +587,35 @@ div#footer .footer_links {
 .PopupImage {
     display: none !important;
 }
+
+/* Poll */
+#pollinfo {
+    margin: 0px 0px 5px 0px;
+    padding-right: 25px;
+}
+
+.polloptionsblock {
+    padding-left: 10px;
+    background: #f3f3f3;
+}
+
+#pollresults li p {
+    width: 100%;
+    font-weight: bold;
+}
+
+#pollresults li .votes .pollbarwrapper {
+    float: none;
+}
+
+#pollresults li .votes .numvotes {
+    font-weight: bold;
+    line-height: 15px;
+}
+
+#pollresults li .percentvotes {
+    position: relative;
+    font-weight: bold;
+    line-height: 17px;
+}
+/* Poll end */
