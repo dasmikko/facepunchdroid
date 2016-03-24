@@ -150,7 +150,7 @@ table#threads tr.threadlisthead td {
 /* Pagination */
 .pagination span a {
 	font-size: 0.9230769230769231em !important;
-    padding: 3px !important;
+    padding: 4px 6px 4px 6px !important;
 }
 
 #above_postlist {
