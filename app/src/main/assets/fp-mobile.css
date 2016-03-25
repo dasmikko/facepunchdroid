@@ -213,6 +213,12 @@ ol#posts .postbitlegacy .postdetails .postbody .postcontent {
     padding-right: 10px;
     font-size: 1.0037500100376em;
 }
+.pagination  {
+	overflow-x: scroll;
+    max-width: 100%;
+}
+
+
 /* Quotes */
 ol#posts .postbitlegacy .postdetails .postbody .postcontent .quote {
  	display: block;
