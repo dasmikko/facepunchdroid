@@ -192,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                 // Need a better way to detect if DOM is ready to inject CSS
-                if (webview.getProgress() > 25 && !isInjected) {
+                if (webview.getProgress() > 30 && !isInjected) {
                     Log.d("Progress", "INJECT!!");
                     String jquery = "javascript:" + Jquery;
                     view.loadUrl(jquery);
