@@ -163,6 +163,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 isInjected = false;
+
             }
 
             @Override
@@ -185,11 +186,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onLoadResource(WebView view, String url) {
                 super.onLoadResource(view, url);
-
+                Log.d("Resource", url);
                 pb.setProgressWithAnimation(webview.getProgress());
-                Log.d("Progess", String.valueOf(isInjected));
-                if (webview.getProgress() == 100 && !isInjected) {
-                    Log.d("Inside if", String.valueOf(isInjected));
+                Log.d("Progress", String.valueOf(webview.getProgress()));
+
+
+                // Need a better way to detect if DOM is ready to inject CSS
+                if (webview.getProgress() > 25 && !isInjected) {
+                    Log.d("Progress", "INJECT!!");
                     String jquery = "javascript:" + Jquery;
                     view.loadUrl(jquery);
 
@@ -220,11 +224,11 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onPageFinished(WebView view, String url) {
+                Log.d("Webview", "onPageFinished");
+
                 // Change Actionbar Title
                 mActivityTitle = webview.getTitle();
                 toolbar.setTitle(mActivityTitle);
-                Log.d("Webview", "onPageFinished");
-
             }
         });
 

@@ -8,6 +8,8 @@ var ti = setInterval(function() {
 	}
   }, 500);
 
+
+
 $(".content").each(function(){
 	$(this).find("img").each(function() {
 		$(this).on("click", function(e) {
