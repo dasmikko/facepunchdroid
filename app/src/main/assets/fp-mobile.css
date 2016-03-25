@@ -228,13 +228,15 @@ ol#posts .postbitlegacy .postdetails .postbody .postcontent .quote .message {
 }
 
 ol#posts .postbitlegacy .postdetails .userinfo {
-    width: 100%;
+    calc(100% - 18px);
 }
 
 ol#posts .postbitlegacy .postdetails .userinfo .username_container,
 ol#posts .postbitlegacy .postdetails .userinfo .usertitle {
  	margin-left: 75px;
     float: left;
+    max-width: 100%;
+    margin-right: 20px;
 }
 
 ol#posts .postbitlegacy .postdetails .userinfo .username_container {
