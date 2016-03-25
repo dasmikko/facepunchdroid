@@ -12,7 +12,7 @@ h2.forumtitle {
 }
 
 .forumbit_post .foruminfo .forumdata .forumtitle a {
-	font-size: 1.5384615384615385em;
+	font-size: 1em;
 }
 TABLE.forums DIV.forumdata P.forumdescription {
     font-size: 1.5384615384615385em;
@@ -20,19 +20,37 @@ TABLE.forums DIV.forumdata P.forumdescription {
 }
 
 table.forums .forumbit_post td {
-	padding: 18px !important;
+	padding-bottom: 10px;
+    padding-top: 10px;
+    padding-right: 0px;
+    padding-left: 5px !important;
     background-image: none !important;
 }
 
 table.forums .forumbit_post td .forumdata { margin: 0px; }
 
 .forumbit_post .foruminfo .forumdata .viewing {
-    float: right;
-    font-weight: bold;
-    font-size: 1.25em !important;
+
 }
 
-TD.last_post_column { display: none; }
+TD.last_post_column {
+    max-width: 118px;
+    min-width: 118px;
+    width: 118px;
+}
+
+table.forums .forumbit_post td.alt {
+    padding: 2px !important;
+}
+
+DIV.LastPostAvatar {
+    height: 24px;
+    width: 24px;
+}
+
+.lastpostdate img {
+    display: none;
+}
 
 /* Header */
 .above_body {
@@ -339,16 +357,15 @@ ol#posts .postbitlegacy .postfoot .postlinking {
 	position: absolute;
     bottom: 30px;
     left: 7px;
-
 }
 ol#posts .postbitlegacy .postfoot .postlinking a {
     display: none;
 }
 ol#posts .postbitlegacy .postfoot .postlinking img {
-	margin-right: 7px;
+	margin-right: 2px;
 }
 ol#posts .postbitlegacy .postfoot .postlinking img:nth-child(3) {
-	display: none;
+    /*display: none;*/
 }
 
 
