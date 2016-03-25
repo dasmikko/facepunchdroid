@@ -26,7 +26,11 @@ table.forums .forumbit_post td {
 
 table.forums .forumbit_post td .forumdata { margin: 0px; }
 
-.forumbit_post .foruminfo .forumdata .viewing { display: none; }
+.forumbit_post .foruminfo .forumdata .viewing {
+    float: right;
+    font-weight: bold;
+    font-size: 1.25em !important;
+}
 
 TD.last_post_column { display: none; }
 
@@ -108,7 +112,6 @@ table#threads h3.threadtitle .title {
     word-break: break-word !important;
 }
 table#threads tr.threadbit td.threadinfo .threadpagenav {
- 	display: block;
     margin-bottom: 10px;
     font-size: 0.9230769230769231em;
 }
@@ -125,7 +128,6 @@ table#threads .threadmeta .minicons { display: none; }
 
 table#threads tr.threadbit td.threadinfo .newposts {
     right: 0px;
-    margin: 5px 0;
     margin-bottom: 10px;
     font-size: 1.0769230769230769em !important;
     font-weight: bold !important;
@@ -587,3 +589,35 @@ div#footer .footer_links {
 .PopupImage {
     display: none !important;
 }
+
+/* Poll */
+#pollinfo {
+    margin: 0px 0px 5px 0px;
+    padding-right: 25px;
+}
+
+.polloptionsblock {
+    padding-left: 10px;
+    background: #f3f3f3;
+}
+
+#pollresults li p {
+    width: 100%;
+    font-weight: bold;
+}
+
+#pollresults li .votes .pollbarwrapper {
+    float: none;
+}
+
+#pollresults li .votes .numvotes {
+    font-weight: bold;
+    line-height: 15px;
+}
+
+#pollresults li .percentvotes {
+    position: relative;
+    font-weight: bold;
+    line-height: 17px;
+}
+/* Poll end */
