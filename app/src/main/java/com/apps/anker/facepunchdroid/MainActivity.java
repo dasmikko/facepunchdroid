@@ -50,10 +50,17 @@ import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader;
 import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 import com.mikhaellopez.circularprogressbar.CircularProgressBar;
-import com.orm.query.Select;
+
+
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
+import io.realm.RealmResults;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -78,6 +85,10 @@ public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
     private String mActivityTitle;
 
+    // Pinned items
+    RealmConfiguration realmConfig;
+    Realm realm;
+
     // Drawer
     Drawer drawer;
     AccountHeader headerResult;
@@ -91,6 +102,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Create the Realm configuration
+        realmConfig = new RealmConfiguration.Builder(this).build();
+        // Open the Realm for the UI thread.
+        realm = Realm.getInstance(realmConfig);
 
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -286,6 +301,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
     protected void onPause() {
         super.onPause();
         webview.onPause();
@@ -462,14 +482,16 @@ public class MainActivity extends AppCompatActivity {
         );
 
         // Get Pinned items
-        List<PinnedItem> pinnedItems = PinnedItem.listAll(PinnedItem.class);
+        RealmResults<PinnedItem> pinnedItems = realm.where(PinnedItem.class).findAll();
 
+        Log.d("Pitem list", pinnedItems.toString());
 
         if(pinnedItems.size() > 0) {
             drawer.addItem(new SectionDrawerItem().withName("Pinned pages"));
             for (PinnedItem pitem : pinnedItems)
             {
-                drawer.addItem(new PrimaryDrawerItem().withName(pitem.title).withSelectable(false).withTag(pitem.url).withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+
+                drawer.addItem(new PrimaryDrawerItem().withName(pitem.getTitle()).withSelectable(false).withTag(pitem.getUrl()).withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                         webview.loadUrl(drawerItem.getTag().toString());
@@ -517,8 +539,14 @@ public class MainActivity extends AppCompatActivity {
                         webview.reload();
                         return true;
                     case R.id.pinpage:
-                        PinnedItem pinitem = new PinnedItem(webview.getTitle(), webview.getUrl());
-                        pinitem.save();
+                        realm.beginTransaction();
+
+                        // Add a person
+                        PinnedItem pinitem = realm.createObject(PinnedItem.class);
+
+                        pinitem.setTitle(webview.getTitle());
+                        pinitem.setUrl(webview.getUrl());
+                        realm.commitTransaction();
 
                         SwipeRefreshLayout mlayout = (SwipeRefreshLayout) findViewById(R.id.refresh);
                         Snackbar.make(mlayout,"Page was pinned", Snackbar.LENGTH_LONG).show();
