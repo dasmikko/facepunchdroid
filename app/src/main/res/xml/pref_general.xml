@@ -1,15 +1,27 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
 
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="enable_custom_startpage"
+        android:summary="When opening the app, use a custom start page"
+        android:title="Use custom start page" />
+
     <!-- NOTE: EditTextPreference accepts EditText attributes. -->
     <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
-    <EditTextPreference
-        android:defaultValue="@string/pref_default_startpage"
-        android:inputType="textUri"
-        android:key="startpage"
-        android:maxLines="1"
-        android:selectAllOnFocus="true"
-        android:singleLine="true"
-        android:title="@string/pref_title_startpage" />
-    
+
+    <Preference
+        android:title="Reset startpage"
+        android:summary="Reset the current startpage to the Facepunch homepage"
+        android:dependency="enable_custom_startpage"
+        android:key="reset_startpage">
+    </Preference>
+
+    <Preference
+        android:title="Currenct start page"
+        android:summary="Default"
+        android:enabled="false"
+        android:key="current_startpage">
+    </Preference>
+
 </PreferenceScreen>
