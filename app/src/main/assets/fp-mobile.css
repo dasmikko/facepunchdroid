@@ -424,7 +424,7 @@ div#footer .footer_links {
     display: block;
 }
 
-#showpm DIV.quote img, DIV.quote video, IMG.thumbnail {
+#showpm DIV.quote img, DIV.quote video, IMG.thumbnail, DIV.quote .imgur-album {
 	max-width: 100% !important;
 }
 
