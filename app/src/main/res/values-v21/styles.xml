@@ -13,4 +13,14 @@
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
+
+    <style name="MyActionBarTheme" parent="@style/Widget.AppCompat.ActionBar">
+        <item name="android:background">@color/ImageViewerBackground</item>
+        <!-- Support library compatibility -->
+        <item name="background">@color/ImageViewerBackground</item>
+        <item name="android:windowActionBarOverlay">true</item>
+
+        <!-- Support library compatibility -->
+        <item name="windowActionBarOverlay">true</item>
+    </style>
 </resources>

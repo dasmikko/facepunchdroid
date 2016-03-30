@@ -552,6 +552,16 @@ public class MainActivity extends AppCompatActivity {
                         Snackbar.make(mlayout,"Page was pinned", Snackbar.LENGTH_LONG).show();
                         refreshDrawerItems();
                         return true;
+                    case R.id.openinbrowser:
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(webview.getUrl()));
+                        startActivity(intent);
+                        return true;
+                    case R.id.sharepage:
+                        Intent sendIntent = new Intent();
+                        sendIntent.setAction(Intent.ACTION_SEND);
+                        sendIntent.putExtra(Intent.EXTRA_TEXT, webview.getUrl());
+                        sendIntent.setType("text/plain");
+                        startActivity(sendIntent);
                     default:
                         return false;
                 }

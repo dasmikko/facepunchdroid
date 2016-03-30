@@ -40,9 +40,9 @@
     </style>
 
     <style name="MyActionBarTheme" parent="@style/Widget.AppCompat.ActionBar">
-        <item name="android:background">@android:color/transparent</item>
+        <item name="android:background">@color/ImageViewerBackground</item>
         <!-- Support library compatibility -->
-        <item name="background">@android:color/transparent</item>
+        <item name="background">@color/ImageViewerBackground</item>
         <item name="android:windowActionBarOverlay">true</item>
 
         <!-- Support library compatibility -->

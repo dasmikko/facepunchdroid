@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.Window;
 import android.webkit.MimeTypeMap;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.koushikdutta.async.future.FutureCallback;
@@ -37,10 +38,14 @@ public class ImageViewer extends AppCompatActivity {
     String url;
     String fileType;
 
+    ProgressBar pb;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_viewer);
+
+        pb = (ProgressBar) findViewById(R.id.progressBarIMGViewer);
 
         Intent intent = getIntent();
         url = intent.getStringExtra("url");
@@ -49,7 +54,7 @@ public class ImageViewer extends AppCompatActivity {
         Log.d("FILETYPE", fileType);
 
         getSupportActionBar().setTitle("");
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.ImageViewerBackground)));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
@@ -59,7 +64,7 @@ public class ImageViewer extends AppCompatActivity {
         FutureCallback<ImageView> imageLoadedCallback = new FutureCallback<ImageView>() {
             @Override
             public void onCompleted(Exception e, ImageView result) {
-
+                pb.setVisibility(View.GONE);
                 if(fileType != "gif") {
                     if (mAttacher != null) {
                         mAttacher.update();
@@ -73,6 +78,7 @@ public class ImageViewer extends AppCompatActivity {
 
         Ion.with(this)
                 .load(url)
+                .progressBar(pb)
                 .withBitmap()
                 .deepZoom()
                 .intoImageView(imgView)
@@ -116,8 +122,17 @@ public class ImageViewer extends AppCompatActivity {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 2);
                 }
-
                 break;
+            case R.id.openinbrowser:
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                startActivity(intent);
+                return true;
+            case R.id.sharepage:
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, url);
+                sendIntent.setType("text/plain");
+                startActivity(sendIntent);
 
         }
         return true;

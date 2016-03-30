@@ -7,5 +7,11 @@
             android:title="Download"
             android:icon="@drawable/ic_get_app_white_24dp"
             app:showAsAction="always"/>
+        <item android:id="@+id/openinbrowser"
+            android:title="Open in browser"
+            app:showAsAction="never"/>
+        <item android:id="@+id/sharepage"
+            android:title="Share"
+            app:showAsAction="never"/>
 
 </menu>
