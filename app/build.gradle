@@ -8,8 +8,8 @@ android {
         applicationId "com.apps.anker.facepunchdroid"
         minSdkVersion 19
         targetSdkVersion 23
-        versionCode 17
-        versionName "1.4"
+        versionCode 18
+        versionName "1.4.1"
     }
 
     buildTypes {

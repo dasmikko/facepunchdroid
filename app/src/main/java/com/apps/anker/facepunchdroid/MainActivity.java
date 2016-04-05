@@ -636,6 +636,7 @@ public class MainActivity extends AppCompatActivity {
                         sendIntent.putExtra(Intent.EXTRA_TEXT, webview.getUrl());
                         sendIntent.setType("text/plain");
                         startActivity(sendIntent);
+                        return true;
                     case R.id.setasstartpage:
                         // Save new startpage
                         final SharedPreferences.Editor editor = sharedPref.edit();
