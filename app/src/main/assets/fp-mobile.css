@@ -4,31 +4,53 @@ body {
 /* Frontpage */
 
 table.forums .forumhead h2 {
-    font-size: 1.8461538461538463em;
+    font-size: 1rem;
     padding-left: 2%;
 }
 h2.forumtitle {
-    font-size: 2em;
+    font-size: 1rem !important;
 }
 
 .forumbit_post .foruminfo .forumdata .forumtitle a {
-	font-size: 1.5384615384615385em;
+	font-size: 1rem;
 }
 TABLE.forums DIV.forumdata P.forumdescription {
-    font-size: 1.5384615384615385em;
+    font-size: 1rem;
     display: none;
 }
 
 table.forums .forumbit_post td {
-	padding: 18px !important;
+	padding-bottom: 10px;
+    padding-top: 10px;
+    padding-right: 0px;
+    padding-left: 5px !important;
     background-image: none !important;
 }
 
 table.forums .forumbit_post td .forumdata { margin: 0px; }
 
-.forumbit_post .foruminfo .forumdata .viewing { display: none; }
+.forumbit_post .foruminfo .forumdata .viewing {
 
-TD.last_post_column { display: none; }
+}
+
+TD.last_post_column {
+    max-width: 118px;
+    min-width: 118px;
+    width: 118px;
+}
+
+table.forums .forumbit_post td.alt {
+    padding: 2px !important;
+}
+
+DIV.LastPostAvatar {
+    height: 24px;
+    width: 24px;
+}
+
+.lastpostdate img {
+    display: none;
+}
 
 /* Header */
 .above_body {
@@ -46,7 +68,7 @@ TD.last_post_column { display: none; }
 }
 #navbar-login {
     height: 100%;
-    font-size: 1.0769230769230769em;
+    font-size: 0.9rem;
     margin-right: 5%;
     padding: 0px;
     margin-top: 15px;
@@ -72,12 +94,12 @@ TD.last_post_column { display: none; }
 }
 #header #breadcrumb .navbit,
 #header #breadcrumb a {
-    font-size: 0.9230769230769231em;
+    font-size: 0.9rem;
 }
 #header #breadcrumb #lastelement {
     display:block;
     padding: 0px;
-    font-size: 1.5384615384615385em;
+    font-size: 1.3rem;
 }
 
 /* Header end */
@@ -102,19 +124,18 @@ table.forums .forumhead h2 {
 }
 
 table#threads h3.threadtitle .title {
- 	font-size: 1.5384615384615385em !important;
+ 	font-size: 1.2rem !important;
     display: block;
     margin-bottom: 10px;
     word-break: break-word !important;
 }
 table#threads tr.threadbit td.threadinfo .threadpagenav {
- 	display: block;
     margin-bottom: 10px;
-    font-size: 0.9230769230769231em;
+    font-size: 0.85rem;
 }
 
 table#threads .threadmeta .author a {
- 	font-size: 0.9230769230769231em;
+ 	font-size: 0.9230769230769231rem;
 }
 
 table#threads .inner {
@@ -125,13 +146,12 @@ table#threads .threadmeta .minicons { display: none; }
 
 table#threads tr.threadbit td.threadinfo .newposts {
     right: 0px;
-    margin: 5px 0;
     margin-bottom: 10px;
-    font-size: 1.0769230769230769em !important;
+    font-size: 1rem !important;
     font-weight: bold !important;
     padding: 5px;
 }
-.threadinfo { font-size: 1.0769230769230769em; }
+.threadinfo { font-size: 0.8rem; }
 
 table#threads tr.threadbit td.threadinfo .newposts img { display: inline-block; }
 table#threads td.threaddeleted { display: none; }
@@ -142,15 +162,15 @@ table#threads tr.threadlisthead td {
 
 .newcontent_textcontrol {
 	position: relative !important;
-    font-size: 1.0769230769230769em;
+    font-size: 1rem;
 }
 
 /* Thread list END */
 
 /* Pagination */
 .pagination span a {
-	font-size: 0.9230769230769231em !important;
-    padding: 3px !important;
+	font-size: 0.9230769230769231rem !important;
+    padding: 4px 6px 4px 6px !important;
 }
 
 #above_postlist {
@@ -191,20 +211,26 @@ ol#posts .postbitlegacy .postdetails .postbody .postcontent img {
 
 ol#posts .postbitlegacy .postdetails .postbody .postcontent {
     padding-right: 10px;
-    font-size: 1.0037500100376em;
+    font-size: 1rem;
 }
+
+
+.pagination  {
+	overflow-x: scroll;
+    max-width: 100%;
+}
+
 /* Quotes */
 ol#posts .postbitlegacy .postdetails .postbody .postcontent .quote {
  	display: block;
 }
 ol#posts .postbitlegacy .postdetails .postbody .postcontent .quote .message {
-    font-size: 1.0037500100376em;
+    font-size: 0.9rem;
 }
 
 ol#posts .postbitlegacy .postdetails .userinfo {
-    width: 100%;
+                                            width: calc(100% - 18px);
 }
-
 ol#posts .postbitlegacy .postdetails .userinfo .username_container,
 ol#posts .postbitlegacy .postdetails .userinfo .usertitle {
  	margin-left: 75px;
@@ -215,16 +241,16 @@ ol#posts .postbitlegacy .postdetails .userinfo .username_container {
     margin-top: 8px;
 }
 ol#posts .postbitlegacy .postdetails .userinfo .username_container a.username {
-	font-size: 0.9230769230769231em;
+	font-size: 0.9230769230769231rem;
     margin-bottom: 10px;
     margin-top: 20px !important;
 }
 
-ol#posts .postbitlegacy .postdetails .userinfo .usertitle {
- 	font-size: 0.9230769230769231em !important;
+ol#posts .postbitlegacy .postdetails .userinfo .usertitle,
+ol#posts .postbitlegacy .postdetails .userinfo .usertitle * {
+ 	font-size: 0.8rem !important;
 }
 ol#posts .postbitlegacy .postdetails .userinfo .usertitle * {
- 	font-size: 16px;
 }
 
 ol#posts .postbitlegacy .postdetails .userinfo #userdata div.imlinks {
@@ -240,7 +266,7 @@ ol#posts .postbitlegacy .postdetails .userinfo #userdata div.imlinks a {
     vertical-align: top;
 }
 ol#posts .postbitlegacy .postdetails .userinfo #userdata #userstats {
-	font-size: 0.9230769230769231em;
+	font-size: 0.9230769230769231rem;
     display: none;
 }
 #userdata {
@@ -279,7 +305,7 @@ ol#posts .postbitlegacy .postdetails .userinfo #userdata #userstats {
 .rating_results span strong:before {
     content: 'x ';
     font-weight: normal;
-    font-size: 12px;
+    font-size: 0.8rem;
 }
 
 
@@ -310,21 +336,21 @@ ol#posts .postbitlegacy .postfoot .postcontrols .postrating a {
 }
 
 ol#posts .postbitlegacy .postfoot .postcontrols a.editpost  {
- 	font-size: 0.9230769230769231em;
+ 	font-size: 0.7rem;
 	position: absolute;
     bottom: 0px;
     right: 67px;
 }
 
 ol#posts .postbitlegacy .postfoot .postcontrols a.newreply  {
- 	font-size: 0.9230769230769231em;
+ 	font-size: 0.7rem;
 	position: absolute;
     bottom: 0px;
     right: 0;
 }
 
 div.threadhead h2 span a {
- 	font-size: 0.9230769230769231em;
+ 	font-size: 0.8rem;
 }
 
 ol#posts .postbitlegacy .postfoot {
@@ -337,16 +363,15 @@ ol#posts .postbitlegacy .postfoot .postlinking {
 	position: absolute;
     bottom: 30px;
     left: 7px;
-
 }
 ol#posts .postbitlegacy .postfoot .postlinking a {
     display: none;
 }
 ol#posts .postbitlegacy .postfoot .postlinking img {
-	margin-right: 7px;
+	margin-right: 2px;
 }
 ol#posts .postbitlegacy .postfoot .postlinking img:nth-child(3) {
-	display: none;
+    /*display: none;*/
 }
 
 
@@ -376,7 +401,7 @@ ol#posts .postbitlegacy .postfoot .rating_results a.rating_users {
 
 /* Footer */
 div#footer .footer_links {
- 	font-size: 0.9230769230769231em;
+ 	font-size: 0.8rem;
 }
 
 /* Member Page */
@@ -399,7 +424,7 @@ div#footer .footer_links {
     display: block;
 }
 
-#showpm DIV.quote img, DIV.quote video, IMG.thumbnail {
+#showpm DIV.quote img, DIV.quote video, IMG.thumbnail, DIV.quote .imgur-album {
 	max-width: 100% !important;
 }
 
@@ -415,14 +440,14 @@ div#footer .footer_links {
 
 #showpm ol .postbitlegacy .postdetails .postbody .postcontent {
     padding-right: 10px !important;
-    font-size: 1.0037500100376em !important;
+    font-size: 1rem !important;
 }
 /* PM Quotes */
 #showpm ol .postbitlegacy .postdetails .postbody .postcontent .quote {
  	display: block;
 }
 #showpm ol .postbitlegacy .postdetails .postbody .postcontent .quote .message {
-    font-size: 1.0037500100376em;
+    font-size: 0.9rem;
 }
 
 #showpm ol .postbitlegacy .postdetails .userinfo {
@@ -439,16 +464,16 @@ div#footer .footer_links {
     margin-top: 8px;
 }
 #showpm ol .postbitlegacy .postdetails .userinfo .username_container a.username {
-	font-size: 0.9230769230769231em;
+	font-size: 0.9rem !important;
     margin-bottom: 10px;
     margin-top: 20px !important;
 }
 
 #showpm ol .postbitlegacy .postdetails .userinfo .usertitle {
- 	font-size: 0.9230769230769231em !important;
+ 	font-size: 0.8rem !important;
 }
 #showpm ol .postbitlegacy .postdetails .userinfo .usertitle * {
- 	font-size: 16px;
+ 	font-size: 0.8rem !important;
 }
 
 #showpm ol .postbitlegacy .postdetails .userinfo #userdata div.imlinks {
@@ -464,7 +489,7 @@ div#footer .footer_links {
     vertical-align: top;
 }
 #showpm ol .postbitlegacy .postdetails .userinfo #userdata #userstats {
-	font-size: 0.9230769230769231em;
+	font-size: 0.8rem;
     display: none;
 }
 #showpm #userdata {
@@ -507,21 +532,25 @@ div#footer .footer_links {
 }
 
 #showpm ol .postbitlegacy .postfoot .postcontrols a.editpost  {
- 	font-size: 0.9230769230769231em;
+ 	font-size: 0.8rem !important;
 	position: absolute;
     bottom: 0px;
     right: 67px;
 }
 
+#showpm ol .postbitlegacy .postfoot .postcontrols a.forwardpost {
+    font-size: 0.8rem !important;
+}
+
 #showpm ol .postbitlegacy .postfoot .postcontrols a.newreply  {
- 	font-size: 0.9230769230769231em;
+ 	font-size: 0.8rem !important;
 	position: absolute;
     bottom: 0px;
     right: 0;
 }
 
 #showpm div.threadhead h2 span a {
- 	font-size: 0.9230769230769231em;
+ 	font-size: 0.9rem !important;
 }
 
 #showpm ol .postbitlegacy .postfoot {
@@ -542,12 +571,6 @@ div#footer .footer_links {
 }
 
 
-#showpm ol .postbitlegacy .postfoot .postcontrols a.forwardpost {
-    font-size: 0.9230769230769231em;
-    position: absolute;
-    bottom: 0px;
-    right: 67px;
-}
 /* PM END */
 
 /* New thread */
@@ -587,3 +610,35 @@ div#footer .footer_links {
 .PopupImage {
     display: none !important;
 }
+
+/* Poll */
+#pollinfo {
+    margin: 0px 0px 5px 0px;
+    padding-right: 25px;
+}
+
+.polloptionsblock {
+    padding-left: 10px;
+    background: #f3f3f3;
+}
+
+#pollresults li p {
+    width: 100%;
+    font-weight: bold;
+}
+
+#pollresults li .votes .pollbarwrapper {
+    float: none;
+}
+
+#pollresults li .votes .numvotes {
+    font-weight: bold;
+    line-height: 15px;
+}
+
+#pollresults li .percentvotes {
+    position: relative;
+    font-weight: bold;
+    line-height: 17px;
+}
+/* Poll end */

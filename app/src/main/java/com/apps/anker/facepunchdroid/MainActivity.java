@@ -2,30 +2,23 @@ package com.apps.anker.facepunchdroid;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.app.PendingIntent;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentSender;
-import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
-import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
-import android.os.IBinder;
-import android.os.RemoteException;
 import android.preference.PreferenceManager;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.view.ContextThemeWrapper;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -38,21 +31,38 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.AdapterView;
-import android.widget.ListView;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.vending.billing.IInAppBillingService;
 import com.koushikdutta.ion.Ion;
+import com.mikepenz.materialdrawer.AccountHeader;
+import com.mikepenz.materialdrawer.AccountHeaderBuilder;
+import com.mikepenz.materialdrawer.Drawer;
+import com.mikepenz.materialdrawer.DrawerBuilder;
+import com.mikepenz.materialdrawer.model.DividerDrawerItem;
+import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
+import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
+import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
+import com.mikepenz.materialdrawer.model.SectionDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.IProfile;
+import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader;
+import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 import com.mikhaellopez.circularprogressbar.CircularProgressBar;
+
+
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
+import io.realm.RealmResults;
+
+
+public class MainActivity extends AppCompatActivity {
 
     String baseURL = "https://facepunch.com/";
     WebView webview;
@@ -64,10 +74,6 @@ public class MainActivity extends AppCompatActivity
     String Jquery;
     Boolean loginStatus;
 
-    private ActionBarDrawerToggle toggle;
-    private DrawerLayout mDrawerLayout;
-    private String mActivityTitle;
-    private NavigationView navigationView;
 
     private int mShortAnimationDuration;
 
@@ -76,13 +82,30 @@ public class MainActivity extends AppCompatActivity
     boolean useCustomStyles;
 
     SwipeRefreshLayout mSwipeRefreshLayout;
+    Toolbar toolbar;
+    private String mActivityTitle;
+
+    // Pinned items
+    RealmConfiguration realmConfig;
+    Realm realm;
+
+    // Drawer
+    Drawer drawer;
+    AccountHeader headerResult;
+    ProfileDrawerItem defaultProfile;
+
+    // Drawer items
+    PrimaryDrawerItem nav_logout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        
 
+        // Create the Realm configuration
+        realmConfig = new RealmConfiguration.Builder(this).build();
+        // Open the Realm for the UI thread.
+        realm = Realm.getInstance(realmConfig);
 
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -107,11 +130,10 @@ public class MainActivity extends AppCompatActivity
         sharedPref.registerOnSharedPreferenceChangeListener(spChanged);
 
 
+
         // Setup Drawer
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        setupToolbar();
         setupDrawer();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
 
         mActivityTitle = getTitle().toString();
 
@@ -156,6 +178,7 @@ public class MainActivity extends AppCompatActivity
                 }
 
                 isInjected = false;
+
             }
 
             @Override
@@ -169,21 +192,23 @@ public class MainActivity extends AppCompatActivity
                     case "www.facepunch.com":
                         return false;
                     default:
-                        return false;
-                        //Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                        //startActivity(intent);
-                        //return true;
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                        startActivity(intent);
+                        return true;
                 }
             }
 
             @Override
             public void onLoadResource(WebView view, String url) {
                 super.onLoadResource(view, url);
-
+                Log.d("Resource", url);
                 pb.setProgressWithAnimation(webview.getProgress());
-                Log.d("Progess", String.valueOf(isInjected));
-                if (webview.getProgress() == 100 && !isInjected) {
-                    Log.d("Inside if", String.valueOf(isInjected));
+                Log.d("Progress", String.valueOf(webview.getProgress()));
+
+
+                // Need a better way to detect if DOM is ready to inject CSS
+                if (webview.getProgress() > 30 && !isInjected) {
+                    Log.d("Progress", "INJECT!!");
                     String jquery = "javascript:" + Jquery;
                     view.loadUrl(jquery);
 
@@ -214,11 +239,11 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             public void onPageFinished(WebView view, String url) {
-                // Change Actionbar Title
-                mActivityTitle = webview.getTitle();
-                getSupportActionBar().setTitle(mActivityTitle);
                 Log.d("Webview", "onPageFinished");
 
+                // Change Actionbar Title
+                mActivityTitle = webview.getTitle();
+                toolbar.setTitle(mActivityTitle);
             }
         });
 
@@ -276,6 +301,11 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
     protected void onPause() {
         super.onPause();
         webview.onPause();
@@ -285,6 +315,7 @@ public class MainActivity extends AppCompatActivity
     protected void onResume() {
         super.onResume();
         webview.onResume();
+        refreshDrawerItems();
     }
 
 
@@ -294,45 +325,251 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void setupDrawer() {
-        toggle = new ActionBarDrawerToggle(
-                this, mDrawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        mDrawerLayout.setDrawerListener(toggle);
-        toggle.setDrawerIndicatorEnabled(true);
+        // Setup Profile
+        if(sharedPref.getBoolean("isLoggedIn", false)) {
+            String username = sharedPref.getString("username", "Not logged in");
+            String userid = sharedPref.getString("userid", "");
+            defaultProfile = new ProfileDrawerItem().withName(username).withIcon("https://facepunch.com/image.php?u="+userid);;
+        } else {
+            defaultProfile = new ProfileDrawerItem().withName("Not logged in");
+        }
 
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
 
+
+        // Create the AccountHeader
+        headerResult = new AccountHeaderBuilder()
+                .withActivity(this)
+                .withHeaderBackground(R.drawable.cover)
+                .withCompactStyle(true)
+                .withSelectionListEnabledForSingleProfile(false)
+
+                .addProfiles(
+                        defaultProfile
+                )
+                .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
+                    @Override
+                    public boolean onProfileChanged(View view, IProfile profile, boolean currentProfile) {
+
+                        if(sharedPref.contains("userid")) {
+                            String userid = sharedPref.getString("userid", "");
+                            webview.loadUrl(baseURL + "member.php?u="+userid);
+                        }
+
+                        return false;
+                    }
+                })
+                .build();
+
+
+
+        //initialize and create the image loader logic
+        DrawerImageLoader.init(new AbstractDrawerImageLoader() {
+
+            @Override
+            public void set(ImageView imageView, Uri uri, Drawable placeholder) {
+                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                Ion.with(imageView.getContext())
+                        .load(uri.toString())
+                        .withBitmap()
+                        .placeholder(R.drawable.placeholder)
+                        .intoImageView(imageView);
+
+                //Picasso.with(imageView.getContext()).load(uri).placeholder(R.drawable.placeholder).into(imageView);
+            }
+
+            @Override
+            public void cancel(ImageView imageView) {
+                //Picasso.with(imageView.getContext()).cancelRequest(imageView);
+            }
+        });
+
+        drawer = new DrawerBuilder()
+                .withActivity(this)
+                .withToolbar(toolbar)
+                .withAccountHeader(headerResult)
+                .withSelectedItem(-1)
+                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                    @Override
+                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                        // Handle navigation view item clicks here.
+                        long id = drawerItem.getIdentifier();
+
+
+                        if (id == 1) { // Home
+                            webview.loadUrl(baseURL);
+                        } else if (id == 2) { // Events
+                            webview.loadUrl(baseURL + "fp_events.php");
+                        } else if (id == 3) { // Popular
+                            webview.loadUrl(baseURL + "fp_popular.php");
+                        } else if (id == 4) { // Read
+                            webview.loadUrl(baseURL + "fp_read.php");
+                        } else if (id == 5) { // Search
+                            webview.loadUrl(baseURL + "search.php");
+                        } else if (id == 6) {
+                            webview.loadUrl(baseURL + "private.php"); // Private messages
+                        } else if (id == 7) { // User control panel
+                            webview.loadUrl(baseURL + "usercp.php");
+                        } else if (id == 9) {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(MainActivity.this, R.style.myDialog));
+                            builder.setMessage("Are you sure you want to log out?")
+                                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                                                CookieManager.getInstance().removeAllCookies(null);
+                                                CookieManager.getInstance().flush();
+                                            }
+
+                                            webview.loadUrl(baseURL);
+                                        }
+                                    })
+                                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            // User cancelled the dialog
+                                        }
+                                    });
+                            // Create the AlertDialog object and return it
+                            builder.show();
+                        } else if (id == 8) {
+                            Intent i = new Intent(getBaseContext(), SettingsActivity.class);
+                            startActivity(i);
+                        } else if (id == 10) {
+                            Intent i = new Intent(getBaseContext(), DonationsActivity.class);
+                            startActivityForResult(i, 1);
+                        } else if (id == 11) {
+                            Intent i = new Intent(getBaseContext(), EditPinnedItemsActivity.class);
+                            startActivityForResult(i, 1);
+                        }
+
+
+                        return false;
+                    }
+                })
+                .build();
+
+                addDrawerItems();
+
+    }
+
+    protected void addDrawerItems() {
+
+        //if you want to update the items at a later time it is recommended to keep it in a variable
+        PrimaryDrawerItem nav_home      = new PrimaryDrawerItem().withIdentifier(1).withName("Home").withIcon(R.drawable.ic_home_black_24dp).withSelectable(false);
+        PrimaryDrawerItem nav_events    = new PrimaryDrawerItem().withIdentifier(2).withName("Events").withIcon(R.drawable.ic_event_black_24dp).withSelectable(false);
+        PrimaryDrawerItem nav_popular   = new PrimaryDrawerItem().withIdentifier(3).withName("Popular").withIcon(R.drawable.ic_favorite_black_24dp).withSelectable(false);
+        PrimaryDrawerItem nav_read      = new PrimaryDrawerItem().withIdentifier(4).withName("Read").withIcon(R.drawable.ic_markunread_mailbox_black_24dp).withSelectable(false);
+        PrimaryDrawerItem nav_search    = new PrimaryDrawerItem().withIdentifier(5).withName("Search").withIcon(R.drawable.ic_search_black_24dp).withSelectable(false);
+        PrimaryDrawerItem nav_messages  = new PrimaryDrawerItem().withIdentifier(6).withName("Messages").withIcon(R.drawable.ic_mail_outline_black_24dp).withSelectable(false);
+        PrimaryDrawerItem nav_cpanel    = new PrimaryDrawerItem().withIdentifier(7).withName("Control panel").withIcon(R.drawable.ic_build_black_24dp).withSelectable(false);
+
+        PrimaryDrawerItem nav_settings  = new PrimaryDrawerItem().withIdentifier(8).withName("Settings").withIcon(R.drawable.ic_settings_black_24dp).withSelectable(false);
+
+        if(sharedPref.getBoolean("isLoggedIn", false)) {
+            nav_logout    = new PrimaryDrawerItem().withIdentifier(9).withName("Logout").withIcon(R.drawable.ic_lock_open_black_24dp).withSelectable(false).withEnabled(true);
+        } else {
+            nav_logout    = new PrimaryDrawerItem().withIdentifier(9).withName("Logout").withIcon(R.drawable.ic_lock_open_black_24dp).withSelectable(false).withEnabled(false);
+        }
+
+
+        PrimaryDrawerItem nav_donate    = new PrimaryDrawerItem().withIdentifier(10).withName("Donate").withIcon(R.drawable.ic_card_giftcard_black_24dp).withSelectable(false);
+        drawer.addItems(
+                nav_home,
+                nav_events,
+                nav_popular,
+                nav_read,
+                nav_search,
+                nav_messages,
+                nav_cpanel
+        );
+
+        // Get Pinned items
+        RealmResults<PinnedItem> pinnedItems = realm.where(PinnedItem.class).findAll();
+
+        Log.d("Pitem list", pinnedItems.toString());
+
+        if(pinnedItems.size() > 0) {
+            drawer.addItem(new SectionDrawerItem().withName("Pinned pages"));
+            for (PinnedItem pitem : pinnedItems)
+            {
+
+                drawer.addItem(new PrimaryDrawerItem().withName(pitem.getTitle()).withSelectable(false).withTag(pitem.getUrl()).withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                    @Override
+                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                        webview.loadUrl(drawerItem.getTag().toString());
+                        return false;
+                    }
+                }));
+            }
+            drawer.addItem(new SecondaryDrawerItem().withName("Edit pinned items").withIcon(R.drawable.ic_edit_black_24dp).withIdentifier(11).withSelectable(false));
+        }
+
+        drawer.addItem(new DividerDrawerItem());
+        drawer.addItem(nav_settings);
+        drawer.addItem(nav_logout);
+        drawer.addItem(new DividerDrawerItem());
+        drawer.addItem(nav_donate);
+    }
+
+    protected void refreshDrawerItems() {
+        drawer.removeAllItems();
+        addDrawerItems();
     }
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         // Sync the toggle state after onRestoreInstanceState has occurred.
-        toggle.syncState();
+        //toggle.syncState();
     }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        toggle.onConfigurationChanged(newConfig);
+        //toggle.onConfigurationChanged(newConfig);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Pass the event to ActionBarDrawerToggle, if it returns
-        // true, then it has handled the app icon touch event
-        if (toggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-        // Handle your other action bar items...
+    public void setupToolbar() {
+        toolbar = (Toolbar) findViewById(R.id.mActionbar);
+        setSupportActionBar(toolbar);
 
-        switch (item.getItemId()) {
-            case R.id.action_refresh:
-                webview.reload();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.action_refresh:
+                        webview.reload();
+                        return true;
+                    case R.id.pinpage:
+                        realm.beginTransaction();
+
+                        // Add a person
+                        PinnedItem pinitem = realm.createObject(PinnedItem.class);
+
+                        pinitem.setTitle(webview.getTitle());
+                        pinitem.setUrl(webview.getUrl());
+                        realm.commitTransaction();
+
+                        SwipeRefreshLayout mlayout = (SwipeRefreshLayout) findViewById(R.id.refresh);
+                        Snackbar.make(mlayout,"Page was pinned", Snackbar.LENGTH_LONG).show();
+                        refreshDrawerItems();
+                        return true;
+                    case R.id.openinbrowser:
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(webview.getUrl()));
+                        startActivity(intent);
+                        return true;
+                    case R.id.sharepage:
+                        Intent sendIntent = new Intent();
+                        sendIntent.setAction(Intent.ACTION_SEND);
+                        sendIntent.putExtra(Intent.EXTRA_TEXT, webview.getUrl());
+                        sendIntent.setType("text/plain");
+                        startActivity(sendIntent);
+                    default:
+                        return false;
+                }
+            }
+        });
+
+        // Inflate a menu to be displayed in the toolbar
+        toolbar.inflateMenu(R.menu.activity_main_actionbar);
     }
 
     @Override
@@ -345,14 +582,12 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        //DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         if (event.getAction() == KeyEvent.ACTION_DOWN) {
             switch (keyCode) {
                 case KeyEvent.KEYCODE_BACK:
-                    if(drawer.isDrawerOpen(GravityCompat.START)) {
-                        drawer.closeDrawer(GravityCompat.START);
-                    } else if (webview.canGoBack()) {
+                    if (webview.canGoBack()) {
                         webview.goBack();
                     } else {
                         finish();
@@ -402,27 +637,40 @@ public class MainActivity extends AppCompatActivity
         }
 
         @JavascriptInterface
-        public void setLoginStatus(boolean status, final String username, final int userid) {
+        public void setLoginStatus(boolean status, final String username, final String userid) {
+            final SharedPreferences.Editor editor = sharedPref.edit();
+
             if(status) {
-                Log.d("LOLOLOOL", "Got Status update");
+                Log.d("Got Status update", "Username: " + username + " Userid: " + userid );
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        TextView txtView_fp_username = (TextView) findViewById(R.id.txtView_fp_username);
-                        txtView_fp_username.setText(username);
+                        nav_logout.withEnabled(true);
+                        drawer.updateItem(nav_logout);
 
-                        navigationView.getMenu().setGroupVisible(R.id.group_notloggedin, false);
-                        navigationView.getMenu().setGroupVisible(R.id.group_loggedin, true);
+                        editor.putBoolean("isLoggedIn", true);
+                        editor.putString("username", username);
+                        editor.putString("userid", userid);
+                        editor.apply();
+
+                        defaultProfile.withName(username).withIcon("https://facepunch.com/image.php?u="+userid);
+                        headerResult.updateProfile(defaultProfile);
                     }
                 });
             } else {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        TextView txtView_fp_username = (TextView) findViewById(R.id.txtView_fp_username);
-                        txtView_fp_username.setText(getString(R.string.not_logged_in));
-                        navigationView.getMenu().setGroupVisible(R.id.group_notloggedin, true);
-                        navigationView.getMenu().setGroupVisible(R.id.group_loggedin, false);
+                        nav_logout.withEnabled(false);
+                        drawer.updateItem(nav_logout);
+
+                        editor.putBoolean("isLoggedIn", false);
+                        editor.remove("username");
+                        editor.remove("userid");
+                        editor.apply();
+
+                        defaultProfile.withName("Not logged in").withIcon(R.drawable.placeholder);
+                        headerResult.updateProfile(defaultProfile);
                     }
                 });
 
@@ -431,77 +679,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_home) {
-            // Handle the camera action
-            webview.loadUrl(baseURL);
-        } else if (id == R.id.nav_events) {
-            webview.loadUrl(baseURL + "fp_events.php"); // Events
-        } else if (id == R.id.nav_popular) {
-            webview.loadUrl(baseURL + "fp_popular.php"); // Popular
-        } else if (id == R.id.nav_read) {
-            webview.loadUrl(baseURL + "fp_read.php"); // Read
-        } else if (id == R.id.nav_search) {
-            webview.loadUrl(baseURL + "search.php"); // Search
-        } else if (id == R.id.nav_usercp) {
-            webview.loadUrl(baseURL + "usercp.php"); // User control panel
-        } else if (id == R.id.nav_messages) {
-            webview.loadUrl(baseURL + "private.php"); // Private messages
-        } else if (id == R.id.nav_logout) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("Are you sure you want to log out?")
-                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                                CookieManager.getInstance().removeAllCookies(null);
-                                CookieManager.getInstance().flush();
-                            }
-
-                            webview.loadUrl(baseURL);
-                        }
-                    })
-                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            // User cancelled the dialog
-                        }
-                    });
-            // Create the AlertDialog object and return it
-            builder.show();
-        } else if (id == R.id.nav_settings || id == R.id.nav_loggedin_settings) {
-            Intent i = new Intent(this, SettingsActivity.class);
-            startActivity(i);
-        } else if (id == R.id.nav_donate) {
-            Intent i = new Intent(this, DonationsActivity.class);
-            startActivityForResult(i, 1);
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
-
     private void crossfadeToWebview() {
-
-        // Set the content view to 0% opacity but visible, so that it is visible
-        // (but fully transparent) during the animation.
-        //webview.setAlpha(0f);
-        //webview.setVisibility(View.VISIBLE);
-
-        // Animate the content view to 100% opacity, and clear any animation
-        // listener set on the view.
-        //webview.animate()
-        //        .alpha(1f)
-        //        .setDuration(mShortAnimationDuration)
-        //        .setListener(null);
-
-        // Animate the loading view to 0% opacity. After the animation ends,
-        // set its visibility to GONE as an optimization step (it won't
-        // participate in layout passes, etc.)
         pbc.animate()
                 .alpha(0f)
                 .setDuration(mShortAnimationDuration)
@@ -514,10 +692,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void crossfadeToLoader() {
-
-        // Set the content view to 0% opacity but visible, so that it is visible
-        // (but fully transparent) during the animation.
-        //pb.setAlpha(0f);
         pbc.setVisibility(View.VISIBLE);
 
         // Animate the content view to 100% opacity, and clear any animation
@@ -527,17 +701,5 @@ public class MainActivity extends AppCompatActivity
                 .setDuration(mShortAnimationDuration)
                 .setListener(null);
 
-        // Animate the loading view to 0% opacity. After the animation ends,
-        // set its visibility to GONE as an optimization step (it won't
-        // participate in layout passes, etc.)
-        /*pbc.animate()
-                .alpha(0f)
-                .setDuration(mShortAnimationDuration)
-                .setListener(new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        //webview.setVisibility(View.GONE);
-                    }
-                });*/
     }
 }

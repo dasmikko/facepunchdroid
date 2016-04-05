@@ -14,6 +14,9 @@
 
     <!-- Strings related to Settings -->
 
+    <string name="title_activity_edit_pinned_items">Edit pinned pages</string>
+
+
     <!-- Example General settings -->
     <string name="pref_header_general">General</string>
 

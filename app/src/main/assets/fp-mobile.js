@@ -8,6 +8,8 @@ var ti = setInterval(function() {
 	}
   }, 500);
 
+
+
 $(".content").each(function(){
 	$(this).find("img").each(function() {
 		$(this).on("click", function(e) {
@@ -47,6 +49,7 @@ if ( $( "#navbar-login>a" ).length ) {
     console.log("USER IS LOGGED IN!");
     var username = $( "#navbar-login>a" ).text();
     var userid = $( "#navbar-login>a" ).attr("href").replace("member.php?u=", "");
+    console.log(userid);
     Android.setLoginStatus(true, username, userid);
 }
 else {
