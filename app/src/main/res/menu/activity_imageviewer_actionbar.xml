@@ -13,8 +13,6 @@
         <item android:id="@+id/sharepage"
             android:title="Share"
             app:showAsAction="never"/>
-        <item android:id="@+id/setasstartpage"
-            android:title="Set as start page"
-            app:showAsAction="never"/>
+
 
 </menu>

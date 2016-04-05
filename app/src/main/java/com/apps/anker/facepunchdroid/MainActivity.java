@@ -28,10 +28,12 @@ import android.view.View;
 import android.webkit.CookieManager;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -54,6 +56,7 @@ import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,13 +69,16 @@ public class MainActivity extends AppCompatActivity {
 
     String baseURL = "https://facepunch.com/";
     WebView webview;
-    CircularProgressBar pb;
+    ProgressBar pb;
     RelativeLayout pbc;
     private boolean isInjected;
     String CSSfromfile;
     String JSfromfile;
     String Jquery;
     Boolean loginStatus;
+
+    MenuItem addstartpage;
+    SharedPreferences.OnSharedPreferenceChangeListener spChanged;
 
 
     private int mShortAnimationDuration;
@@ -107,20 +113,22 @@ public class MainActivity extends AppCompatActivity {
         // Open the Realm for the UI thread.
         realm = Realm.getInstance(realmConfig);
 
-        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
-
-        SharedPreferences.OnSharedPreferenceChangeListener spChanged = new
-                SharedPreferences.OnSharedPreferenceChangeListener() {
+        spChanged = new SharedPreferences.OnSharedPreferenceChangeListener() {
                     @Override
                     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
                                                           String key) {
+                        Log.d("Sharedpref changed", key);
                         switch (key) {
                             case "enable_custom_styles":
                                 webview.reload();
                                 break;
                             case "custom_style_file":
                                 webview.reload();
+                                break;
+                            case "enable_custom_startpage":
+                                invalidateOptionsMenu();
                                 break;
                         }
 
@@ -131,9 +139,13 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
         // Setup Drawer
         setupToolbar();
         setupDrawer();
+
+
+
 
         mActivityTitle = getTitle().toString();
 
@@ -151,8 +163,7 @@ public class MainActivity extends AppCompatActivity {
                 android.R.integer.config_shortAnimTime);
 
         // Progressbar and WebView
-        pb = (CircularProgressBar) findViewById(R.id.progressBar);
-        pbc = (RelativeLayout) findViewById(R.id.progressBarContainer);
+        pb = (ProgressBar) findViewById(R.id.toolbarProgressbar);
         webview = (WebView) findViewById(R.id.webView);
 
 
@@ -167,9 +178,10 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("useCustomStyles", String.valueOf(useCustomStyles));
                 }
 
-                // Hide webview and show progressbar
+                // Show progressbar
                 pb.setProgress(0);
-                crossfadeToLoader();
+                pb.setVisibility(View.VISIBLE);
+                mSwipeRefreshLayout.setRefreshing(true);
 
                 Log.d("Webview", "onPageStarted " + url);
 
@@ -179,6 +191,55 @@ public class MainActivity extends AppCompatActivity {
 
                 isInjected = false;
 
+            }
+
+            @Override
+            public WebResourceResponse shouldInterceptRequest (final WebView view, String url) {
+
+                if (url.contains("small.css")) {
+                    return getCssWebResourceResponseFromAsset();
+                } else if (url.contains("fp.js")) {
+                    Log.d("Intercept", "fp.js file");
+                    return getJsWebResourceResponseFromAsset();
+                /*} else if (url.contains("jquery.min.js")) {
+                    Log.d("Intercept", "jquery file");
+                    return getJqueryWebResourceResponseFromAsset();*/
+                } else {
+                    return super.shouldInterceptRequest(view, url);
+                }
+            }
+
+            private WebResourceResponse getCssWebResourceResponseFromAsset() {
+                try {
+                    return getUtf8EncodedCssWebResourceResponse(getAssets().open("fpstyle.css"));
+                } catch (IOException e) {
+                    return null;
+                }
+            }
+
+            private WebResourceResponse getJsWebResourceResponseFromAsset() {
+                try {
+                    Log.d("Intercept", getUtf8EncodedJsWebResourceResponse(getAssets().open("fp-mobile.js")).toString());
+                    return getUtf8EncodedJsWebResourceResponse(getAssets().open("fp-mobile.js"));
+                } catch (IOException e) {
+                    return null;
+                }
+            }
+
+            private WebResourceResponse getJqueryWebResourceResponseFromAsset() {
+                try {
+                    return getUtf8EncodedJsWebResourceResponse(getAssets().open("jquery.js"));
+                } catch (IOException e) {
+                    return null;
+                }
+            }
+
+            private WebResourceResponse getUtf8EncodedCssWebResourceResponse(InputStream data) {
+                return new WebResourceResponse("text/css", "UTF-8", data);
+            }
+
+            private WebResourceResponse getUtf8EncodedJsWebResourceResponse(InputStream data) {
+                return new WebResourceResponse("text/javascript ", "UTF-8", data);
             }
 
             @Override
@@ -201,25 +262,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onLoadResource(WebView view, String url) {
                 super.onLoadResource(view, url);
-                Log.d("Resource", url);
-                pb.setProgressWithAnimation(webview.getProgress());
-                Log.d("Progress", String.valueOf(webview.getProgress()));
+
+                pb.setProgress(webview.getProgress());
+
+
 
 
                 // Need a better way to detect if DOM is ready to inject CSS
                 if (webview.getProgress() > 30 && !isInjected) {
-                    Log.d("Progress", "INJECT!!");
-                    String jquery = "javascript:" + Jquery;
-                    view.loadUrl(jquery);
-
-                    String javascript = "javascript:" + JSfromfile;
-                    view.loadUrl(javascript);
-
-                    // Inject CSS
-                    String injectCSS = "javascript:var css=\"" + CSSfromfile + "\",head=document.head;style=document.createElement(\"style\"),style.type=\"text/css\",style.appendChild(document.createTextNode(css)),head.appendChild(style);";
-                    view.loadUrl(injectCSS);
-
-
                     if(useCustomStyles) {
                         if(sharedPref.contains("custom_style_file")) {
                             String filePath = sharedPref.getString("custom_style_file", "");
@@ -244,7 +294,14 @@ public class MainActivity extends AppCompatActivity {
                 // Change Actionbar Title
                 mActivityTitle = webview.getTitle();
                 toolbar.setTitle(mActivityTitle);
+
+
+                pb.setVisibility(View.GONE);
+                mSwipeRefreshLayout.setRefreshing(false);
+
             }
+
+
         });
 
         webview.setWebChromeClient(new WebChromeClient());
@@ -264,10 +321,20 @@ public class MainActivity extends AppCompatActivity {
             webview.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE);
         }
 
-        if (savedInstanceState != null)
+        // First load
+        if (savedInstanceState != null) {
             webview.restoreState(savedInstanceState);
-        else
-            webview.loadUrl(baseURL);
+        }
+        else {
+            if( sharedPref.getBoolean("enable_custom_startpage", false) && sharedPref.contains("current_startpage"))
+            {
+                webview.loadUrl(sharedPref.getString("current_startpage", baseURL));
+            }
+            else {
+                webview.loadUrl(baseURL);
+            }
+
+        }
 
         // Handle Share to intent
         // Get intent, action and MIME type
@@ -291,7 +358,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onRefresh() {
                 webview.reload();
-                mSwipeRefreshLayout.setRefreshing(false);
+
 
             }
 
@@ -303,12 +370,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        sharedPref.unregisterOnSharedPreferenceChangeListener(spChanged);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         webview.onPause();
+        sharedPref.unregisterOnSharedPreferenceChangeListener(spChanged);
     }
 
     @Override
@@ -316,6 +385,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         webview.onResume();
         refreshDrawerItems();
+        sharedPref.registerOnSharedPreferenceChangeListener(spChanged);
     }
 
 
@@ -531,6 +601,10 @@ public class MainActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.mActionbar);
         setSupportActionBar(toolbar);
 
+
+
+
+
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -562,6 +636,16 @@ public class MainActivity extends AppCompatActivity {
                         sendIntent.putExtra(Intent.EXTRA_TEXT, webview.getUrl());
                         sendIntent.setType("text/plain");
                         startActivity(sendIntent);
+                    case R.id.setasstartpage:
+                        // Save new startpage
+                        final SharedPreferences.Editor editor = sharedPref.edit();
+                        editor.putString("current_startpage", webview.getUrl());
+                        editor.apply();
+
+                        // Show snackbar
+                        SwipeRefreshLayout mlayout2 = (SwipeRefreshLayout) findViewById(R.id.refresh);
+                        Snackbar.make(mlayout2,"New startpage is now set", Snackbar.LENGTH_LONG).show();
+                        return true;
                     default:
                         return false;
                 }
@@ -570,12 +654,33 @@ public class MainActivity extends AppCompatActivity {
 
         // Inflate a menu to be displayed in the toolbar
         toolbar.inflateMenu(R.menu.activity_main_actionbar);
+
+
+
+
+
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.activity_main_actionbar, menu);
+
+
+        Log.d("Toolbar", String.valueOf(sharedPref.getBoolean("enable_custom_startpage", false)));
+
+        // Enable disable set start page item
+        if(!sharedPref.getBoolean("enable_custom_startpage", false)) {
+            Log.d("Toolbar", "Disable menu item");
+
+            menu.findItem(R.id.setasstartpage).setVisible(false);
+
+        }
+        else {
+            Log.d("Toolbar", "Enable menu item");
+        }
+
+
         return true;
     }
 
@@ -587,7 +692,10 @@ public class MainActivity extends AppCompatActivity {
         if (event.getAction() == KeyEvent.ACTION_DOWN) {
             switch (keyCode) {
                 case KeyEvent.KEYCODE_BACK:
-                    if (webview.canGoBack()) {
+                    if(drawer.isDrawerOpen()) {
+                        drawer.closeDrawer();
+                    }
+                    else if (webview.canGoBack()) {
                         webview.goBack();
                     } else {
                         finish();
@@ -630,7 +738,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     //stuff that updates ui
-                    crossfadeToWebview();
+
                 }
             });
 
@@ -677,29 +785,5 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }
-    }
-
-    private void crossfadeToWebview() {
-        pbc.animate()
-                .alpha(0f)
-                .setDuration(mShortAnimationDuration)
-                .setListener(new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        pbc.setVisibility(View.GONE);
-                    }
-                });
-    }
-
-    private void crossfadeToLoader() {
-        pbc.setVisibility(View.VISIBLE);
-
-        // Animate the content view to 100% opacity, and clear any animation
-        // listener set on the view.
-        pbc.animate()
-                .alpha(1f)
-                .setDuration(mShortAnimationDuration)
-                .setListener(null);
-
     }
 }

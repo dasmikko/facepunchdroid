@@ -1,3 +1,16 @@
+TD.FrontPageForums
+{
+    width: 100%;
+    display: block;
+}
+
+/*
+
+ORIGINAL STYLING END
+
+*/
+
+
 body {
     min-width: 100% !important;
 }
@@ -385,7 +398,7 @@ ol#posts .postbitlegacy .postfoot .rating_results {
 }
 
 ol#posts .postbitlegacy .postfoot .rating_results span a {
-    content: " x ";
+    content: \" x \";
 }
 
 ol#posts .postbitlegacy .postfoot .rating_results a.rating_users {
@@ -642,3 +655,5 @@ div#footer .footer_links {
     line-height: 17px;
 }
 /* Poll end */
+
+

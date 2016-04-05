@@ -31,6 +31,7 @@ import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.support.v4.app.NavUtils;
@@ -168,6 +169,21 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         return super.onMenuItemSelected(featureId, item);
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        //DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+        if (event.getAction() == KeyEvent.ACTION_DOWN) {
+            switch (keyCode) {
+                case KeyEvent.KEYCODE_BACK:
+                    NavUtils.navigateUpFromSameTask(this);
+                    return true;
+            }
+
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -214,6 +230,26 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             // to their values. When their values change, their summaries are
             // updated to reflect the new value, per the Android Design
             // guidelines.
+            final Preference startpage = findPreference("current_startpage");
+            bindPreferenceSummaryToValue(startpage);
+
+            Preference reset = findPreference("reset_startpage");
+            reset.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @TargetApi(Build.VERSION_CODES.M)
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+
+                    SharedPreferences sharedPref = PreferenceManager
+                            .getDefaultSharedPreferences(getActivity().getApplicationContext());
+                    SharedPreferences.Editor editor = sharedPref.edit();
+
+                    editor.remove("current_startpage");
+                    editor.apply();
+
+                    startpage.setSummary("Default");
+                    return true;
+                }
+            });
 
         }
 
