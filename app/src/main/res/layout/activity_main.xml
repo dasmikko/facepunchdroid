@@ -17,8 +17,10 @@
         android:minHeight="?attr/actionBarSize"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        android:elevation="1dp"
+        android:elevation="5dp"
         android:background="?attr/colorPrimary" />
+
+
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/refresh"
@@ -35,26 +37,14 @@
             android:layout_alignParentStart="true" />
     </android.support.v4.widget.SwipeRefreshLayout>
 
-    <RelativeLayout
+    <ProgressBar
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/progressBarContainer"
-        android:background="@color/ImageViewerBackground"
-        android:clickable="true"
-        android:layout_alignParentTop="false"
-        android:layout_below="@id/mActionbar">
-        <com.mikhaellopez.circularprogressbar.CircularProgressBar
-            android:layout_width="72dp"
-            android:layout_height="72dp"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:id="@+id/progressBar"
-            app:cpb_background_progressbar_color="#00000000"
-            app:cpb_background_progressbar_width="5dp"
-            app:cpb_progressbar_color="#F44336"
-            app:cpb_progressbar_width="5dp"
-            android:visibility="visible" />
-    </RelativeLayout>
+        android:layout_height="wrap_content"
+        android:id="@+id/toolbarProgressbar"
+        android:paddingTop="?attr/actionBarSize"
+        android:layout_marginTop="-7dp"
+        style="?android:attr/progressBarStyleHorizontal"/>
+
 
 </RelativeLayout>
 
