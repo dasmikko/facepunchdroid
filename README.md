@@ -6,7 +6,6 @@ Use Facepunch with a more mobile friendly design, and features.
 If you don't trust me, you are more than welcome to build the app yourself.
 
 ## Features:
-Features:
 - Material Design 
 - Native image viewer 
 - Download images directly from image viewer
