@@ -16,7 +16,7 @@ It works the usual way CSS works.
 **NOTE: You have to escape quotes like so:**
 
     .someclass {
-      content: \"something\"
+      content: \"something\";
     }
 It's only needed until I fix the way I add the custom stylesheet.
 
