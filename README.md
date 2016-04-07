@@ -4,11 +4,15 @@ The all amazing app for the best forum Facepunch.
 Use Facepunch with a more mobile friendly design, and features.
 
 ## Features:
+Features:
 - Material Design 
 - Native image viewer 
+- Download images directly from image viewer
 - Mobile friendly design 
 - Custom themes 
-- Easy access to all the important pages everywhere like, Read Threads, Popular etc..
+- Open-source
+- Pin threads to drawer
+- Easy access to all the important pages everywhere like, Read Threads, Popular etc.. 
 
 ## Making custom stylesheets for Facepunch Droid
 It works the usual way CSS works. 
