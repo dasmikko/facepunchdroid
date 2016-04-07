@@ -3,6 +3,8 @@ The all amazing app for the best forum Facepunch.
 
 Use Facepunch with a more mobile friendly design, and features.
 
+If you don't trust me, you are more than welcome to build the app yourself.
+
 ## Features:
 Features:
 - Material Design 
@@ -37,7 +39,9 @@ It's only needed until I fix the way I add the custom stylesheet.
     - NEW!! Total rework of the styling system, it's 100% more consistent and faster.
     - New loading style
     - You can now set custom startpage
+    
+[Full changelog here](https://github.com/dasmikko/facepunchdroid/blob/master/changelog.md)
 
-## Official build
+## Official build on Google Play
 https://play.google.com/store/apps/details?id=com.apps.anker.facepunchdroid
 
