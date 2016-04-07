@@ -42,5 +42,5 @@ It's only needed until I fix the way I add the custom stylesheet.
 [Full changelog here](https://github.com/dasmikko/facepunchdroid/blob/master/changelog.md)
 
 ## Official build on Google Play
-https://play.google.com/store/apps/details?id=com.apps.anker.facepunchdroid
+[Get it on Google Play](https://my.mixtape.moe/mjhsns.png)](https://play.google.com/store/apps/details?id=com.apps.anker.facepunchdroid)
 
