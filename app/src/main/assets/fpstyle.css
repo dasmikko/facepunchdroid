@@ -413,6 +413,10 @@ ol#posts .postbitlegacy .postfoot .rating_results a.rating_users {
 
 
 /* Footer */
+div#footer {
+    padding-bottom: 60px;
+}
+
 div#footer .footer_links {
  	font-size: 0.8rem;
  	text-indent: -9999px;

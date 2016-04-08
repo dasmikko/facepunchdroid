@@ -39,9 +39,6 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.apps.anker.facepunchdroid.Ads.Ads;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 import com.koushikdutta.ion.Ion;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
@@ -372,10 +369,6 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-        if(!BuildConfig.FLAVOR.equals("pro")) {
-            // Init Ads
-            Ads.initAds(getApplicationContext(), this, (AdView) findViewById(R.id.adView));
-        }
 
 
     }
@@ -555,7 +548,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        //PrimaryDrawerItem nav_donate    = new PrimaryDrawerItem().withIdentifier(10).withName("Donate").withIcon(R.drawable.ic_card_giftcard_black_24dp).withSelectable(false);
+        PrimaryDrawerItem nav_donate    = new PrimaryDrawerItem().withIdentifier(10).withName("Donate").withIcon(R.drawable.ic_card_giftcard_black_24dp).withSelectable(false);
 
 
         drawer.addItems(
@@ -593,7 +586,7 @@ public class MainActivity extends AppCompatActivity {
         drawer.addItem(nav_settings);
         drawer.addItem(nav_logout);
         drawer.addItem(new DividerDrawerItem());
-        //drawer.addItem(nav_donate);
+        drawer.addItem(nav_donate);
     }
 
     protected void refreshDrawerItems() {
