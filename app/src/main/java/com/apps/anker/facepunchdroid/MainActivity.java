@@ -12,6 +12,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
@@ -19,6 +20,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.Toolbar;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -37,6 +39,9 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.apps.anker.facepunchdroid.Ads.Ads;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.koushikdutta.ion.Ion;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
@@ -57,8 +62,11 @@ import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -364,8 +372,15 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
+        if(!BuildConfig.FLAVOR.equals("pro")) {
+            // Init Ads
+            Ads.initAds(getApplicationContext(), this, (AdView) findViewById(R.id.adView));
+        }
+
 
     }
+
+
 
     @Override
     public void onDestroy() {
@@ -540,7 +555,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        PrimaryDrawerItem nav_donate    = new PrimaryDrawerItem().withIdentifier(10).withName("Donate").withIcon(R.drawable.ic_card_giftcard_black_24dp).withSelectable(false);
+        //PrimaryDrawerItem nav_donate    = new PrimaryDrawerItem().withIdentifier(10).withName("Donate").withIcon(R.drawable.ic_card_giftcard_black_24dp).withSelectable(false);
+
+
         drawer.addItems(
                 nav_home,
                 nav_events,
@@ -576,7 +593,7 @@ public class MainActivity extends AppCompatActivity {
         drawer.addItem(nav_settings);
         drawer.addItem(nav_logout);
         drawer.addItem(new DividerDrawerItem());
-        drawer.addItem(nav_donate);
+        //drawer.addItem(nav_donate);
     }
 
     protected void refreshDrawerItems() {

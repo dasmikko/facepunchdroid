@@ -8,8 +8,17 @@ android {
         applicationId "com.apps.anker.facepunchdroid"
         minSdkVersion 19
         targetSdkVersion 23
-        versionCode 18
-        versionName "1.4.1"
+        versionCode 20
+        versionName "1.4.2"
+    }
+
+    productFlavors {
+        pro {
+            applicationId = "com.apps.anker.facepunchdroidpro"
+        }
+        free {
+            applicationId = "com.apps.anker.facepunchdroid"
+        }
     }
 
     buildTypes {
@@ -48,6 +57,7 @@ dependencies {
         transitive = true
     }
     compile 'com.github.satyan:sugar:1.4'
+    compile 'com.google.android.gms:play-services-ads:8.4.0'
 }
 
 apply plugin: 'realm-android'

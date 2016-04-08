@@ -17,6 +17,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
@@ -296,8 +297,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                         new MaterialFilePicker()
                                 .withActivity(getActivity())
                                 .withRequestCode(1)
+                                .withRootPath(Environment.getExternalStorageDirectory().getPath())
                                 .withFilter(Pattern.compile(".*\\.css")) // Filtering files and directories by file name using regexp
-                                .withFilterDirectories(true) // Set directories filterable (false by default)
+                                .withFilterDirectories(false) // Set directories filterable (false by default)
                                 .withHiddenFiles(true) // Show hidden files and folders
                                 .start();
                     }
