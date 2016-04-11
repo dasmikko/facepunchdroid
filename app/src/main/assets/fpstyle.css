@@ -565,6 +565,9 @@ div#footer .footer_links a:last-child {
 
 #showpm ol .postbitlegacy .postfoot .postcontrols a.forwardpost {
     font-size: 0.8rem !important;
+    position: absolute;
+    bottom: 0px;
+    right: 65px;
 }
 
 #showpm ol .postbitlegacy .postfoot .postcontrols a.newreply  {
