@@ -1,5 +1,16 @@
 # Full changelog
+    1.4.4 (Next version)
+    - Fixed error where mailto links could crash the app
+    
+    1.4.3
+    - Removed ads
+    - Added donations iap
  
+    1.4.2
+    - Fix: Removed "Top" link from footer
+    - Added: There a now a banner ad at the bottom of the app, if you want to remove this, you can buy the ad-free version of the app
+    - Removed: Donation button
+
     1.4.1
     - Quick fix for page pinning not working as intended.
     
