@@ -48,7 +48,6 @@ dependencies {
     compile('com.mikepenz:materialdrawer:5.1.6@aar') {
         transitive = true
     }
-    compile 'com.github.satyan:sugar:1.4'
 }
 
 apply plugin: 'realm-android'
