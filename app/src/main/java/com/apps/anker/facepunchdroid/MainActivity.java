@@ -2,6 +2,7 @@ package com.apps.anker.facepunchdroid;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -9,6 +10,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.net.MailTo;
 import android.net.Uri;
 import android.os.Build;
 import android.preference.PreferenceManager;
@@ -250,6 +252,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 //view.loadUrl(url);
+                if (url.startsWith("mailto:")) {
+                        MailTo mt = MailTo.parse(url);
+                        Intent intent = new Intent(Intent.ACTION_SEND);
+                        intent.putExtra(Intent.EXTRA_EMAIL, new String[] { mt.getTo() });
+                        intent.setType("message/rfc822");
+                        startActivity(intent);
+                        return true;
+                }
+
+
                 String urlHost = Uri.parse(url).getHost();
                 Log.d("Webview", "ShouldOverrideURLloading " + url );
                 switch (urlHost) {
