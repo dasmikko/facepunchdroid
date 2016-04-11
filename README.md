@@ -26,6 +26,11 @@ It works the usual way CSS works.
 It's only needed until I fix the way I add the custom stylesheet.
 
 ## Changelog
+    
+    1.4.4 (Next version)
+    - Fixed error where mailto links could crash the app
+    - Fixed bug where the forward button wasn't placed correctly.
+    
     1.4.3
     - Removed ads
     - Added donations iap
