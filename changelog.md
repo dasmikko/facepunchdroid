@@ -1,6 +1,7 @@
 # Full changelog
     1.4.4 (Next version)
     - Fixed error where mailto links could crash the app
+    - Fixed bug where the forward button wasn't places correctly.
     
     1.4.3
     - Removed ads
