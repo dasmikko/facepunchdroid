@@ -43,6 +43,7 @@ import com.nbsp.materialfilepicker.MaterialFilePicker;
 import com.nbsp.materialfilepicker.ui.FilePickerActivity;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -294,14 +295,17 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                     }
                     else
                     {
-                        new MaterialFilePicker()
-                                .withActivity(getActivity())
-                                .withRequestCode(1)
-                                .withRootPath(Environment.getExternalStorageDirectory().getPath())
-                                .withFilter(Pattern.compile(".*\\.css")) // Filtering files and directories by file name using regexp
-                                .withFilterDirectories(false) // Set directories filterable (false by default)
-                                .withHiddenFiles(true) // Show hidden files and folders
-                                .start();
+                        if (Build.VERSION.SDK_INT < 19){
+                            Intent intent = new Intent();
+                            intent.setAction(Intent.ACTION_GET_CONTENT);
+                            intent.setType("*/*");
+                            startActivityForResult(intent, 1);
+                        } else {
+                            Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                            intent.addCategory(Intent.CATEGORY_OPENABLE);
+                            intent.setType("*/*");
+                            startActivityForResult(intent, 1);
+                        }
                     }
                     return true;
                 }
@@ -311,7 +315,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             // to their values. When their values change, their summaries are
             // updated to reflect the new value, per the Android Design
             // guidelines.
-            bindPreferenceSummaryToValue(filePicker);
         }
 
         @Override
@@ -324,11 +327,19 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             if (requestCode == 1) {
                 if(resultCode == Activity.RESULT_OK){
                     // Get the Uri of the selected file
-                    String filePath = data.getStringExtra(FilePickerActivity.RESULT_FILE_PATH);
-                    Log.d("Filepath", filePath);
-                    filePicker.setSummary(filePath);
+                    Uri URL = Uri.parse(data.getData().getPath());
+                    Log.d("File", data.getData().toString());
+
+                    String CSS = null;
+                    try {
+                        CSS = customCSS.readFromSDcard(getActivity(), data.getData());
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+
+                    filePicker.setSummary(URL.getLastPathSegment());
                     Toast.makeText(getActivity(), "You might need to do a refresh to see the changes", Toast.LENGTH_LONG).show();
-                    editor.putString("custom_style_file", filePath);
+                    editor.putString("custom_style_file", CSS);
                     editor.apply();
 
 
@@ -344,13 +355,17 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                                                String permissions[], int[] grantResults) {
             switch (requestCode) {
                 case 2: {
-                    new MaterialFilePicker()
-                            .withActivity(getActivity())
-                            .withRequestCode(1)
-                            .withFilter(Pattern.compile(".*\\.css")) // Filtering files and directories by file name using regexp
-                            .withFilterDirectories(true) // Set directories filterable (false by default)
-                            .withHiddenFiles(true) // Show hidden files and folders
-                            .start();
+                    if (Build.VERSION.SDK_INT < 19){
+                        Intent intent = new Intent();
+                        intent.setAction(Intent.ACTION_GET_CONTENT);
+                        intent.setType("*/*");
+                        startActivityForResult(intent, 1);
+                    } else {
+                        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                        intent.addCategory(Intent.CATEGORY_OPENABLE);
+                        intent.setType("*/*");
+                        startActivityForResult(intent, 1);
+                    }
                     return;
                 }
             }

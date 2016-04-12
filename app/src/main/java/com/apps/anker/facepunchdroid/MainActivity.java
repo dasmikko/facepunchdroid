@@ -58,9 +58,12 @@ import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 
 
-
+import java.io.ByteArrayInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.SequenceInputStream;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -110,10 +113,14 @@ public class MainActivity extends AppCompatActivity {
     // Drawer items
     PrimaryDrawerItem nav_logout;
 
+    Activity mActivity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mActivity = this;
 
         // Create the Realm configuration
         realmConfig = new RealmConfiguration.Builder(this).build();
@@ -218,6 +225,15 @@ public class MainActivity extends AppCompatActivity {
 
             private WebResourceResponse getCssWebResourceResponseFromAsset() {
                 try {
+                    // Check if custom user style is enabled
+                    if(useCustomStyles) {
+                        if(sharedPref.contains("custom_style_file")) {
+                            String userCSS = sharedPref.getString("custom_style_file", "");
+
+                            return getUtf8EncodedCssAndCustomWebResourceResponse(getAssets().open("fpstyle.css"), userCSS);
+                        }
+
+                    }
                     return getUtf8EncodedCssWebResourceResponse(getAssets().open("fpstyle.css"));
                 } catch (IOException e) {
                     return null;
@@ -243,6 +259,10 @@ public class MainActivity extends AppCompatActivity {
 
             private WebResourceResponse getUtf8EncodedCssWebResourceResponse(InputStream data) {
                 return new WebResourceResponse("text/css", "UTF-8", data);
+            }
+
+            private WebResourceResponse getUtf8EncodedCssAndCustomWebResourceResponse(InputStream data, String CSS) {
+                return new WebResourceResponse("text/css", "UTF-8", new SequenceInputStream(data, new ByteArrayInputStream(CSS.getBytes(StandardCharsets.UTF_8))));
             }
 
             private WebResourceResponse getUtf8EncodedJsWebResourceResponse(InputStream data) {
@@ -287,17 +307,7 @@ public class MainActivity extends AppCompatActivity {
 
                 // Need a better way to detect if DOM is ready to inject CSS
                 if (webview.getProgress() > 30 && !isInjected) {
-                    if(useCustomStyles) {
-                        if(sharedPref.contains("custom_style_file")) {
-                            String filePath = sharedPref.getString("custom_style_file", "");
-                            Log.d("CUSTOM CSS", String.valueOf(Uri.parse(filePath)));
-                            String userCustomCSS = customCSS.readFromSDcard(sharedPref.getString("custom_style_file", ""));
-                            String injectUserCSS = "javascript:var css=\"" + userCustomCSS + "\",head=document.head;style=document.createElement(\"style\"),style.type=\"text/css\",style.appendChild(document.createTextNode(css)),head.appendChild(style);";
-                            Log.d("Injected css", injectUserCSS);
-                            view.loadUrl(injectUserCSS);
-                        }
 
-                    }
                     isInjected = true;
 
 
