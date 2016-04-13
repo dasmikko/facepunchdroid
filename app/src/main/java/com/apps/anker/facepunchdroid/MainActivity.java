@@ -538,6 +538,8 @@ public class MainActivity extends AppCompatActivity {
                         } else if (id == 11) {
                             Intent i = new Intent(getBaseContext(), EditPinnedItemsActivity.class);
                             startActivityForResult(i, 1);
+                        } else if (id == 12) { // Ticker
+                            webview.loadUrl(baseURL + "fp_ticker.php");
                         }
 
 
@@ -560,6 +562,7 @@ public class MainActivity extends AppCompatActivity {
         PrimaryDrawerItem nav_search    = new PrimaryDrawerItem().withIdentifier(5).withName("Search").withIcon(R.drawable.ic_search_black_24dp).withSelectable(false);
         PrimaryDrawerItem nav_messages  = new PrimaryDrawerItem().withIdentifier(6).withName("Messages").withIcon(R.drawable.ic_mail_outline_black_24dp).withSelectable(false);
         PrimaryDrawerItem nav_cpanel    = new PrimaryDrawerItem().withIdentifier(7).withName("Control panel").withIcon(R.drawable.ic_build_black_24dp).withSelectable(false);
+        PrimaryDrawerItem nav_ticker    = new PrimaryDrawerItem().withIdentifier(12).withName("Ticker").withIcon(R.drawable.ic_link_black_24dp).withSelectable(false);
 
         PrimaryDrawerItem nav_settings  = new PrimaryDrawerItem().withIdentifier(8).withName("Settings").withIcon(R.drawable.ic_settings_black_24dp).withSelectable(false);
 
@@ -580,7 +583,8 @@ public class MainActivity extends AppCompatActivity {
                 nav_read,
                 nav_search,
                 nav_messages,
-                nav_cpanel
+                nav_cpanel,
+                nav_ticker
         );
 
         // Get Pinned items
