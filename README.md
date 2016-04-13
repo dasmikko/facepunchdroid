@@ -27,11 +27,12 @@ It's only needed until I fix the way I add the custom stylesheet.
 
 ## Changelog
     
-    1.4.4 (Next version)
+    1.4.4
     - Fixed error where mailto links could crash the app
     - Fixed bug where the forward button wasn't placed correctly.
     - Fix: Custom styling should be working now.
     - Added Ticker to the drawer
+    - Removed some unnecessary libraries, resulting in smaller app size.
     
     1.4.3
     - Removed ads
