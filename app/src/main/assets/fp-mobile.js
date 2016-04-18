@@ -124,6 +124,7 @@ jQuery(function() {
 
     if ( $( "#navbar-login>a" ).length ) {
         console.log("USER IS LOGGED IN!");
+        $( "#navbar-login>a" ).hide();
         var username = $( "#navbar-login>a" ).text();
         var userid = $( "#navbar-login>a" ).attr("href").replace("member.php?u=", "");
         console.log(userid);
