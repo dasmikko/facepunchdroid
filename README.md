@@ -29,6 +29,10 @@ It's only needed until I fix the way I add the custom stylesheet.
 Not needed anymore, as I have updated the injection method
 
 ## Changelog
+    1.4.6 (To be released)
+    - Remove username from top
+    - Removed old pagination
+    
     1.4.5
     - Added native pagination, with go to functionality
     
@@ -39,17 +43,6 @@ Not needed anymore, as I have updated the injection method
     - Added Ticker to the drawer
     - Removed some unnecessary libraries, resulting in smaller app size.
     
-    1.4.3
-    - Removed ads
-    - Added donations iap
-    
-    1.4.2
-    - Fix: Removed "Top" link from footer
-    - Added: There a now a banner ad at the bottom of the app, if you want to remove this, you can buy the ad-free version of the app
-    - Removed: Donation button
-    
-    1.4.1
-    - Quick fix for page pinning not working as intended.
     
 [Full changelog here](https://github.com/dasmikko/facepunchdroid/blob/master/changelog.md)
 
