@@ -1,4 +1,8 @@
 # Full changelog
+    1.4.6 (To be released)
+    - Remove username from top
+    - Removed old pagination
+    
     1.4.5
     - Added native pagination, with go to functionality
     
