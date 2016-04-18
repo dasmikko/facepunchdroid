@@ -30,9 +30,73 @@ jQuery(function() {
                 Android.showImage($(this).attr("src"));
             });
         });
-
-
     });
+
+   var getUrlParameter = function getUrlParameter(sParam, url) {
+
+       var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+           sURLVariables = sPageURL.split('&'),
+           sParameterName,
+           i;
+
+
+       for (i = 0; i < sURLVariables.length; i++) {
+           sParameterName = sURLVariables[i].split('=');
+
+           if (sParameterName[0] === sParam) {
+               return sParameterName[1] === undefined ? true : sParameterName[1];
+           }
+       }
+   };
+
+   function getQueryVariable(variable, url)
+   {
+          var query = url;
+          var vars = query.split("&");
+          for (var i=0;i<vars.length;i++) {
+                  var pair = vars[i].split("=");
+                  if(pair[0] == variable){return pair[1];}
+          }
+          return(false);
+   }
+
+
+
+   if (window.location.href.indexOf("showthread.php") > -1 || window.location.href.indexOf("forumdisplay.php") > -1 ) {
+       if ( $(".pagination").length ) {
+            Android.showPagination();
+            console.log("Show pagination!")
+
+            console.log("found it");
+            var currentPage = 1;
+            // Get current page
+            if(getUrlParameter('page') == null) {
+                console.log($(".pagination").first().find('.selected a').text());
+                currentPage = $(".pagination").first().find('.selected a').text();
+            }
+            else
+            {
+               console.log(getUrlParameter('page'));
+               currentPage = getUrlParameter('page');
+            }
+
+            // Get link url
+            var lastpage = $(".pagination").find('span').last().find('a').attr("href");
+            console.log(lastpage);
+            if(lastpage.indexOf("javascript://") > -1) {
+               lastpage = $(".pagination").find('span').last().find('a').text();
+               console.log("Is on last page");
+            } else {
+               lastpage = getQueryVariable("page", lastpage);
+               console.log(lastpage);
+            }
+
+            Android.setupPagination(currentPage, lastpage);
+       }
+   } else {
+                console.log("Hidepagination!")
+                Android.hidePagination();
+           }
 
 
     var MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;

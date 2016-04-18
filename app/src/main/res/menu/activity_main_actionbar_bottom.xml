@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+        <!-- Settings, should always be in the overflow -->
+        <item
+            android:id="@+id/gotopage"
+            android:icon="@drawable/ic_redo_white_24dp"
+            app:showAsAction="always"
+            android:title="Go to page" />
+        <item android:id="@+id/action_prevpage"
+            android:title="@string/action_refresh"
+            android:icon="@drawable/ic_keyboard_arrow_left_white_24dp"
+            app:showAsAction="always"/>
+        <item
+            android:id="@+id/action_nextpage"
+            android:title="@string/action_refresh"
+            android:icon="@drawable/ic_keyboard_arrow_right_white_24dp"
+            app:showAsAction="always"/>
+
+
+</menu>

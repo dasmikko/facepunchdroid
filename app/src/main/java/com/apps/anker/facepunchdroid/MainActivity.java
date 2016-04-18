@@ -3,12 +3,14 @@ package com.apps.anker.facepunchdroid;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.MailTo;
 import android.net.Uri;
@@ -29,6 +31,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 import android.webkit.CookieManager;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
@@ -36,11 +40,17 @@ import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.NumberPicker;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.apps.anker.facepunchdroid.Tools.UriHandling;
 import com.koushikdutta.ion.Ion;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
@@ -70,6 +80,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+import biz.kasual.materialnumberpicker.MaterialNumberPicker;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
@@ -86,6 +97,11 @@ public class MainActivity extends AppCompatActivity {
     String JSfromfile;
     String Jquery;
     Boolean loginStatus;
+
+    Toolbar toolbar_bottom;
+
+    Integer currentpage;
+    Integer totalpages;
 
     MenuItem addstartpage;
     SharedPreferences.OnSharedPreferenceChangeListener spChanged;
@@ -391,6 +407,7 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
+        setupBottomToolbar();
 
 
     }
@@ -698,6 +715,69 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void setupBottomToolbar() {
+        toolbar_bottom = (Toolbar) findViewById(R.id.toolbar_bottom);
+
+
+
+        toolbar_bottom.inflateMenu(R.menu.activity_main_actionbar_bottom);//changed
+        //toolbar2 menu items CallBack listener
+        toolbar_bottom.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch(item.getItemId()) {
+                    case(R.id.action_nextpage):
+                        if(currentpage < totalpages) {
+                            Integer nextpage = currentpage + 1;
+                            webview.loadUrl(UriHandling.replaceUriParameter(Uri.parse(webview.getUrl()), "page", nextpage.toString()).toString());
+                        }
+                        break;
+                    case(R.id.action_prevpage):
+                        if(currentpage > 1)
+                        {
+                            Integer prevpage = currentpage-1;
+                            webview.loadUrl(UriHandling.replaceUriParameter(Uri.parse(webview.getUrl()), "page", prevpage.toString()).toString());
+                        }
+                        break;
+                    case(R.id.gotopage):
+                        final MaterialNumberPicker numberPicker = new MaterialNumberPicker.Builder(getApplicationContext())
+                                .minValue(1)
+                                .maxValue(totalpages)
+                                .defaultValue(currentpage)
+                                .backgroundColor(Color.WHITE)
+                                .separatorColor(Color.TRANSPARENT)
+                                .textColor(Color.BLACK)
+                                .textSize(20)
+                                .enableFocusability(true)
+                                .wrapSelectorWheel(false)
+                                .build();
+
+                        new AlertDialog.Builder(mActivity)
+                                .setTitle("Go to page")
+                                .setView(numberPicker)
+                                .setPositiveButton(getString(android.R.string.ok), new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        SwipeRefreshLayout mlayout = (SwipeRefreshLayout) findViewById(R.id.refresh);
+                                        //Snackbar.make(mlayout, "You picked : " + numberPicker.getValue(), Snackbar.LENGTH_LONG).show();
+
+                                        Uri newUrl = UriHandling.replaceUriParameter(Uri.parse(webview.getUrl()), "page", String.valueOf(numberPicker.getValue()) );
+
+                                        webview.loadUrl(newUrl.toString());
+
+                                    }
+                                })
+                                .show();
+                        break;
+                }
+
+                return false;
+            }
+        });
+    }
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -782,6 +862,46 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @JavascriptInterface
+        public void setupPagination(final String currentPage, final String totalPages) {
+            Log.d("DEBUG", "Update spinner");
+
+            currentpage = Integer.parseInt(currentPage);
+            totalpages = Integer.parseInt(totalPages);
+
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    // Update toolbar title and subsitle
+                    toolbar_bottom.setTitle("Current page");
+                    toolbar_bottom.setSubtitle(currentpage + " of " + totalpages);
+
+                }
+            });
+
+        }
+
+        @JavascriptInterface
+        public void showPagination() {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    showViews();
+                }
+            });
+
+        }
+
+        @JavascriptInterface
+        public void hidePagination() {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    hideViews();
+                }
+            });
+        }
+
+        @JavascriptInterface
         public void setLoginStatus(boolean status, final String username, final String userid) {
             final SharedPreferences.Editor editor = sharedPref.edit();
 
@@ -822,5 +942,15 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }
+    }
+
+    private void hideViews() {
+        Log.d("Bottom Toolbar", "Hide toolbar");
+        toolbar_bottom.animate().translationY(toolbar_bottom.getHeight()).setInterpolator(new AccelerateInterpolator(2)).start();
+    }
+
+    private void showViews() {
+        Log.d("Bottom Toolbar", "show toolbar");
+        toolbar_bottom.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2)).start();
     }
 }

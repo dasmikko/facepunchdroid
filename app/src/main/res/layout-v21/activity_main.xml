@@ -21,6 +21,8 @@
         android:elevation="5dp"
         android:background="?attr/colorPrimary" />
 
+
+
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/refresh"
         android:layout_width="match_parent"
@@ -45,6 +47,20 @@
         android:paddingTop="?attr/actionBarSize"
         android:layout_marginTop="-7dp"
         style="?android:attr/progressBarStyleHorizontal"/>
+
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_bottom"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:minHeight="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:translationY="?attr/actionBarSize"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:layout_alignParentBottom="true">
+
+
+    </android.support.v7.widget.Toolbar>
 
 
 </RelativeLayout>

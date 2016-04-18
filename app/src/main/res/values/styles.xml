@@ -63,5 +63,9 @@
         ...
     </style>
 
+    <style name="BottomToolbar" parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="android:textColorPrimary">#FFFFFF</item>
+    </style>
+
 
 </resources>
