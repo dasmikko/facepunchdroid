@@ -181,6 +181,8 @@ table#threads tr.threadlisthead td {
 /* Thread list END */
 
 /* Pagination */
+.pagination { display: none; }
+
 .pagination span a {
 	font-size: 0.9230769230769231rem !important;
     padding: 4px 6px 4px 6px !important;
