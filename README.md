@@ -25,7 +25,12 @@ It works the usual way CSS works.
     }
 It's only needed until I fix the way I add the custom stylesheet.
 
+**UPDATE!**
+Not needed anymore, as I have updated the injection method
+
 ## Changelog
+    1.4.5
+    - Added native pagination, with go to functionality
     
     1.4.4
     - Fixed error where mailto links could crash the app
