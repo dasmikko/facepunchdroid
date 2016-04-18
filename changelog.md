@@ -1,4 +1,7 @@
 # Full changelog
+    1.4.5
+    - Added native pagination, with go to functionality
+    
     1.4.4
     - Fixed error where mailto links could crash the app
     - Fixed bug where the forward button wasn't placed correctly.
