@@ -1,4 +1,7 @@
 # Full changelog
+    1.4.7
+    - Fixed bug where the pagination would show when scrolled to bottom, even if the page didn't have pagination
+
     1.4.6
     - Remove username from top
     - Removed old pagination
