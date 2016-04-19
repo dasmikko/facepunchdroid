@@ -23,7 +23,7 @@
             app:showAsAction="never"/>
         <item
             android:id="@+id/dissableAllImages"
-            android:title="Disable all images"
+            android:title="Disable images"
             android:checkable="true"
             app:showAsAction="never"
                 />
