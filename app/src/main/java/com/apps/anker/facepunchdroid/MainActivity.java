@@ -771,7 +771,7 @@ public class MainActivity extends AppCompatActivity {
     public void setupBottomToolbar() {
         toolbar_bottom = (Toolbar) findViewById(R.id.toolbar_bottom);
 
-        toolbar_bottom.setTranslationY(toolbar_bottom.getHeight());
+        hideViews();
 
         toolbar_bottom.inflateMenu(R.menu.activity_main_actionbar_bottom);//changed
         //toolbar2 menu items CallBack listener
