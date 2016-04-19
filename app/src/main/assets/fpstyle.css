@@ -89,8 +89,10 @@ DIV.LastPostAvatar {
 #header #breadcrumb {
     display: block !important;
     height: auto !important;
- 	margin-left: 5%;
+    margin-left: 5%;
+    margin-right: 5%;
     margin-top: 15px;
+    width: auto;
 }
 #header #breadcrumb>a,
 #header #breadcrumb .navbit {
@@ -181,6 +183,8 @@ table#threads tr.threadlisthead td {
 /* Thread list END */
 
 /* Pagination */
+.pagination { display: none; }
+
 .pagination span a {
 	font-size: 0.9230769230769231rem !important;
     padding: 4px 6px 4px 6px !important;
@@ -413,9 +417,21 @@ ol#posts .postbitlegacy .postfoot .rating_results a.rating_users {
 
 
 /* Footer */
+div#footer {
+    padding-bottom: 60px;
+}
+
 div#footer .footer_links {
  	font-size: 0.8rem;
+ 	text-indent: -9999px;
+ 	color: transparent;
+
 }
+
+div#footer .footer_links a:last-child {
+    display: none;
+}
+
 
 /* Member Page */
 .member_summary {
@@ -553,6 +569,9 @@ div#footer .footer_links {
 
 #showpm ol .postbitlegacy .postfoot .postcontrols a.forwardpost {
     font-size: 0.8rem !important;
+    position: absolute;
+    bottom: 0px;
+    right: 65px;
 }
 
 #showpm ol .postbitlegacy .postfoot .postcontrols a.newreply  {

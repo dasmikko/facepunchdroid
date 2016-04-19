@@ -30,9 +30,75 @@ jQuery(function() {
                 Android.showImage($(this).attr("src"));
             });
         });
-
-
     });
+
+   var getUrlParameter = function getUrlParameter(sParam, url) {
+
+       var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+           sURLVariables = sPageURL.split('&'),
+           sParameterName,
+           i;
+
+
+       for (i = 0; i < sURLVariables.length; i++) {
+           sParameterName = sURLVariables[i].split('=');
+
+           if (sParameterName[0] === sParam) {
+               return sParameterName[1] === undefined ? true : sParameterName[1];
+           }
+       }
+   };
+
+   function getQueryVariable(variable, url)
+   {
+          var query = url;
+          var vars = query.split("&");
+          for (var i=0;i<vars.length;i++) {
+                  var pair = vars[i].split("=");
+                  if(pair[0] == variable){return pair[1];}
+          }
+          return(false);
+   }
+
+
+
+   if (window.location.href.indexOf("showthread.php") > -1 || window.location.href.indexOf("forumdisplay.php") > -1 ) {
+       if ( $(".pagination").length ) {
+
+            console.log("Show pagination!")
+
+            console.log("found it");
+            var currentPage = 1;
+            // Get current page
+            if(getUrlParameter('page') == null) {
+                console.log($(".pagination").first().find('.selected a').text());
+                currentPage = $(".pagination").first().find('.selected a').text();
+            }
+            else
+            {
+               console.log(getUrlParameter('page'));
+               currentPage = getUrlParameter('page');
+            }
+
+            // Get link url
+            var lastpage = $(".pagination").find('span').last().find('a').attr("href");
+            console.log(lastpage);
+            if(lastpage.indexOf("javascript://") > -1) {
+               lastpage = $(".pagination").find('span').last().find('a').text();
+               console.log("Is on last page");
+            } else {
+               lastpage = getQueryVariable("page", lastpage);
+               console.log(lastpage);
+            }
+
+            Android.setupPagination(currentPage, lastpage);
+            Android.showPagination();
+       }
+   } else {
+                console.log("Hidepagination!")
+                Android.disablePagination();
+                Android.hidePagination();
+           }
 
 
     var MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;
@@ -60,6 +126,7 @@ jQuery(function() {
 
     if ( $( "#navbar-login>a" ).length ) {
         console.log("USER IS LOGGED IN!");
+        $( "#navbar-login" ).hide();
         var username = $( "#navbar-login>a" ).text();
         var userid = $( "#navbar-login>a" ).attr("href").replace("member.php?u=", "");
         console.log(userid);
@@ -68,5 +135,13 @@ jQuery(function() {
     else {
         Android.setLoginStatus(false, "", 0);
     }
+
+    // Detect scrolled at bottom
+    $(window).scroll(function() {
+       if($(window).scrollTop() + $(window).height() == $(document).height()) {
+           Android.showPagination();
+       }
+    });
+
 
 });

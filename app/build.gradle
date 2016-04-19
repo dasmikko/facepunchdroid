@@ -8,9 +8,10 @@ android {
         applicationId "com.apps.anker.facepunchdroid"
         minSdkVersion 19
         targetSdkVersion 23
-        versionCode 17
-        versionName "1.4"
+        versionCode 26
+        versionName "1.4.7"
     }
+
 
     buildTypes {
         release {
@@ -47,7 +48,8 @@ dependencies {
     compile('com.mikepenz:materialdrawer:5.1.6@aar') {
         transitive = true
     }
-    compile 'com.github.satyan:sugar:1.4'
+    compile 'com.mikepenz:google-material-typeface:2.2.0.1.original@aar'
+    compile 'biz.kasual:materialnumberpicker:1.2.0'
 }
 
 apply plugin: 'realm-android'

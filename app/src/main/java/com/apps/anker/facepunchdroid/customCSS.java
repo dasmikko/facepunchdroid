@@ -1,5 +1,6 @@
 package com.apps.anker.facepunchdroid;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.database.Cursor;
@@ -10,6 +11,7 @@ import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -84,15 +86,16 @@ public class customCSS {
         return tmp.toString();
     }
 
-    public static String readFromSDcard(String path) {
+    public static String readFromSDcard(Activity mActivitym, Uri path) throws FileNotFoundException {
         //Get the text file
-        File file = new File(path);
+
+        InputStream inputStream = mActivitym.getContentResolver().openInputStream(path);
 
         //Read text from file
         StringBuilder text = new StringBuilder();
 
         try {
-            BufferedReader br = new BufferedReader(new FileReader(file));
+            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
             String line;
 
             while ((line = br.readLine()) != null) {

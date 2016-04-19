@@ -83,4 +83,6 @@
         <item>5 Dollars</item>
         <item>10 Dollars</item>
     </string-array>
+
+    <string name="banner_ad_unit_id">ca-app-pub-5812854208273602/3052753581</string>
 </resources>

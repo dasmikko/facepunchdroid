@@ -6,4 +6,6 @@
 
     <color name="ImageViewerBackground">#8d000000</color>
     <color name="transparent">#00000000</color>
+
+    <color name="material_drawer_primary_icon">#8A000000</color>
 </resources>

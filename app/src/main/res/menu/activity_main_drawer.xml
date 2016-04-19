@@ -58,9 +58,11 @@
 
     <group
         android:id="@+id/group_donate"
+        android:visible="false"
         android:checkableBehavior="none">
         <item
             android:id="@+id/nav_donate"
+            android:visible="false"
             android:icon="@drawable/ic_card_giftcard_black_24dp"
             android:title="Donate" />
     </group>
