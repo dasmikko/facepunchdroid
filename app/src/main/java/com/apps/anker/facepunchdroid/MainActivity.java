@@ -51,6 +51,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.apps.anker.facepunchdroid.Tools.UriHandling;
+import com.apps.anker.facepunchdroid.Webview.ObservableWebView;
 import com.koushikdutta.ion.Ion;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
@@ -89,7 +90,7 @@ import io.realm.RealmResults;
 public class MainActivity extends AppCompatActivity {
 
     String baseURL = "https://facepunch.com/";
-    WebView webview;
+    ObservableWebView webview;
     ProgressBar pb;
     RelativeLayout pbc;
     private boolean isInjected;
@@ -105,6 +106,10 @@ public class MainActivity extends AppCompatActivity {
 
     MenuItem addstartpage;
     SharedPreferences.OnSharedPreferenceChangeListener spChanged;
+
+    Integer oldScrollPos = 0;
+    Boolean paginationEnabled = false;
+    Boolean paginationHidden = true;
 
 
     private int mShortAnimationDuration;
@@ -194,7 +199,33 @@ public class MainActivity extends AppCompatActivity {
 
         // Progressbar and WebView
         pb = (ProgressBar) findViewById(R.id.toolbarProgressbar);
-        webview = (WebView) findViewById(R.id.webView);
+        webview = (com.apps.anker.facepunchdroid.Webview.ObservableWebView) findViewById(R.id.webView);
+
+
+
+
+        // On Scroll handling
+        webview.setOnScrollChangedCallback(new ObservableWebView.OnScrollChangedCallback(){
+            public void onScroll(int l, int t,int oldl, int oldt){
+                //Do stuff
+
+                if(oldScrollPos != t && paginationEnabled)
+                {
+                    Log.d("Scroll pos", "Changed");
+                    if (oldScrollPos < t) {
+                        Log.d("Scroll pos", "Scrolling down");
+                        if(paginationEnabled && !paginationHidden) { hideViews(); }
+
+                    }
+                    else if (oldScrollPos > t) {
+                        Log.d("Scroll pos", "Scrolling up");
+                        if(paginationEnabled && paginationHidden) { showViews(); }
+                    }
+                }
+                oldScrollPos = t;
+            }
+        });
+
 
 
         // Setup Webview
@@ -212,6 +243,8 @@ public class MainActivity extends AppCompatActivity {
                 pb.setProgress(0);
                 pb.setVisibility(View.VISIBLE);
                 mSwipeRefreshLayout.setRefreshing(true);
+                mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
+
 
                 Log.d("Webview", "onPageStarted " + url);
 
@@ -871,12 +904,20 @@ public class MainActivity extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
+                    paginationEnabled = true;
+
                     // Update toolbar title and subsitle
                     toolbar_bottom.setTitle("Current page");
                     toolbar_bottom.setSubtitle(currentpage + " of " + totalpages);
 
                 }
             });
+
+        }
+
+        @JavascriptInterface
+        public void disablePagination() {
+             paginationEnabled = false;
 
         }
 
@@ -945,12 +986,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void hideViews() {
-        Log.d("Bottom Toolbar", "Hide toolbar");
-        toolbar_bottom.animate().translationY(toolbar_bottom.getHeight()).setInterpolator(new AccelerateInterpolator(2)).start();
+        if(!paginationHidden) {
+            Log.d("Bottom Toolbar", "Hide toolbar");
+            paginationHidden = true;
+            toolbar_bottom.animate().translationY(toolbar_bottom.getHeight()).setInterpolator(new AccelerateInterpolator(2)).start();
+        }
     }
 
     private void showViews() {
-        Log.d("Bottom Toolbar", "show toolbar");
-        toolbar_bottom.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2)).start();
+        if(paginationHidden && paginationEnabled) {
+            Log.d("Bottom Toolbar", "show toolbar");
+            paginationHidden = false;
+            toolbar_bottom.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2)).start();
+        }
     }
 }

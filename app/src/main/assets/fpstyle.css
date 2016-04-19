@@ -89,8 +89,10 @@ DIV.LastPostAvatar {
 #header #breadcrumb {
     display: block !important;
     height: auto !important;
- 	margin-left: 5%;
+    margin-left: 5%;
+    margin-right: 5%;
     margin-top: 15px;
+    width: auto;
 }
 #header #breadcrumb>a,
 #header #breadcrumb .navbit {

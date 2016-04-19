@@ -30,7 +30,7 @@
         android:layout_height="match_parent"
         android:layout_below="@id/mActionbar"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
-        <WebView
+        <com.apps.anker.facepunchdroid.Webview.ObservableWebView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"

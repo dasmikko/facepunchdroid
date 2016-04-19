@@ -64,7 +64,7 @@ jQuery(function() {
 
    if (window.location.href.indexOf("showthread.php") > -1 || window.location.href.indexOf("forumdisplay.php") > -1 ) {
        if ( $(".pagination").length ) {
-            Android.showPagination();
+
             console.log("Show pagination!")
 
             console.log("found it");
@@ -92,9 +92,11 @@ jQuery(function() {
             }
 
             Android.setupPagination(currentPage, lastpage);
+            Android.showPagination();
        }
    } else {
                 console.log("Hidepagination!")
+                Android.disablePagination();
                 Android.hidePagination();
            }
 
@@ -124,7 +126,7 @@ jQuery(function() {
 
     if ( $( "#navbar-login>a" ).length ) {
         console.log("USER IS LOGGED IN!");
-        $( "#navbar-login>a" ).hide();
+        $( "#navbar-login" ).hide();
         var username = $( "#navbar-login>a" ).text();
         var userid = $( "#navbar-login>a" ).attr("href").replace("member.php?u=", "");
         console.log(userid);
@@ -133,5 +135,13 @@ jQuery(function() {
     else {
         Android.setLoginStatus(false, "", 0);
     }
+
+    // Detect scrolled at bottom
+    $(window).scroll(function() {
+       if($(window).scrollTop() + $(window).height() == $(document).height()) {
+           Android.showPagination();
+       }
+    });
+
 
 });
