@@ -1,4 +1,9 @@
 # Full changelog
+    1.4.8 (Next update)
+    - Option to disable all images
+    - Updated the navigation drawer to follow the design guidelines
+    
+    
     1.4.7
     - Fixed bug where the pagination would show when scrolled to bottom, even if the page didn't have pagination
 
