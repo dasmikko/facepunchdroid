@@ -9,8 +9,6 @@
     android:layout_height="match_parent"
     tools:context="com.apps.anker.facepunchdroid.MainActivity">
 
-
-
     <android.support.v7.widget.Toolbar
         android:id="@+id/mActionbar"
         android:layout_height="wrap_content"
@@ -20,9 +18,6 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         android:elevation="5dp"
         android:background="?attr/colorPrimary" />
-
-
-
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/refresh"
@@ -38,7 +33,6 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true" />
     </android.support.v4.widget.SwipeRefreshLayout>
-
 
     <ProgressBar
         android:layout_width="match_parent"
@@ -56,7 +50,6 @@
         android:layout_alignParentBottom="true"
         android:minHeight="?attr/actionBarSize"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
     </android.support.v7.widget.Toolbar>
 
 </RelativeLayout>
