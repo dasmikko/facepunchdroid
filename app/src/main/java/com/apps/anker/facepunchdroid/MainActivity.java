@@ -137,6 +137,8 @@ public class MainActivity extends AppCompatActivity {
 
     Activity mActivity;
 
+    Boolean dissableAllImages = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -259,6 +261,14 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public WebResourceResponse shouldInterceptRequest (final WebView view, String url) {
+                Log.d("WebResource", url);
+                if(dissableAllImages && !url.contains("facepunch.com")) {
+                    Log.d("WebResource", "DISABLE IMAGE");
+                    if(url.contains(".jpg") || url.contains(".png") || url.contains(".jpeg") || url.contains(".gif") ) {
+                        Log.d("WebResource", "IMAGE DISABLED");
+                        return new WebResourceResponse("text/html", "UTF-8", null);
+                    }
+                }
 
                 if (url.contains("small.css")) {
                     return getCssWebResourceResponseFromAsset();
@@ -734,6 +744,15 @@ public class MainActivity extends AppCompatActivity {
                         SwipeRefreshLayout mlayout2 = (SwipeRefreshLayout) findViewById(R.id.refresh);
                         Snackbar.make(mlayout2,"New startpage is now set", Snackbar.LENGTH_LONG).show();
                         return true;
+                    case R.id.dissableAllImages:
+                        if(dissableAllImages) {
+                            dissableAllImages = false;
+                        } else {
+                            dissableAllImages = true;
+                        }
+                        mActivity.invalidateOptionsMenu();
+                        webview.reload();
+                        return true;
                     default:
                         return false;
                 }
@@ -829,6 +848,12 @@ public class MainActivity extends AppCompatActivity {
         }
         else {
             Log.d("Toolbar", "Enable menu item");
+        }
+
+        if(dissableAllImages) {
+            menu.findItem(R.id.dissableAllImages).setChecked(true);
+        } else {
+            menu.findItem(R.id.dissableAllImages).setChecked(false);
         }
 
 
