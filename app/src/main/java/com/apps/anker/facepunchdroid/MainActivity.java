@@ -931,7 +931,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     paginationEnabled = true;
-
+                    toolbar_bottom.setVisibility(1);
                     // Update toolbar title and subsitle
                     toolbar_bottom.setTitle("Current page");
                     toolbar_bottom.setSubtitle(currentpage + " of " + totalpages);
