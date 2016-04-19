@@ -48,6 +48,7 @@ dependencies {
     compile('com.mikepenz:materialdrawer:5.1.6@aar') {
         transitive = true
     }
+    compile 'com.mikepenz:google-material-typeface:2.2.0.1.original@aar'
     compile 'biz.kasual:materialnumberpicker:1.2.0'
 }
 

@@ -53,6 +53,7 @@ import android.widget.Toast;
 import com.apps.anker.facepunchdroid.Tools.UriHandling;
 import com.apps.anker.facepunchdroid.Webview.ObservableWebView;
 import com.koushikdutta.ion.Ion;
+import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
@@ -605,25 +606,25 @@ public class MainActivity extends AppCompatActivity {
     protected void addDrawerItems() {
 
         //if you want to update the items at a later time it is recommended to keep it in a variable
-        PrimaryDrawerItem nav_home      = new PrimaryDrawerItem().withIdentifier(1).withName("Home").withIcon(R.drawable.ic_home_black_24dp).withSelectable(false);
-        PrimaryDrawerItem nav_events    = new PrimaryDrawerItem().withIdentifier(2).withName("Events").withIcon(R.drawable.ic_event_black_24dp).withSelectable(false);
-        PrimaryDrawerItem nav_popular   = new PrimaryDrawerItem().withIdentifier(3).withName("Popular").withIcon(R.drawable.ic_favorite_black_24dp).withSelectable(false);
-        PrimaryDrawerItem nav_read      = new PrimaryDrawerItem().withIdentifier(4).withName("Read").withIcon(R.drawable.ic_markunread_mailbox_black_24dp).withSelectable(false);
-        PrimaryDrawerItem nav_search    = new PrimaryDrawerItem().withIdentifier(5).withName("Search").withIcon(R.drawable.ic_search_black_24dp).withSelectable(false);
-        PrimaryDrawerItem nav_messages  = new PrimaryDrawerItem().withIdentifier(6).withName("Messages").withIcon(R.drawable.ic_mail_outline_black_24dp).withSelectable(false);
-        PrimaryDrawerItem nav_cpanel    = new PrimaryDrawerItem().withIdentifier(7).withName("Control panel").withIcon(R.drawable.ic_build_black_24dp).withSelectable(false);
-        PrimaryDrawerItem nav_ticker    = new PrimaryDrawerItem().withIdentifier(12).withName("Ticker").withIcon(R.drawable.ic_link_black_24dp).withSelectable(false);
+        PrimaryDrawerItem nav_home      = new PrimaryDrawerItem().withIdentifier(1).withName("Home").withIcon(GoogleMaterial.Icon.gmd_home).withSelectable(false);
+        PrimaryDrawerItem nav_events    = new PrimaryDrawerItem().withIdentifier(2).withName("Events").withIcon(GoogleMaterial.Icon.gmd_event).withSelectable(false);
+        PrimaryDrawerItem nav_popular   = new PrimaryDrawerItem().withIdentifier(3).withName("Popular").withIcon(GoogleMaterial.Icon.gmd_favorite).withSelectable(false);
+        PrimaryDrawerItem nav_read      = new PrimaryDrawerItem().withIdentifier(4).withName("Read").withIcon(GoogleMaterial.Icon.gmd_markunread_mailbox).withSelectable(false);
+        PrimaryDrawerItem nav_search    = new PrimaryDrawerItem().withIdentifier(5).withName("Search").withIcon(GoogleMaterial.Icon.gmd_search).withSelectable(false);
+        PrimaryDrawerItem nav_messages  = new PrimaryDrawerItem().withIdentifier(6).withName("Messages").withIcon(GoogleMaterial.Icon.gmd_mail_outline).withSelectable(false);
+        PrimaryDrawerItem nav_cpanel    = new PrimaryDrawerItem().withIdentifier(7).withName("Control panel").withIcon(GoogleMaterial.Icon.gmd_build).withSelectable(false);
+        PrimaryDrawerItem nav_ticker    = new PrimaryDrawerItem().withIdentifier(12).withName("Ticker").withIcon(GoogleMaterial.Icon.gmd_link).withSelectable(false);
 
-        PrimaryDrawerItem nav_settings  = new PrimaryDrawerItem().withIdentifier(8).withName("Settings").withIcon(R.drawable.ic_settings_black_24dp).withSelectable(false);
+        PrimaryDrawerItem nav_settings  = new PrimaryDrawerItem().withIdentifier(8).withName("Settings").withIcon(GoogleMaterial.Icon.gmd_settings).withSelectable(false);
 
         if(sharedPref.getBoolean("isLoggedIn", false)) {
-            nav_logout    = new PrimaryDrawerItem().withIdentifier(9).withName("Logout").withIcon(R.drawable.ic_lock_open_black_24dp).withSelectable(false).withEnabled(true);
+            nav_logout    = new PrimaryDrawerItem().withIdentifier(9).withName("Logout").withIcon(GoogleMaterial.Icon.gmd_lock_open).withSelectable(false).withEnabled(true);
         } else {
-            nav_logout    = new PrimaryDrawerItem().withIdentifier(9).withName("Logout").withIcon(R.drawable.ic_lock_open_black_24dp).withSelectable(false).withEnabled(false);
+            nav_logout    = new PrimaryDrawerItem().withIdentifier(9).withName("Logout").withIcon(GoogleMaterial.Icon.gmd_lock_open).withSelectable(false).withEnabled(false);
         }
 
 
-        PrimaryDrawerItem nav_donate    = new PrimaryDrawerItem().withIdentifier(10).withName("Donate").withIcon(R.drawable.ic_card_giftcard_black_24dp).withSelectable(false);
+        PrimaryDrawerItem nav_donate    = new PrimaryDrawerItem().withIdentifier(10).withName("Donate").withIcon(GoogleMaterial.Icon.gmd_card_giftcard).withSelectable(false);
 
 
         drawer.addItems(
@@ -655,7 +656,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }));
             }
-            drawer.addItem(new SecondaryDrawerItem().withName("Edit pinned items").withIcon(R.drawable.ic_edit_black_24dp).withIdentifier(11).withSelectable(false));
+            drawer.addItem(new SecondaryDrawerItem().withName("Edit pinned items").withIcon(GoogleMaterial.Icon.gmd_edit).withIdentifier(11).withSelectable(false));
         }
 
         drawer.addItem(new DividerDrawerItem());
