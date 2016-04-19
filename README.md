@@ -29,9 +29,10 @@ It's only needed until I fix the way I add the custom stylesheet.
 Not needed anymore, as I have updated the injection method
 
 ## Changelog
-    1.4.6 (To be released)
+    1.4.6
     - Remove username from top
     - Removed old pagination
+    - Native pagination now hides/shows on scroll
     
     1.4.5
     - Added native pagination, with go to functionality
