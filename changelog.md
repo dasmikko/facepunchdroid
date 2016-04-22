@@ -1,4 +1,7 @@
 # Full changelog
+    1.4.9
+    - Smiley selector now works!
+
     1.4.8
     - Option to disable all images
     - Updated the navigation drawer to follow the design guidelines
