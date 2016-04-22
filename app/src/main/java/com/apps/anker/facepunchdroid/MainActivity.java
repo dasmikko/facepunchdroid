@@ -4,6 +4,8 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -27,6 +29,7 @@ import android.support.v7.widget.Toolbar;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -48,6 +51,7 @@ import android.widget.NumberPicker;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.apps.anker.facepunchdroid.Tools.UriHandling;
@@ -332,6 +336,37 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 //view.loadUrl(url);
+
+                if(url.startsWith("https://facepunch.com/misc.php")) {
+                    //Toast.makeText(getApplicationContext(), "Show smiley dialog", Toast.LENGTH_LONG).show();
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
+                    LayoutInflater inflater = mActivity.getLayoutInflater();
+
+                    View dialog_view = inflater.inflate(R.layout.smiley_dialog, null);
+
+                    // set the custom dialog components - text, image and button
+                    WebView sWebview = (WebView) dialog_view.findViewById(R.id.smiley_webview);
+                    sWebview.getSettings().setJavaScriptEnabled(true);
+                    sWebview.setWebContentsDebuggingEnabled(true);
+                    sWebview.addJavascriptInterface(new WebAppInterface(mActivity), "Android");
+                    sWebview.loadUrl("file:///android_asset/smileys.html");
+
+
+                    builder.setTitle("Select smiley");
+                    builder.setView(dialog_view);
+                    builder.setPositiveButton("Close", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+
+                    builder.create().show();
+
+                    return true;
+                }
+
                 if (url.startsWith("mailto:")) {
                         MailTo mt = MailTo.parse(url);
                         Intent intent = new Intent(Intent.ACTION_SEND);
@@ -918,6 +953,32 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
+        }
+
+        @JavascriptInterface
+        public void insertToInput(final String text) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    //stuff that updates ui
+                    webview.loadUrl("javascript:insertAtCaret('" + text + "')");
+
+                }
+            });
+
+            Toast.makeText(mActivity, "Smiley was added", Toast.LENGTH_SHORT).show();
+        }
+
+        @JavascriptInterface
+        public void copyToClipholder(String text) {
+            ClipboardManager clipboard = (ClipboardManager)
+                    getSystemService(Context.CLIPBOARD_SERVICE);
+
+            ClipData clip = ClipData.newPlainText("simple text", text);
+
+            clipboard.setPrimaryClip(clip);
+
+            Toast.makeText(mActivity, "Smiley was copied to clipboard", Toast.LENGTH_SHORT).show();
         }
 
         @JavascriptInterface
