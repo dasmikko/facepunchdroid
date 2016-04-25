@@ -22,7 +22,7 @@ var ti = setInterval(function() {
 
 
 jQuery(function() {
-    console.log("READY MOTHERFUCKERS");
+    console.log("DOM READY");
     $(".content").each(function(){
         $(this).find("img").each(function() {
             $(this).click(function(e) {
