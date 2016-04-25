@@ -566,6 +566,7 @@ public class MainActivity extends AppCompatActivity {
                 imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 Ion.with(imageView.getContext())
                         .load(uri.toString())
+                        .noCache()
                         .withBitmap()
                         .placeholder(R.drawable.placeholder)
                         .intoImageView(imageView);
