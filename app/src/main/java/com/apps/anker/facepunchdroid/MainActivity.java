@@ -538,7 +538,6 @@ public class MainActivity extends AppCompatActivity {
                 .withHeaderBackground(R.drawable.cover)
                 .withCompactStyle(true)
                 .withSelectionListEnabledForSingleProfile(false)
-
                 .addProfiles(
                         defaultProfile
                 )
