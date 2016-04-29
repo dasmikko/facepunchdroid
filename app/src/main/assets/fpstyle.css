@@ -36,8 +36,8 @@ table.forums .forumbit_post td {
 	padding-bottom: 10px;
     padding-top: 10px;
     padding-right: 0px;
-    padding-left: 5px !important;
-    background-image: none !important;
+    padding-left: 40px !important;
+    /*background-image: none !important;*/
 }
 
 table.forums .forumbit_post td .forumdata { margin: 0px; }
@@ -133,8 +133,7 @@ table.forums .forumhead h2 {
 /* Thread list */
 .threadlastpost,
 .threadreplies,
-.threadviews,
-.threadicon {
+.threadviews {
     display: none;
 }
 
@@ -147,6 +146,7 @@ table#threads h3.threadtitle .title {
 table#threads tr.threadbit td.threadinfo .threadpagenav {
     margin-bottom: 10px;
     font-size: 0.85rem;
+    display: inline-block;
 }
 
 table#threads .threadmeta .author a {
