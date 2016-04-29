@@ -3,6 +3,7 @@
     - Fixed bug with smiley selector on small phones
     - Disabled cache for the avatar in drawer
     - Fix bug with pagination
+    - Added thread and sub thread icons
     
     1.4.9
     - Smiley selector now works!
