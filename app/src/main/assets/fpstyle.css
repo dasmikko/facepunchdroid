@@ -43,7 +43,8 @@ table.forums .forumbit_post td {
 table.forums .forumbit_post td .forumdata { margin: 0px; }
 
 .forumbit_post .foruminfo .forumdata .viewing {
-
+    display: block;
+    width: 100%;
 }
 
 TD.last_post_column {
@@ -156,8 +157,17 @@ table#threads .threadmeta .author a {
 table#threads .inner {
     position: relative;
     padding: 10px 18px;
+    min-height: 55px;
 }
 table#threads .threadmeta .minicons { display: none; }
+
+table#threads tr.threadbit td {
+    padding: 0px;
+}
+
+TD.threadicon IMG {
+    transform: rotate(90deg);
+}
 
 table#threads tr.threadbit td.threadinfo .newposts {
     right: 0px;
@@ -167,6 +177,8 @@ table#threads tr.threadbit td.threadinfo .newposts {
     padding: 5px;
 }
 .threadinfo { font-size: 0.8rem; }
+
+
 
 table#threads tr.threadbit td.threadinfo .newposts img { display: inline-block; }
 table#threads td.threaddeleted { display: none; }
