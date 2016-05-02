@@ -1,5 +1,5 @@
 # Full changelog
-    1.5.0 (Next release)
+    1.5.0
     - Fixed bug with smiley selector on small phones
     - Disabled cache for the avatar in drawer
     - Fix bug with pagination
