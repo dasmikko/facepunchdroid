@@ -18,7 +18,7 @@
     </Preference>
 
     <Preference
-        android:title="Currenct start page"
+        android:title="Current start page"
         android:summary="Default"
         android:enabled="false"
         android:key="current_startpage">
