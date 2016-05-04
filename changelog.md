@@ -1,4 +1,8 @@
 # Full changelog
+    1.5.1
+    - Added Dark theme! 
+    - Fixed typo in settings
+    
     1.5.0
     - Fixed bug with smiley selector on small phones
     - Disabled cache for the avatar in drawer
