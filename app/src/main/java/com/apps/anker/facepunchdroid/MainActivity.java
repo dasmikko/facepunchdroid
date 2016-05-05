@@ -145,6 +145,7 @@ public class MainActivity extends AppCompatActivity {
     PrimaryDrawerItem nav_logout;
 
     Activity mActivity;
+    Context mContext;
 
     Boolean dissableAllImages = false;
 
@@ -164,6 +165,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mActivity = this;
+        mContext = getApplicationContext();
 
         // Create the Realm configuration
         realmConfig = new RealmConfiguration.Builder(this).build();
@@ -360,6 +362,18 @@ public class MainActivity extends AppCompatActivity {
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 //view.loadUrl(url);
 
+                // Handle direct image links
+                if(url.endsWith(".jpg")  ||
+                        url.endsWith(".jpeg") ||
+                        url.endsWith(".png")  ||
+                        url.endsWith(".gif") ) {
+
+                    Intent i = new Intent(mContext, ImageViewer.class);
+                    i.putExtra("url", url);
+                    mActivity.startActivity(i);
+                    return true;
+                }
+
                 if(url.startsWith("https://facepunch.com/misc.php")) {
                     //Toast.makeText(getApplicationContext(), "Show smiley dialog", Toast.LENGTH_LONG).show();
 
@@ -391,12 +405,12 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 if (url.startsWith("mailto:")) {
-                        MailTo mt = MailTo.parse(url);
-                        Intent intent = new Intent(Intent.ACTION_SEND);
-                        intent.putExtra(Intent.EXTRA_EMAIL, new String[] { mt.getTo() });
-                        intent.setType("message/rfc822");
-                        startActivity(intent);
-                        return true;
+                    MailTo mt = MailTo.parse(url);
+                    Intent intent = new Intent(Intent.ACTION_SEND);
+                    intent.putExtra(Intent.EXTRA_EMAIL, new String[] { mt.getTo() });
+                    intent.setType("message/rfc822");
+                    startActivity(intent);
+                    return true;
                 }
 
 
