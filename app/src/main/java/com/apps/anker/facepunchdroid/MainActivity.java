@@ -20,6 +20,7 @@ import android.os.Build;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -54,6 +55,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.apps.anker.facepunchdroid.Tools.Assets;
 import com.apps.anker.facepunchdroid.Tools.UriHandling;
 import com.apps.anker.facepunchdroid.Webview.ObservableWebView;
 import com.koushikdutta.ion.Ion;
@@ -78,6 +80,8 @@ import java.io.ByteArrayInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.io.SequenceInputStream;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -122,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences sharedPref;
 
     boolean useCustomStyles;
+    boolean enableDarkTheme;
 
     SwipeRefreshLayout mSwipeRefreshLayout;
     Toolbar toolbar;
@@ -145,6 +150,16 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
+        enableDarkTheme = sharedPref.getBoolean("enable_dark_theme", false);
+        Log.d("DarkTheme", String.valueOf(enableDarkTheme));
+
+        // Set dark theme if enabled dark mode
+        if(enableDarkTheme) {
+            super.setTheme(R.style.AppThemeDark);
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -155,7 +170,7 @@ public class MainActivity extends AppCompatActivity {
         // Open the Realm for the UI thread.
         realm = Realm.getInstance(realmConfig);
 
-        sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
 
         spChanged = new SharedPreferences.OnSharedPreferenceChangeListener() {
                     @Override
@@ -279,9 +294,6 @@ public class MainActivity extends AppCompatActivity {
                 } else if (url.contains("fp.js")) {
                     Log.d("Intercept", "fp.js file");
                     return getJsWebResourceResponseFromAsset();
-                /*} else if (url.contains("jquery.min.js")) {
-                    Log.d("Intercept", "jquery file");
-                    return getJqueryWebResourceResponseFromAsset();*/
                 } else {
                     return super.shouldInterceptRequest(view, url);
                 }
@@ -289,19 +301,50 @@ public class MainActivity extends AppCompatActivity {
 
             private WebResourceResponse getCssWebResourceResponseFromAsset() {
                 try {
-                    // Check if custom user style is enabled
-                    if(useCustomStyles) {
-                        if(sharedPref.contains("custom_style_file")) {
-                            String userCSS = sharedPref.getString("custom_style_file", "");
+                    WebResourceResponse fullCSS = null;
+                    String fullCSSString = "";
 
-                            return getUtf8EncodedCssAndCustomWebResourceResponse(getAssets().open("fpstyle.css"), userCSS);
-                        }
 
+                    // Inject darktheme
+                    if(enableDarkTheme) {
+                        Log.d("Darktheme", "USE DARKTHEME");
+
+                        fullCSSString += customCSS.cssToString(getAssets().open("dark_theme.css"));
                     }
-                    return getUtf8EncodedCssWebResourceResponse(getAssets().open("fpstyle.css"));
+
+                    // Inject Mobile style
+                    fullCSSString += customCSS.cssToString(getAssets().open("fpstyle.css"));
+
+                    // Check if custom user style is enabled
+                    if(useCustomStyles && sharedPref.contains("custom_style_file")) {
+                        fullCSSString += sharedPref.getString("custom_style_file", "");
+                    }
+
+                    Log.d("FullCSS", fullCSSString);
+                    fullCSS = stringToWebResource(fullCSSString);
+
+                    return fullCSS;
                 } catch (IOException e) {
                     return null;
                 }
+            }
+
+
+
+            private WebResourceResponse getUtf8EncodedCssWebResourceResponse(InputStream data) {
+                return new WebResourceResponse("text/css", "UTF-8", data);
+            }
+
+            private WebResourceResponse stringToWebResource(String CSS) {
+                return new WebResourceResponse("text/css", "UTF-8", new ByteArrayInputStream(CSS.getBytes(StandardCharsets.UTF_8)));
+            }
+
+            private WebResourceResponse getUtf8EncodedCssAndCustomWebResourceResponse(InputStream data, String CSS) {
+                return new WebResourceResponse("text/css", "UTF-8", new SequenceInputStream(data, new ByteArrayInputStream(CSS.getBytes(StandardCharsets.UTF_8))));
+            }
+
+            private WebResourceResponse getUtf8EncodedJsWebResourceResponse(InputStream data) {
+                return new WebResourceResponse("text/javascript ", "UTF-8", data);
             }
 
             private WebResourceResponse getJsWebResourceResponseFromAsset() {
@@ -311,26 +354,6 @@ public class MainActivity extends AppCompatActivity {
                 } catch (IOException e) {
                     return null;
                 }
-            }
-
-            private WebResourceResponse getJqueryWebResourceResponseFromAsset() {
-                try {
-                    return getUtf8EncodedJsWebResourceResponse(getAssets().open("jquery.js"));
-                } catch (IOException e) {
-                    return null;
-                }
-            }
-
-            private WebResourceResponse getUtf8EncodedCssWebResourceResponse(InputStream data) {
-                return new WebResourceResponse("text/css", "UTF-8", data);
-            }
-
-            private WebResourceResponse getUtf8EncodedCssAndCustomWebResourceResponse(InputStream data, String CSS) {
-                return new WebResourceResponse("text/css", "UTF-8", new SequenceInputStream(data, new ByteArrayInputStream(CSS.getBytes(StandardCharsets.UTF_8))));
-            }
-
-            private WebResourceResponse getUtf8EncodedJsWebResourceResponse(InputStream data) {
-                return new WebResourceResponse("text/javascript ", "UTF-8", data);
             }
 
             @Override
@@ -433,6 +456,10 @@ public class MainActivity extends AppCompatActivity {
         webview.getSettings().setLoadWithOverviewMode(true);
         webview.getSettings().setUseWideViewPort(false);
 
+        if(enableDarkTheme) {
+            webview.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.nightDrawerBackground));
+        }
+
         // Set new UA
         String ua = webview.getSettings().getUserAgentString();
         //webview.getSettings().setUserAgentString("Mozilla/5.0 (Linux; U; Android) FacepunchDroid");
@@ -520,6 +547,9 @@ public class MainActivity extends AppCompatActivity {
         webview.saveState(outState);
     }
 
+    /**
+     * Setups the drawer, with all styles and user picture
+     */
     private void setupDrawer() {
         // Setup Profile
         if(sharedPref.getBoolean("isLoggedIn", false)) {

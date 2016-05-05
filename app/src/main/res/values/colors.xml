@@ -8,4 +8,12 @@
     <color name="transparent">#00000000</color>
 
     <color name="material_drawer_primary_icon">#8A000000</color>
+
+    <color name="nightColorPrimary">#7F231C</color>
+    <color name="nightColorPrimaryDark">#40120E</color>
+
+    <color name="nightDrawerBackground">#303030</color>
+    <color name="nightDrawerPrimaryText">#FFFFFF</color>
+    <color name="nightDrawerSecondaryText">#B3FFFFFF</color>
+    <color name="nightDrawerPrimaryIcon">#80FFFFFF</color>
 </resources>

@@ -3,6 +3,12 @@
 
     <SwitchPreference
         android:defaultValue="false"
+        android:key="enable_dark_theme"
+        android:summary="Use dark theme, which is easier on the eyes."
+        android:title="Use dark theme" />
+
+    <SwitchPreference
+        android:defaultValue="false"
         android:key="enable_custom_startpage"
         android:summary="When opening the app, use a custom start page"
         android:title="Use custom start page" />
