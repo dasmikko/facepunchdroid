@@ -1,7 +1,9 @@
 # Full changelog
-    1.5.1
+    1.5.1 (Next version)
     - Added Dark theme! 
     - Fixed typo in settings
+    - Added direct image links handling
+    - Added forward menu button
     
     1.5.0
     - Fixed bug with smiley selector on small phones
