@@ -785,6 +785,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
+                    case R.id.forward:
+                        if(webview.canGoForward())
+                            webview.goForward();
+                        return true;
                     case R.id.action_refresh:
                         webview.reload();
                         return true;
