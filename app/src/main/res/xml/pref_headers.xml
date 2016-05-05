@@ -2,22 +2,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <!-- These settings headers are only used on tablets. -->
+    <!--android:icon="@drawable/ic_info_black_24dp"-->
 
     <header
         android:fragment="com.apps.anker.facepunchdroid.SettingsActivity$GeneralPreferenceFragment"
-        <!--android:icon="@drawable/ic_info_black_24dp"-->
-        app:ico_icon="gmd-info"
-        app:ico_size="48dp"
         android:title="@string/pref_header_general"/>
 
     <header
         android:fragment="com.apps.anker.facepunchdroid.SettingsActivity$StylePreferenceFragment"
-        android:icon="@drawable/ic_style_black_24dp"
         android:title="@string/pref_header_styles" />
 
     <header
         android:fragment="com.apps.anker.facepunchdroid.SettingsActivity$AboutPreferenceFragment"
-        android:icon="@drawable/ic_info_outline_black_24dp"
         android:title="About"/>
 
 
