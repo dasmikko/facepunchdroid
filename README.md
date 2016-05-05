@@ -18,15 +18,6 @@ If you don't trust me, you are more than welcome to build the app yourself.
 ## Making custom stylesheets for Facepunch Droid
 It works the usual way CSS works. 
 
-**NOTE: You have to escape quotes like so:**
-
-    .someclass {
-      content: \"something\";
-    }
-It's only needed until I fix the way I add the custom stylesheet.
-
-**UPDATE!**
-Not needed anymore, as I have updated the injection method
 
 ## Changelog
     1.5.0
