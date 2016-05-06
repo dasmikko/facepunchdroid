@@ -36,14 +36,15 @@ table.forums .forumbit_post td {
 	padding-bottom: 10px;
     padding-top: 10px;
     padding-right: 0px;
-    padding-left: 5px !important;
-    background-image: none !important;
+    padding-left: 40px !important;
+    /*background-image: none !important;*/
 }
 
 table.forums .forumbit_post td .forumdata { margin: 0px; }
 
 .forumbit_post .foruminfo .forumdata .viewing {
-
+    display: block;
+    width: 100%;
 }
 
 TD.last_post_column {
@@ -133,8 +134,7 @@ table.forums .forumhead h2 {
 /* Thread list */
 .threadlastpost,
 .threadreplies,
-.threadviews,
-.threadicon {
+.threadviews {
     display: none;
 }
 
@@ -147,6 +147,7 @@ table#threads h3.threadtitle .title {
 table#threads tr.threadbit td.threadinfo .threadpagenav {
     margin-bottom: 10px;
     font-size: 0.85rem;
+    display: inline-block;
 }
 
 table#threads .threadmeta .author a {
@@ -156,8 +157,17 @@ table#threads .threadmeta .author a {
 table#threads .inner {
     position: relative;
     padding: 10px 18px;
+    min-height: 55px;
 }
 table#threads .threadmeta .minicons { display: none; }
+
+table#threads tr.threadbit td {
+    padding: 0px;
+}
+
+TD.threadicon IMG {
+    transform: rotate(90deg);
+}
 
 table#threads tr.threadbit td.threadinfo .newposts {
     right: 0px;
@@ -167,6 +177,8 @@ table#threads tr.threadbit td.threadinfo .newposts {
     padding: 5px;
 }
 .threadinfo { font-size: 0.8rem; }
+
+
 
 table#threads tr.threadbit td.threadinfo .newposts img { display: inline-block; }
 table#threads td.threaddeleted { display: none; }
@@ -192,6 +204,7 @@ table#threads tr.threadlisthead td {
 
 #above_postlist {
     margin-bottom: 0px !important;
+    display: none;
 }
 
 #below_threadlist {

@@ -144,6 +144,16 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
+        Boolean enableDarkTheme = sharedPref.getBoolean("enable_dark_theme", false);
+        Log.d("DarkTheme", String.valueOf(enableDarkTheme));
+
+        // Set dark theme if enabled dark mode
+        if(enableDarkTheme) {
+            super.setTheme(R.style.AppThemeSettingsDark);
+        }
+
         super.onCreate(savedInstanceState);
         setupActionBar();
     }

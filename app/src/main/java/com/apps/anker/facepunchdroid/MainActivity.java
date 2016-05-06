@@ -20,6 +20,7 @@ import android.os.Build;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -54,6 +55,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.apps.anker.facepunchdroid.Tools.Assets;
 import com.apps.anker.facepunchdroid.Tools.UriHandling;
 import com.apps.anker.facepunchdroid.Webview.ObservableWebView;
 import com.koushikdutta.ion.Ion;
@@ -78,6 +80,8 @@ import java.io.ByteArrayInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.io.SequenceInputStream;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -122,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences sharedPref;
 
     boolean useCustomStyles;
+    boolean enableDarkTheme;
 
     SwipeRefreshLayout mSwipeRefreshLayout;
     Toolbar toolbar;
@@ -140,22 +145,34 @@ public class MainActivity extends AppCompatActivity {
     PrimaryDrawerItem nav_logout;
 
     Activity mActivity;
+    Context mContext;
 
     Boolean dissableAllImages = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
+        enableDarkTheme = sharedPref.getBoolean("enable_dark_theme", false);
+        Log.d("DarkTheme", String.valueOf(enableDarkTheme));
+
+        // Set dark theme if enabled dark mode
+        if(enableDarkTheme) {
+            super.setTheme(R.style.AppThemeDark);
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         mActivity = this;
+        mContext = getApplicationContext();
 
         // Create the Realm configuration
         realmConfig = new RealmConfiguration.Builder(this).build();
         // Open the Realm for the UI thread.
         realm = Realm.getInstance(realmConfig);
 
-        sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
 
         spChanged = new SharedPreferences.OnSharedPreferenceChangeListener() {
                     @Override
@@ -279,9 +296,6 @@ public class MainActivity extends AppCompatActivity {
                 } else if (url.contains("fp.js")) {
                     Log.d("Intercept", "fp.js file");
                     return getJsWebResourceResponseFromAsset();
-                /*} else if (url.contains("jquery.min.js")) {
-                    Log.d("Intercept", "jquery file");
-                    return getJqueryWebResourceResponseFromAsset();*/
                 } else {
                     return super.shouldInterceptRequest(view, url);
                 }
@@ -289,19 +303,50 @@ public class MainActivity extends AppCompatActivity {
 
             private WebResourceResponse getCssWebResourceResponseFromAsset() {
                 try {
-                    // Check if custom user style is enabled
-                    if(useCustomStyles) {
-                        if(sharedPref.contains("custom_style_file")) {
-                            String userCSS = sharedPref.getString("custom_style_file", "");
+                    WebResourceResponse fullCSS = null;
+                    String fullCSSString = "";
 
-                            return getUtf8EncodedCssAndCustomWebResourceResponse(getAssets().open("fpstyle.css"), userCSS);
-                        }
 
+                    // Inject darktheme
+                    if(enableDarkTheme) {
+                        Log.d("Darktheme", "USE DARKTHEME");
+
+                        fullCSSString += customCSS.cssToString(getAssets().open("dark_theme.css"));
                     }
-                    return getUtf8EncodedCssWebResourceResponse(getAssets().open("fpstyle.css"));
+
+                    // Inject Mobile style
+                    fullCSSString += customCSS.cssToString(getAssets().open("fpstyle.css"));
+
+                    // Check if custom user style is enabled
+                    if(useCustomStyles && sharedPref.contains("custom_style_file")) {
+                        fullCSSString += sharedPref.getString("custom_style_file", "");
+                    }
+
+                    Log.d("FullCSS", fullCSSString);
+                    fullCSS = stringToWebResource(fullCSSString);
+
+                    return fullCSS;
                 } catch (IOException e) {
                     return null;
                 }
+            }
+
+
+
+            private WebResourceResponse getUtf8EncodedCssWebResourceResponse(InputStream data) {
+                return new WebResourceResponse("text/css", "UTF-8", data);
+            }
+
+            private WebResourceResponse stringToWebResource(String CSS) {
+                return new WebResourceResponse("text/css", "UTF-8", new ByteArrayInputStream(CSS.getBytes(StandardCharsets.UTF_8)));
+            }
+
+            private WebResourceResponse getUtf8EncodedCssAndCustomWebResourceResponse(InputStream data, String CSS) {
+                return new WebResourceResponse("text/css", "UTF-8", new SequenceInputStream(data, new ByteArrayInputStream(CSS.getBytes(StandardCharsets.UTF_8))));
+            }
+
+            private WebResourceResponse getUtf8EncodedJsWebResourceResponse(InputStream data) {
+                return new WebResourceResponse("text/javascript ", "UTF-8", data);
             }
 
             private WebResourceResponse getJsWebResourceResponseFromAsset() {
@@ -313,29 +358,21 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 
-            private WebResourceResponse getJqueryWebResourceResponseFromAsset() {
-                try {
-                    return getUtf8EncodedJsWebResourceResponse(getAssets().open("jquery.js"));
-                } catch (IOException e) {
-                    return null;
-                }
-            }
-
-            private WebResourceResponse getUtf8EncodedCssWebResourceResponse(InputStream data) {
-                return new WebResourceResponse("text/css", "UTF-8", data);
-            }
-
-            private WebResourceResponse getUtf8EncodedCssAndCustomWebResourceResponse(InputStream data, String CSS) {
-                return new WebResourceResponse("text/css", "UTF-8", new SequenceInputStream(data, new ByteArrayInputStream(CSS.getBytes(StandardCharsets.UTF_8))));
-            }
-
-            private WebResourceResponse getUtf8EncodedJsWebResourceResponse(InputStream data) {
-                return new WebResourceResponse("text/javascript ", "UTF-8", data);
-            }
-
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 //view.loadUrl(url);
+
+                // Handle direct image links
+                if(url.endsWith(".jpg")  ||
+                        url.endsWith(".jpeg") ||
+                        url.endsWith(".png")  ||
+                        url.endsWith(".gif") ) {
+
+                    Intent i = new Intent(mContext, ImageViewer.class);
+                    i.putExtra("url", url);
+                    mActivity.startActivity(i);
+                    return true;
+                }
 
                 if(url.startsWith("https://facepunch.com/misc.php")) {
                     //Toast.makeText(getApplicationContext(), "Show smiley dialog", Toast.LENGTH_LONG).show();
@@ -368,12 +405,12 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 if (url.startsWith("mailto:")) {
-                        MailTo mt = MailTo.parse(url);
-                        Intent intent = new Intent(Intent.ACTION_SEND);
-                        intent.putExtra(Intent.EXTRA_EMAIL, new String[] { mt.getTo() });
-                        intent.setType("message/rfc822");
-                        startActivity(intent);
-                        return true;
+                    MailTo mt = MailTo.parse(url);
+                    Intent intent = new Intent(Intent.ACTION_SEND);
+                    intent.putExtra(Intent.EXTRA_EMAIL, new String[] { mt.getTo() });
+                    intent.setType("message/rfc822");
+                    startActivity(intent);
+                    return true;
                 }
 
 
@@ -432,6 +469,10 @@ public class MainActivity extends AppCompatActivity {
         webview.getSettings().setJavaScriptEnabled(true);
         webview.getSettings().setLoadWithOverviewMode(true);
         webview.getSettings().setUseWideViewPort(false);
+
+        if(enableDarkTheme) {
+            webview.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.nightDrawerBackground));
+        }
 
         // Set new UA
         String ua = webview.getSettings().getUserAgentString();
@@ -520,6 +561,9 @@ public class MainActivity extends AppCompatActivity {
         webview.saveState(outState);
     }
 
+    /**
+     * Setups the drawer, with all styles and user picture
+     */
     private void setupDrawer() {
         // Setup Profile
         if(sharedPref.getBoolean("isLoggedIn", false)) {
@@ -538,7 +582,6 @@ public class MainActivity extends AppCompatActivity {
                 .withHeaderBackground(R.drawable.cover)
                 .withCompactStyle(true)
                 .withSelectionListEnabledForSingleProfile(false)
-
                 .addProfiles(
                         defaultProfile
                 )
@@ -742,6 +785,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
+                    case R.id.forward:
+                        if(webview.canGoForward())
+                            webview.goForward();
+                        return true;
                     case R.id.action_refresh:
                         webview.reload();
                         return true;

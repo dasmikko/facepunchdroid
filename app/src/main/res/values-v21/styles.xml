@@ -7,6 +7,29 @@
         <item name="colorAccent">@color/colorAccent</item>
 
     </style>
+
+
+    <style name="AppThemeDark" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/nightColorPrimary</item>
+        <item name="colorPrimaryDark">@color/nightColorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="material_drawer_background">@color/nightDrawerBackground</item>
+        <item name="material_drawer_primary_text">@color/nightDrawerPrimaryText</item>
+        <item name="material_drawer_primary_icon">@color/nightDrawerPrimaryIcon</item>
+        <item name="material_drawer_secondary_text">@color/nightDrawerSecondaryText</item>
+
+    </style>
+
+    <style name="AppThemeSettingsDark" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/nightColorPrimary</item>
+        <item name="colorPrimaryDark">@color/nightColorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

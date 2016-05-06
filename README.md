@@ -18,17 +18,23 @@ If you don't trust me, you are more than welcome to build the app yourself.
 ## Making custom stylesheets for Facepunch Droid
 It works the usual way CSS works. 
 
-**NOTE: You have to escape quotes like so:**
-
-    .someclass {
-      content: \"something\";
-    }
-It's only needed until I fix the way I add the custom stylesheet.
-
-**UPDATE!**
-Not needed anymore, as I have updated the injection method
 
 ## Changelog
+    1.5.1
+    - Added Dark theme! (Huge credit to facepunch user Oicani Gonzales for his CSS)
+    - Fixed typo in settings
+    - Added direct image links handling
+    - Added forward menu button
+    - Fix bug with image downloader only working on Android 6 devices.
+    - Minor CSS fixes
+    
+    1.5.0
+    - Fixed bug with smiley selector on small phones
+    - Disabled cache for the avatar in drawer
+    - Fix bug with pagination
+    - Added thread and sub thread icons
+    - Minor CSS fixes
+
     1.4.9
     - Smiley selector now works!
 
@@ -47,13 +53,7 @@ Not needed anymore, as I have updated the injection method
     
     1.4.5
     - Added native pagination, with go to functionality
-    
-    1.4.4
-    - Fixed error where mailto links could crash the app
-    - Fixed bug where the forward button wasn't placed correctly.
-    - Fix: Custom styling should be working now.
-    - Added Ticker to the drawer
-    - Removed some unnecessary libraries, resulting in smaller app size.
+
     
     
 [Full changelog here](https://github.com/dasmikko/facepunchdroid/blob/master/changelog.md)

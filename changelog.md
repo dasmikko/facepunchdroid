@@ -1,7 +1,18 @@
 # Full changelog
+    1.5.1
+    - Added Dark theme! (Huge credit to facepunch user Oicani Gonzales for his CSS)
+    - Fixed typo in settings
+    - Added direct image links handling
+    - Added forward menu button
+    - Fix bug with image downloader only working on Android 6 devices.
+    - Minor CSS fixes
+    
     1.5.0
     - Fixed bug with smiley selector on small phones
     - Disabled cache for the avatar in drawer
+    - Fix bug with pagination
+    - Added thread and sub thread icons
+    - Minor CSS fixes
     
     1.4.9
     - Smiley selector now works!

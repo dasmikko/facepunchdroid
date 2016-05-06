@@ -93,9 +93,22 @@ jQuery(function() {
 
             Android.setupPagination(currentPage, lastpage);
             Android.showPagination();
+
+            // Detect scrolled at bottom
+            $(window).scroll(function() {
+               if($(window).scrollTop() + $(window).height() == $(document).height()) {
+                   Android.showPagination();
+               }
+            });
+       } else {
+            console.log("Hidepagination!");
+            $(window).unbind('scroll');
+            Android.disablePagination();
+            Android.hidePagination();
        }
    } else {
-        console.log("Hidepagination!")
+        console.log("Hidepagination!");
+        $(window).unbind('scroll');
         Android.disablePagination();
         Android.hidePagination();
    }
@@ -136,12 +149,7 @@ jQuery(function() {
         Android.setLoginStatus(false, "", 0);
     }
 
-    // Detect scrolled at bottom
-    $(window).scroll(function() {
-       if($(window).scrollTop() + $(window).height() == $(document).height()) {
-           Android.showPagination();
-       }
-    });
+
 
 });
 
