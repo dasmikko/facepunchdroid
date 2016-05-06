@@ -1,5 +1,5 @@
 # Full changelog
-    1.5.1 (Next version)
+    1.5.1
     - Added Dark theme! (Huge credit to facepunch user Oicani Gonzales for his CSS)
     - Fixed typo in settings
     - Added direct image links handling
