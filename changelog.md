@@ -5,6 +5,7 @@
     - Added direct image links handling
     - Added forward menu button
     - Fix bug with image downloader only working on Android 6 devices.
+    - Minor CSS fixes
     
     1.5.0
     - Fixed bug with smiley selector on small phones
