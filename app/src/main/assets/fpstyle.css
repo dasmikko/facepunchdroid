@@ -204,6 +204,7 @@ table#threads tr.threadlisthead td {
 
 #above_postlist {
     margin-bottom: 0px !important;
+    display: none;
 }
 
 #below_threadlist {
