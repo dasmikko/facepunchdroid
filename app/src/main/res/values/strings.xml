@@ -8,6 +8,12 @@
 
     <string name="action_settings">Settings</string>
     <string name="action_refresh">Refresh</string>
+    <string name="action_forward">Forward</string>
+    <string name="action_pin_to_drawer">Pin to drawer</string>
+    <string name="action_open_in_browser">Open in browser</string>
+    <string name="action_share">Share</string>
+    <string name="action_set_as_start_page">Set as start page</string>
+    <string name="action_disable_images">Disable images</string>
 
     <string name="not_logged_in">Not logged in</string>
     <string name="title_activity_settings">Settings</string>
@@ -85,4 +91,5 @@
     </string-array>
 
     <string name="banner_ad_unit_id">ca-app-pub-5812854208273602/3052753581</string>
+
 </resources>
