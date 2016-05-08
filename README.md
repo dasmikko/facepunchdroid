@@ -9,11 +9,16 @@ If you don't trust me, you are more than welcome to build the app yourself.
 - Material Design 
 - Native image viewer 
 - Download images directly from image viewer
+- Built in dark theme, by Facepunch user Oicani Gonzales (Also known as Awfully dark theme) *
 - Mobile friendly design 
 - Custom themes 
 - Open-source
 - Pin threads to drawer
 - Easy access to all the important pages everywhere like, Read Threads, Popular etc.. 
+
+
+\* If there are issues with the dark theme style wise, you have to tell Oicani Gonzales in his thread.
+https://facepunch.com/showthread.php?t=1472287
 
 ## Making custom stylesheets for Facepunch Droid
 It works the usual way CSS works. 
