@@ -662,7 +662,7 @@ public class MainActivity extends AppCompatActivity {
                                             webview.loadUrl(baseURL);
                                         }
                                     })
-                                    .setNegativeButton(R.string.answer_yes, new DialogInterface.OnClickListener() {
+                                    .setNegativeButton(R.string.answer_no, new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
                                             // User cancelled the dialog
                                         }
