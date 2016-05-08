@@ -14,7 +14,7 @@
 
     <header
         android:fragment="com.apps.anker.facepunchdroid.SettingsActivity$AboutPreferenceFragment"
-        android:title="About"/>
+        android:title="@string/pref_header_about"/>
 
 
 </preference-headers>

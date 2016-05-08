@@ -4,27 +4,27 @@
     <SwitchPreference
         android:defaultValue="false"
         android:key="enable_dark_theme"
-        android:summary="Use dark theme, which is easier on the eyes."
-        android:title="Use dark theme" />
+        android:summary="@string/enable_dark_theme_description"
+        android:title="@string/enable_dark_theme" />
 
     <SwitchPreference
         android:defaultValue="false"
         android:key="enable_custom_startpage"
-        android:summary="When opening the app, use a custom start page"
-        android:title="Use custom start page" />
+        android:summary="@string/enable_custom_startpage_description"
+        android:title="@string/enable_custom_startpage" />
 
     <!-- NOTE: EditTextPreference accepts EditText attributes. -->
     <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
 
     <Preference
-        android:title="Reset startpage"
-        android:summary="Reset the current startpage to the Facepunch homepage"
+        android:title="@string/reset_startpage"
+        android:summary="@string/reset_startpage_description"
         android:dependency="enable_custom_startpage"
         android:key="reset_startpage">
     </Preference>
 
     <Preference
-        android:title="Current start page"
+        android:title="@string/current_startpage"
         android:summary="Default"
         android:enabled="false"
         android:key="current_startpage">

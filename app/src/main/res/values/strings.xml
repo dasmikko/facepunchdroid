@@ -32,7 +32,7 @@
     </string>
 
     <string name="pref_title_startpage">Change start page</string>
-    <string name="pref_default_startpage">https://facepunch.com</string>
+    <string name="pref_default_startpage" translatable="false">https://facepunch.com</string>
 
     <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
     <string-array name="pref_example_list_titles">
@@ -90,6 +90,41 @@
         <item>10 Dollars</item>
     </string-array>
 
-    <string name="banner_ad_unit_id">ca-app-pub-5812854208273602/3052753581</string>
+    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-5812854208273602/3052753581</string>
+    <string name="pref_header_about">About</string>
+    <string name="enable_dark_theme_description">Use dark theme, which is easier on the eyes.</string>
+    <string name="enable_custom_startpage_description">When opening the app, use a custom start page</string>
+    <string name="enable_dark_theme">Use dark theme</string>
+    <string name="enable_custom_startpage">Use custom start page</string>
+    <string name="reset_startpage">Reset start page</string>
+    <string name="current_startpage">Current start page</string>
+    <string name="custom_style_file">Custom style file</string>
+    <string name="custom_style_file_description">Select your own custom css style</string>
+    <string name="reset_startpage_description">Reset the current startpage to the Facepunch homepage</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_events">Events</string>
+    <string name="nav_popular">Popular</string>
+    <string name="nav_read">Read</string>
+    <string name="nav_search">Search</string>
+    <string name="nav_messages">Messages</string>
+    <string name="nav_controlpanel">Control Panel</string>
+    <string name="nav_ticker">Ticker</string>
+    <string name="nav_logout">Logout</string>
+    <string name="nav_donate">Donate</string>
+    <string name="nav_settings">Settings</string>
+    <string name="nav_pinnedpages">Pinned pages</string>
+    <string name="nav_editpinnedpages">Edit pinned pages</string>
+
+    <string name="action_download">Download</string>
+
+    <string name="logout_description">Are you sure you want to log out?</string>
+    <string name="new_startpage_set">New startpage is now set</string>
+    <string name="go_to_page"></string>
+    <string name="paged_was_pinned">Paged was pinned</string>
+    <string name="select_smiley">Select smiley</string>
+    <string name="action_close">Close</string>
+
+    <string name="answer_yes">Yes</string>
+    <string name="answer_no">No</string>
 
 </resources>

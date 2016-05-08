@@ -4,14 +4,14 @@
 
 
         <item android:id="@+id/action_download"
-            android:title="Download"
+            android:title="@string/action_download"
             android:icon="@drawable/ic_get_app_white_24dp"
             app:showAsAction="always"/>
         <item android:id="@+id/openinbrowser"
-            android:title="Open in browser"
+            android:title="@string/action_open_in_browser"
             app:showAsAction="never"/>
         <item android:id="@+id/sharepage"
-            android:title="Share"
+            android:title="@string/action_share"
             app:showAsAction="never"/>
 
 

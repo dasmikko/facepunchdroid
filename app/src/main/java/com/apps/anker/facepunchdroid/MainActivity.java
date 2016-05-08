@@ -390,9 +390,9 @@ public class MainActivity extends AppCompatActivity {
                     sWebview.loadUrl("file:///android_asset/smileys.html");
 
 
-                    builder.setTitle("Select smiley");
+                    builder.setTitle(getString(R.string.select_smiley));
                     builder.setView(dialog_view);
-                    builder.setPositiveButton("Close", new DialogInterface.OnClickListener() {
+                    builder.setPositiveButton(getString(R.string.action_close), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int id) {
                             dialog.cancel();
@@ -571,7 +571,7 @@ public class MainActivity extends AppCompatActivity {
             String userid = sharedPref.getString("userid", "");
             defaultProfile = new ProfileDrawerItem().withName(username).withIcon("https://facepunch.com/image.php?u="+userid);;
         } else {
-            defaultProfile = new ProfileDrawerItem().withName("Not logged in");
+            defaultProfile = new ProfileDrawerItem().withName(getString(R.string.not_logged_in));
         }
 
 
@@ -651,8 +651,8 @@ public class MainActivity extends AppCompatActivity {
                             webview.loadUrl(baseURL + "usercp.php");
                         } else if (id == 9) {
                             AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(MainActivity.this, R.style.myDialog));
-                            builder.setMessage("Are you sure you want to log out?")
-                                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            builder.setMessage(getString(R.string.logout_description))
+                                    .setPositiveButton(R.string.answer_yes, new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
                                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                                                 CookieManager.getInstance().removeAllCookies(null);
@@ -662,7 +662,7 @@ public class MainActivity extends AppCompatActivity {
                                             webview.loadUrl(baseURL);
                                         }
                                     })
-                                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                    .setNegativeButton(R.string.answer_yes, new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
                                             // User cancelled the dialog
                                         }
@@ -695,25 +695,25 @@ public class MainActivity extends AppCompatActivity {
     protected void addDrawerItems() {
 
         //if you want to update the items at a later time it is recommended to keep it in a variable
-        PrimaryDrawerItem nav_home      = new PrimaryDrawerItem().withIdentifier(1).withName("Home").withIcon(GoogleMaterial.Icon.gmd_home).withSelectable(false);
-        PrimaryDrawerItem nav_events    = new PrimaryDrawerItem().withIdentifier(2).withName("Events").withIcon(GoogleMaterial.Icon.gmd_event).withSelectable(false);
-        PrimaryDrawerItem nav_popular   = new PrimaryDrawerItem().withIdentifier(3).withName("Popular").withIcon(GoogleMaterial.Icon.gmd_favorite).withSelectable(false);
-        PrimaryDrawerItem nav_read      = new PrimaryDrawerItem().withIdentifier(4).withName("Read").withIcon(GoogleMaterial.Icon.gmd_markunread_mailbox).withSelectable(false);
-        PrimaryDrawerItem nav_search    = new PrimaryDrawerItem().withIdentifier(5).withName("Search").withIcon(GoogleMaterial.Icon.gmd_search).withSelectable(false);
-        PrimaryDrawerItem nav_messages  = new PrimaryDrawerItem().withIdentifier(6).withName("Messages").withIcon(GoogleMaterial.Icon.gmd_mail_outline).withSelectable(false);
-        PrimaryDrawerItem nav_cpanel    = new PrimaryDrawerItem().withIdentifier(7).withName("Control panel").withIcon(GoogleMaterial.Icon.gmd_build).withSelectable(false);
-        PrimaryDrawerItem nav_ticker    = new PrimaryDrawerItem().withIdentifier(12).withName("Ticker").withIcon(GoogleMaterial.Icon.gmd_link).withSelectable(false);
+        PrimaryDrawerItem nav_home      = new PrimaryDrawerItem().withIdentifier(1).withName(getString(R.string.nav_home)).withIcon(GoogleMaterial.Icon.gmd_home).withSelectable(false);
+        PrimaryDrawerItem nav_events    = new PrimaryDrawerItem().withIdentifier(2).withName(getString(R.string.nav_events)).withIcon(GoogleMaterial.Icon.gmd_event).withSelectable(false);
+        PrimaryDrawerItem nav_popular   = new PrimaryDrawerItem().withIdentifier(3).withName(getString(R.string.nav_popular)).withIcon(GoogleMaterial.Icon.gmd_favorite).withSelectable(false);
+        PrimaryDrawerItem nav_read      = new PrimaryDrawerItem().withIdentifier(4).withName(getString(R.string.nav_read)).withIcon(GoogleMaterial.Icon.gmd_markunread_mailbox).withSelectable(false);
+        PrimaryDrawerItem nav_search    = new PrimaryDrawerItem().withIdentifier(5).withName(getString(R.string.nav_search)).withIcon(GoogleMaterial.Icon.gmd_search).withSelectable(false);
+        PrimaryDrawerItem nav_messages  = new PrimaryDrawerItem().withIdentifier(6).withName(getString(R.string.nav_messages)).withIcon(GoogleMaterial.Icon.gmd_mail_outline).withSelectable(false);
+        PrimaryDrawerItem nav_cpanel    = new PrimaryDrawerItem().withIdentifier(7).withName(getString(R.string.nav_controlpanel)).withIcon(GoogleMaterial.Icon.gmd_build).withSelectable(false);
+        PrimaryDrawerItem nav_ticker    = new PrimaryDrawerItem().withIdentifier(12).withName(getString(R.string.nav_ticker)).withIcon(GoogleMaterial.Icon.gmd_link).withSelectable(false);
 
-        PrimaryDrawerItem nav_settings  = new PrimaryDrawerItem().withIdentifier(8).withName("Settings").withIcon(GoogleMaterial.Icon.gmd_settings).withSelectable(false);
+        PrimaryDrawerItem nav_settings  = new PrimaryDrawerItem().withIdentifier(8).withName(getString(R.string.action_settings)).withIcon(GoogleMaterial.Icon.gmd_settings).withSelectable(false);
 
         if(sharedPref.getBoolean("isLoggedIn", false)) {
-            nav_logout    = new PrimaryDrawerItem().withIdentifier(9).withName("Logout").withIcon(GoogleMaterial.Icon.gmd_lock_open).withSelectable(false).withEnabled(true);
+            nav_logout    = new PrimaryDrawerItem().withIdentifier(9).withName(getString(R.string.nav_logout)).withIcon(GoogleMaterial.Icon.gmd_lock_open).withSelectable(false).withEnabled(true);
         } else {
-            nav_logout    = new PrimaryDrawerItem().withIdentifier(9).withName("Logout").withIcon(GoogleMaterial.Icon.gmd_lock_open).withSelectable(false).withEnabled(false);
+            nav_logout    = new PrimaryDrawerItem().withIdentifier(9).withName(getString(R.string.nav_logout)).withIcon(GoogleMaterial.Icon.gmd_lock_open).withSelectable(false).withEnabled(false);
         }
 
 
-        PrimaryDrawerItem nav_donate    = new PrimaryDrawerItem().withIdentifier(10).withName("Donate").withIcon(GoogleMaterial.Icon.gmd_card_giftcard).withSelectable(false);
+        PrimaryDrawerItem nav_donate    = new PrimaryDrawerItem().withIdentifier(10).withName(getString(R.string.nav_donate)).withIcon(GoogleMaterial.Icon.gmd_card_giftcard).withSelectable(false);
 
 
         drawer.addItems(
@@ -733,7 +733,7 @@ public class MainActivity extends AppCompatActivity {
         Log.d("Pitem list", pinnedItems.toString());
 
         if(pinnedItems.size() > 0) {
-            drawer.addItem(new SectionDrawerItem().withName("Pinned pages"));
+            drawer.addItem(new SectionDrawerItem().withName(getString(R.string.nav_pinnedpages)));
             for (PinnedItem pitem : pinnedItems)
             {
 
@@ -745,7 +745,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }));
             }
-            drawer.addItem(new SecondaryDrawerItem().withName("Edit pinned items").withIcon(GoogleMaterial.Icon.gmd_edit).withIdentifier(11).withSelectable(false));
+            drawer.addItem(new SecondaryDrawerItem().withName(getString(R.string.nav_editpinnedpages)).withIcon(GoogleMaterial.Icon.gmd_edit).withIdentifier(11).withSelectable(false));
         }
 
         drawer.addItem(new DividerDrawerItem());
@@ -803,7 +803,7 @@ public class MainActivity extends AppCompatActivity {
                         realm.commitTransaction();
 
                         SwipeRefreshLayout mlayout = (SwipeRefreshLayout) findViewById(R.id.refresh);
-                        Snackbar.make(mlayout,"Page was pinned", Snackbar.LENGTH_LONG).show();
+                        Snackbar.make(mlayout, getString(R.string.paged_was_pinned), Snackbar.LENGTH_LONG).show();
                         refreshDrawerItems();
                         return true;
                     case R.id.openinbrowser:
@@ -825,7 +825,7 @@ public class MainActivity extends AppCompatActivity {
 
                         // Show snackbar
                         SwipeRefreshLayout mlayout2 = (SwipeRefreshLayout) findViewById(R.id.refresh);
-                        Snackbar.make(mlayout2,"New startpage is now set", Snackbar.LENGTH_LONG).show();
+                        Snackbar.make(mlayout2, getString(R.string.new_startpage_set), Snackbar.LENGTH_LONG).show();
                         return true;
                     case R.id.dissableAllImages:
                         if(dissableAllImages) {
@@ -890,7 +890,7 @@ public class MainActivity extends AppCompatActivity {
                                 .build();
 
                         new AlertDialog.Builder(mActivity)
-                                .setTitle("Go to page")
+                                .setTitle(getString(R.string.go_to_page))
                                 .setView(numberPicker)
                                 .setPositiveButton(getString(android.R.string.ok), new DialogInterface.OnClickListener() {
                                     @Override
@@ -1110,7 +1110,7 @@ public class MainActivity extends AppCompatActivity {
                         editor.remove("userid");
                         editor.apply();
 
-                        defaultProfile.withName("Not logged in").withIcon(R.drawable.placeholder);
+                        defaultProfile.withName(getString(R.string.not_logged_in)).withIcon(R.drawable.placeholder);
                         headerResult.updateProfile(defaultProfile);
                     }
                 });
