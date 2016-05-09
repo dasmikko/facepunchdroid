@@ -1,6 +1,7 @@
 # Full changelog
     1.5.2
     - App now translatable (Is now in Danish too)
+    - Added Language selector
     - Fix for dark theme
     
     1.5.1
