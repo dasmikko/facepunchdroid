@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
@@ -31,6 +32,7 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -39,6 +41,7 @@ import android.support.v4.app.NavUtils;
 import android.webkit.WebView;
 import android.widget.Toast;
 
+import com.apps.anker.facepunchdroid.Tools.Language;
 import com.nbsp.materialfilepicker.MaterialFilePicker;
 import com.nbsp.materialfilepicker.ui.FilePickerActivity;
 
@@ -46,6 +49,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Pattern;
 
 /**
@@ -60,6 +64,8 @@ import java.util.regex.Pattern;
  * API Guide</a> for more information on developing a Settings UI.
  */
 public class SettingsActivity extends AppCompatPreferenceActivity {
+    static Context mContext;
+
     /**
      * A preference value change listener that updates the preference's summary
      * to reflect its new value.
@@ -68,6 +74,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         @Override
         public boolean onPreferenceChange(Preference preference, Object value) {
             String stringValue = value.toString();
+
+            Log.d("Pref change", preference.getKey());
 
             if (preference instanceof ListPreference) {
                 // For list preferences, look up the correct display value in
@@ -102,7 +110,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                         preference.setSummary(name);
                     }
                 }
-
+            } else if(preference.getKey().equals("language")) {
+                Log.d("LANG update", stringValue);
             } else {
                 // For all other preferences, set the summary to the value's
                 // simple string representation.
@@ -154,8 +163,23 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             super.setTheme(R.style.AppThemeSettingsDark);
         }
 
+        // Update language
+        String selectedLang = sharedPref.getString("language", "system");
+        Language.setLanguage(selectedLang, getResources());
+
         super.onCreate(savedInstanceState);
+
+        mContext = getApplicationContext();
+
         setupActionBar();
+    }
+
+    @Override
+    protected void onResume() {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        String selectedLang = sharedPref.getString("language", "system");
+        Language.setLanguage(selectedLang, getResources());
+        super.onResume();
     }
 
     /**
@@ -163,10 +187,15 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
      */
     private void setupActionBar() {
         ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle(R.string.title_activity_settings);
         if (actionBar != null) {
             // Show the Up button in the action bar.
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+    }
+
+    public void setActionBarTitle(String title){
+        getSupportActionBar().setTitle(title);
     }
 
     @Override
@@ -234,7 +263,18 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     public static class GeneralPreferenceFragment extends PreferenceFragment {
         @Override
         public void onCreate(Bundle savedInstanceState) {
+            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(mContext);
+
+
+
+            // Update language
+            String selectedLang = sharedPref.getString("language", "system");
+            Language.setLanguage(selectedLang, getResources());
+
             super.onCreate(savedInstanceState);
+
+            ((SettingsActivity) getActivity()).setActionBarTitle(getString(R.string.pref_header_general));
+
             addPreferencesFromResource(R.xml.pref_general);
             setHasOptionsMenu(true);
 
@@ -263,6 +303,26 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 }
             });
 
+            Preference language = findPreference("language");
+            language.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    Log.d("LANG UPDATE", newValue.toString());
+                    Log.d("LANG UPDATE", Locale.getDefault().getLanguage());
+
+                    // Update language
+                    Language.setLanguage(newValue.toString(), getResources());
+
+                    Intent refresh = new Intent(getActivity(), SettingsActivity.class);
+                    startActivity(refresh);
+                    getActivity().finish();
+
+                    return true;
+                }
+            });
+
+
+
         }
 
         @Override
@@ -289,10 +349,18 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
+            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(mContext);
+
+            // Update language
+            String selectedLang = sharedPref.getString("language", "system");
+            Language.setLanguage(selectedLang, getResources());
+
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.pref_style);
             setHasOptionsMenu(true);
             sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+
+            ((SettingsActivity) getActivity()).setActionBarTitle(getString(R.string.pref_header_styles));
 
             filePicker = findPreference("custom_style_file");
             filePicker.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
@@ -401,10 +469,18 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
+            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(mContext);
+
+            // Update language
+            String selectedLang = sharedPref.getString("language", "system");
+            Language.setLanguage(selectedLang, getResources());
+
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.pref_about);
             setHasOptionsMenu(true);
             sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+
+            ((SettingsActivity) getActivity()).setActionBarTitle(getString(R.string.pref_header_about));
 
             licenseItem = findPreference("license");
             licenseItem.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {

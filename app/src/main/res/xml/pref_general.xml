@@ -1,5 +1,14 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <ListPreference
+        android:key="language"
+        android:title="@string/language"
+        android:summary="@string/language_description"
+        android:entries="@array/languages"
+        android:entryValues="@array/languages_vals"
+        android:defaultValue="system"/>
+
+
 
     <SwitchPreference
         android:defaultValue="false"

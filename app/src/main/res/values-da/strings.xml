@@ -54,4 +54,11 @@
     <string name="paged_was_pinned">Siden blev fastgjort</string>
     <string name="select_smiley">Vælg smiley</string>
     <string name="action_close">Luk</string>
+    <string name="lang_danish">Dansk</string>
+    <string name="lang_english">Engelsk</string>
+    <string name="language">Sprog</string>
+    <string name="language_description">Skift sproget i appen.</string>
+    <string name="lang_system">Systemets sprog</string>
+    <string name="of"> af </string>
+    <string name="currentpage">Nuværende side</string>
 </resources>

@@ -63,7 +63,8 @@
             android:name=".DonationsActivity"
             android:excludeFromRecents="true"
             android:label="Donations"
-            android:theme="@style/Theme.AppCompat.Dialog.Alert">
+            android:theme="@style/Theme.AppCompat.Dialog.Alert"
+            android:configChanges="locale">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.apps.anker.facepunchdroid.MainActivity" />

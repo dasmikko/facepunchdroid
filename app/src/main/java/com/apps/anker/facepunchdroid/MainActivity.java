@@ -56,6 +56,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.apps.anker.facepunchdroid.Tools.Assets;
+import com.apps.anker.facepunchdroid.Tools.Language;
 import com.apps.anker.facepunchdroid.Tools.UriHandling;
 import com.apps.anker.facepunchdroid.Webview.ObservableWebView;
 import com.koushikdutta.ion.Ion;
@@ -127,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
 
     boolean useCustomStyles;
     boolean enableDarkTheme;
+    String selectedLang;
 
     SwipeRefreshLayout mSwipeRefreshLayout;
     Toolbar toolbar;
@@ -155,6 +157,10 @@ public class MainActivity extends AppCompatActivity {
 
         enableDarkTheme = sharedPref.getBoolean("enable_dark_theme", false);
         Log.d("DarkTheme", String.valueOf(enableDarkTheme));
+
+        // Update language
+        selectedLang = sharedPref.getString("language", "system");
+        Language.setLanguage(selectedLang, getResources());
 
         // Set dark theme if enabled dark mode
         if(enableDarkTheme) {
@@ -549,6 +555,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
+        Language.setLanguage(selectedLang, getResources());
         super.onResume();
         webview.onResume();
         refreshDrawerItems();
@@ -1042,8 +1049,8 @@ public class MainActivity extends AppCompatActivity {
                     paginationEnabled = true;
                     toolbar_bottom.setVisibility(View.VISIBLE);
                     // Update toolbar title and subsitle
-                    toolbar_bottom.setTitle("Current page");
-                    toolbar_bottom.setSubtitle(currentpage + " of " + totalpages);
+                    toolbar_bottom.setTitle(getString(R.string.currentpage));
+                    toolbar_bottom.setSubtitle(currentpage + " " + getString(R.string.of) + " " + totalpages);
 
                 }
             });

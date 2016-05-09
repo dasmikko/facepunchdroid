@@ -127,4 +127,28 @@
     <string name="answer_yes">Yes</string>
     <string name="answer_no">No</string>
 
+    <string name="language">Language</string>
+    <string name="language_description">Change the langauge of the app</string>
+    <string name="lang_system">System language</string>
+    <string name="lang_english">English</string>
+    <string name="lang_danish">Danish</string>
+
+    <string name="currentpage">Current page</string>
+
+    <string name="of"> of </string>
+
+    <string-array name="languages">
+        <item>@string/lang_system</item>
+        <item>@string/lang_english</item>
+        <item>@string/lang_danish</item>
+    </string-array>
+
+    <string-array name="languages_vals">
+        <item>system</item>
+        <item>en</item>
+        <item>da</item>
+    </string-array>
+
+
+
 </resources>
