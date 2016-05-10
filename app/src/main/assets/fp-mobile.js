@@ -62,8 +62,19 @@ jQuery(function() {
 
 
 
-   if (window.location.href.indexOf("showthread.php") > -1 || window.location.href.indexOf("forumdisplay.php") > -1 ) {
+   if (window.location.href.indexOf("showthread.php") > -1 || window.location.href.indexOf("forumdisplay.php") > -1 || window.location.href.indexOf("search.php") > -1 ) {
+       var pagination = null;
+
        if ( $(".pagination").length ) {
+            pagination = $(".pagination");
+       }
+
+       if ( $("#pagination_top").length ) {
+             pagination = $("#pagination_top");
+       }
+
+
+       if ( $(".pagination").length || $("#pagination_top").length ) {
 
             console.log("Show pagination!")
 
@@ -71,8 +82,8 @@ jQuery(function() {
             var currentPage = 1;
             // Get current page
             if(getUrlParameter('page') == null) {
-                console.log($(".pagination").first().find('.selected a').text());
-                currentPage = $(".pagination").first().find('.selected a').text();
+                console.log(pagination.first().find('.selected a').text());
+                currentPage = pagination.first().find('.selected a').text();
             }
             else
             {
@@ -81,10 +92,10 @@ jQuery(function() {
             }
 
             // Get link url
-            var lastpage = $(".pagination").find('span').last().find('a').attr("href");
+            var lastpage = pagination.find('span').last().find('a').attr("href");
             console.log(lastpage);
             if(lastpage.indexOf("javascript://") > -1) {
-               lastpage = $(".pagination").find('span').last().find('a').text();
+               lastpage = pagination.find('span').last().find('a').text();
                console.log("Is on last page");
             } else {
                lastpage = getQueryVariable("page", lastpage);
