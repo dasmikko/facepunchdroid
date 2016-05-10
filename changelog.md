@@ -1,8 +1,9 @@
 # Full changelog
-    1.5.2
+    1.5.2 (To be released)
     - App now translatable (Is now in Danish too)
     - Added Language selector
-    - Fix for dark theme
+    - Fixed a styling bug for dark theme
+    - Fixed a bug with pagination on search page
     
     1.5.1
     - Added Dark theme! (Huge credit to facepunch user Oicani Gonzales for his CSS)
