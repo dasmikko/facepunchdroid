@@ -15,6 +15,10 @@ If you don't trust me, you are more than welcome to build the app yourself.
 - Open-source
 - Pin threads to drawer
 - Easy access to all the important pages everywhere like, Read Threads, Popular etc.. 
+- No ads! 
+- Multilingual! 
+- Userscript support!
+- New features added frequently.
 
 
 \* If there are issues with the dark theme style wise, you have to tell Oicani Gonzales in his thread.
@@ -25,6 +29,10 @@ It works the usual way CSS works.
 
 
 ## Changelog
+    1.5.3
+    - Added userscript support
+    - Minor fixes and translations
+
     1.5.2
     - App now translatable (Is now in Danish too)
     - Added Language selector
