@@ -1,4 +1,7 @@
 # Full changelog
+    1.5.3 (Next update)
+    - Added userscript support
+    
     1.5.2
     - App now translatable (Is now in Danish too)
     - Added Language selector
