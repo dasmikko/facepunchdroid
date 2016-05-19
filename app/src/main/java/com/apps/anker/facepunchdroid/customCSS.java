@@ -40,6 +40,7 @@ public class customCSS {
             while ((mLine = reader.readLine()) != null) {
                 //process line
                 tmp.append(mLine);
+                tmp.append("\n");
             }
         } catch (IOException e) {
             //log the exception
@@ -70,6 +71,7 @@ public class customCSS {
             while ((mLine = reader.readLine()) != null) {
                 //process line
                 tmp.append(mLine);
+                tmp.append("\n");
             }
         } catch (IOException e) {
             //log the exception
@@ -91,6 +93,7 @@ public class customCSS {
 
         InputStream inputStream = mActivitym.getContentResolver().openInputStream(path);
 
+
         //Read text from file
         StringBuilder text = new StringBuilder();
 
@@ -100,6 +103,7 @@ public class customCSS {
 
             while ((line = br.readLine()) != null) {
                 text.append(line);
+                text.append("\n");
             }
             br.close();
         }
