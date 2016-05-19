@@ -5,52 +5,56 @@ import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Instrumentation;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.database.Cursor;
-import android.media.Ringtone;
-import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
+import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
-import android.provider.MediaStore;
+import android.preference.PreferenceCategory;
+import android.preference.PreferenceScreen;
 import android.provider.OpenableColumns;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.content.ContextCompat;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
-import android.preference.RingtonePreference;
-import android.text.TextUtils;
-import android.util.DisplayMetrics;
+import android.text.InputType;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.support.v4.app.NavUtils;
+import android.view.View;
 import android.webkit.WebView;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.apps.anker.facepunchdroid.Migrations.MainMigration;
+import com.apps.anker.facepunchdroid.RealmObjects.UserScript;
 import com.apps.anker.facepunchdroid.Tools.Language;
-import com.nbsp.materialfilepicker.MaterialFilePicker;
-import com.nbsp.materialfilepicker.ui.FilePickerActivity;
+import com.mikepenz.google_material_typeface_library.GoogleMaterial;
+import com.mikepenz.materialdrawer.Drawer;
+import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
+import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
+import com.mikepenz.materialdrawer.model.SectionDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Locale;
-import java.util.regex.Pattern;
+
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
+import io.realm.RealmResults;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On
@@ -65,6 +69,7 @@ import java.util.regex.Pattern;
  */
 public class SettingsActivity extends AppCompatPreferenceActivity {
     static Context mContext;
+    static Activity mActivity;
 
     /**
      * A preference value change listener that updates the preference's summary
@@ -88,28 +93,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                         index >= 0
                                 ? listPreference.getEntries()[index]
                                 : null);
-
-            } else if (preference instanceof RingtonePreference) {
-                // For ringtone preferences, look up the correct display value
-                // using RingtoneManager.
-                if (TextUtils.isEmpty(stringValue)) {
-                    // Empty values correspond to 'silent' (no ringtone).
-                    preference.setSummary(R.string.pref_ringtone_silent);
-
-                } else {
-                    Ringtone ringtone = RingtoneManager.getRingtone(
-                            preference.getContext(), Uri.parse(stringValue));
-
-                    if (ringtone == null) {
-                        // Clear the summary if there was a lookup error.
-                        preference.setSummary(null);
-                    } else {
-                        // Set the summary to reflect the new ringtone display
-                        // name.
-                        String name = ringtone.getTitle(preference.getContext());
-                        preference.setSummary(name);
-                    }
-                }
             } else if(preference.getKey().equals("language")) {
                 Log.d("LANG update", stringValue);
             } else {
@@ -170,6 +153,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         super.onCreate(savedInstanceState);
 
         mContext = getApplicationContext();
+        mActivity = MainActivity.mActivity;
 
         setupActionBar();
     }
@@ -249,9 +233,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     protected boolean isValidFragment(String fragmentName) {
         return PreferenceFragment.class.getName().equals(fragmentName)
                 || GeneralPreferenceFragment.class.getName().equals(fragmentName)
-                || DataSyncPreferenceFragment.class.getName().equals(fragmentName)
-                || NotificationPreferenceFragment.class.getName().equals(fragmentName)
                 || StylePreferenceFragment.class.getName().equals(fragmentName)
+                || UserscriptPreferenceFragment.class.getName().equals(fragmentName)
                 || AboutPreferenceFragment.class.getName().equals(fragmentName);
     }
 
@@ -462,6 +445,305 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         }
     }
 
+    /**
+     * This fragment shows general preferences only. It is used when the
+     * activity is showing a two-pane settings UI.
+     */
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public static class UserscriptPreferenceFragment extends PreferenceFragment {
+        private SharedPreferences sharedPref;
+        private PreferenceCategory userscriptList;
+        private Preference filePicker;
+
+        Realm realm;
+        RealmConfiguration realmConfig;
+        RealmResults<UserScript> userScripts;
+
+        PreferenceScreen screen;
+
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(mContext);
+
+            // Open the Realm for the UI thread.
+            realm = Realm.getInstance(MainActivity.realmConfig);
+
+            // Update language
+            String selectedLang = sharedPref.getString("language", "system");
+            Language.setLanguage(selectedLang, getResources());
+
+            super.onCreate(savedInstanceState);
+            addPreferencesFromResource(R.xml.pref_userscripts);
+            setHasOptionsMenu(true);
+            sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+
+            ((SettingsActivity) getActivity()).setActionBarTitle(getString(R.string.pref_header_userscripts));
+
+            screen = this.getPreferenceScreen();
+
+            userscriptList = (PreferenceCategory) findPreference("userscript_list");
+
+            userScripts = realm.where(UserScript.class).findAll();
+
+            if(userScripts.size() > 0) {
+                for (final UserScript uScript : userScripts)
+                {
+                    Preference dummy = new Preference(screen.getContext());
+                    dummy.setTitle(uScript.getTitle());
+                    dummy.setKey(uScript.getUrl());
+
+                    dummy.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                        @Override
+                        public boolean onPreferenceClick(final Preference preference) {
+
+
+                            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                            builder.setTitle(R.string.userscript_dialog_title)
+                                    .setItems(R.array.userscript_options, new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            switch (which) {
+                                                case 0:
+                                                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                                    builder.setTitle(R.string.dialog_enternewtitle_title);
+
+
+                                                    // Set up the input
+                                                    final EditText input = new EditText(getActivity());
+
+                                                    // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+                                                    input.setInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES | InputType.TYPE_TEXT_FLAG_AUTO_CORRECT);
+
+                                                    builder.setView(input);
+
+                                                    // Set up the buttons
+                                                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialog, int which) {
+                                                            realm.beginTransaction();
+                                                            uScript.setTitle(input.getText().toString()); // Delete and remove object directly
+                                                            preference.setTitle(input.getText().toString());
+                                                            realm.commitTransaction();
+
+                                                            Snackbar.make(getView() ,"Item was renamed", Snackbar.LENGTH_LONG).show();
+                                                        }
+                                                    });
+                                                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialog, int which) {
+                                                            dialog.cancel();
+                                                        }
+                                                    });
+
+                                                    builder.show();
+
+
+
+                                                    break;
+                                                case 1:
+                                                    realm.beginTransaction();
+                                                    uScript.removeFromRealm(); // Delete and remove object directly
+                                                    realm.commitTransaction();
+
+                                                    userscriptList.removePreference(preference);
+                                                    Snackbar.make(getView() ,"Item was deleted", Snackbar.LENGTH_LONG).show();
+                                                    break;
+                                            }
+                                        }
+                                    });
+                            builder.create().show();
+                            return false;
+                        }
+                    });
+
+                    userscriptList.addPreference(dummy);
+                }
+
+            }
+
+
+
+
+
+
+            filePicker = findPreference("add_userscript");
+            filePicker.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @TargetApi(Build.VERSION_CODES.M)
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 2);
+                    }
+                    else
+                    {
+                        if (Build.VERSION.SDK_INT < 19){
+                            Intent intent = new Intent();
+                            intent.setAction(Intent.ACTION_GET_CONTENT);
+                            intent.setType("*/*");
+                            startActivityForResult(intent, 1);
+                        } else {
+                            Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                            intent.addCategory(Intent.CATEGORY_OPENABLE);
+                            intent.setType("*/*");
+                            startActivityForResult(intent, 1);
+                        }
+                    }
+                    return true;
+                }
+            });
+
+
+            // Bind the summaries of EditText/List/Dialog/Ringtone preferences
+            // to their values. When their values change, their summaries are
+            // updated to reflect the new value, per the Android Design
+            // guidelines.
+        }
+
+        @Override
+        public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+            if (requestCode == 1) {
+                if(resultCode == Activity.RESULT_OK){
+                    // Get the Uri of the selected file
+                    Uri URL = Uri.parse(data.getData().getPath());
+                    Log.d("File", data.getData().toString());
+
+                    String CSS = null;
+                    try {
+                        CSS = customCSS.readFromSDcard(getActivity(), data.getData());
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+
+                    realm.beginTransaction();
+
+                    // Get filename
+                    Cursor returnCursor =
+                            getActivity().getContentResolver().query(data.getData(), null, null, null, null);
+                    int nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+                    returnCursor.moveToFirst();
+
+                    // Add a new userscript
+                    final UserScript newUserScript = realm.createObject(UserScript.class);
+
+                    newUserScript.setTitle(returnCursor.getString(nameIndex));
+                    newUserScript.setUrl(URL.toString());
+                    newUserScript.setJavascript(CSS);
+
+                    realm.commitTransaction();
+
+                    Preference dummy = new Preference(screen.getContext());
+                    dummy.setTitle(returnCursor.getString(nameIndex));
+                    dummy.setKey(URL.toString());
+
+                    dummy.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                        @Override
+                        public boolean onPreferenceClick(final Preference preference) {
+
+
+                            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                            builder.setTitle(R.string.userscript_dialog_title)
+                                    .setItems(R.array.userscript_options, new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            switch (which) {
+                                                case 0:
+                                                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                                    builder.setTitle(R.string.dialog_enternewtitle_title);
+
+
+                                                    // Set up the input
+                                                    final EditText input = new EditText(getActivity());
+
+                                                    // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+                                                    input.setInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES | InputType.TYPE_TEXT_FLAG_AUTO_CORRECT);
+
+                                                    builder.setView(input);
+
+                                                    // Set up the buttons
+                                                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialog, int which) {
+                                                            realm.beginTransaction();
+                                                            newUserScript.setTitle(input.getText().toString()); // Delete and remove object directly
+                                                            preference.setTitle(input.getText().toString());
+                                                            realm.commitTransaction();
+
+                                                            Snackbar.make(getView() ,"Item was renamed", Snackbar.LENGTH_LONG).show();
+                                                        }
+                                                    });
+                                                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialog, int which) {
+                                                            dialog.cancel();
+                                                        }
+                                                    });
+
+                                                    builder.show();
+
+
+
+                                                    break;
+                                                case 1:
+                                                    realm.beginTransaction();
+                                                    newUserScript.removeFromRealm(); // Delete and remove object directly
+                                                    realm.commitTransaction();
+
+                                                    userscriptList.removePreference(preference);
+                                                    Snackbar.make(getView() ,"Item was deleted", Snackbar.LENGTH_LONG).show();
+                                                    break;
+                                            }
+                                        }
+                                    });
+                            builder.create().show();
+                            return false;
+                        }
+                    });
+
+                    userscriptList.addPreference(dummy);
+
+                    Snackbar.make(getView(), "Userscript was added", Snackbar.LENGTH_LONG).show();
+
+                }
+                if (resultCode == Activity.RESULT_CANCELED) {
+                    //Write your code if there's no result
+                }
+            }
+        }
+
+        @Override
+        public void onRequestPermissionsResult(int requestCode,
+                                               String permissions[], int[] grantResults) {
+            switch (requestCode) {
+                case 2: {
+                    if (Build.VERSION.SDK_INT < 19){
+                        Intent intent = new Intent();
+                        intent.setAction(Intent.ACTION_GET_CONTENT);
+                        intent.setType("*/*");
+                        startActivityForResult(intent, 1);
+                    } else {
+                        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                        intent.addCategory(Intent.CATEGORY_OPENABLE);
+                        intent.setType("*/*");
+                        startActivityForResult(intent, 1);
+                    }
+                    return;
+                }
+            }
+        }
+
+
+
+        @Override
+        public boolean onOptionsItemSelected(MenuItem item) {
+            int id = item.getItemId();
+            if (id == android.R.id.home) {
+                startActivity(new Intent(getActivity(), SettingsActivity.class));
+                return true;
+            }
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static class AboutPreferenceFragment extends PreferenceFragment {
         private SharedPreferences sharedPref;
@@ -513,66 +795,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     }
 
 
-
-    /**
-     * This fragment shows notification preferences only. It is used when the
-     * activity is showing a two-pane settings UI.
-     */
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    public static class NotificationPreferenceFragment extends PreferenceFragment {
-        @Override
-        public void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            addPreferencesFromResource(R.xml.pref_notification);
-            setHasOptionsMenu(true);
-
-            // Bind the summaries of EditText/List/Dialog/Ringtone preferences
-            // to their values. When their values change, their summaries are
-            // updated to reflect the new value, per the Android Design
-            // guidelines.
-            bindPreferenceSummaryToValue(findPreference("notifications_new_message_ringtone"));
-        }
-
-        @Override
-        public boolean onOptionsItemSelected(MenuItem item) {
-            int id = item.getItemId();
-            if (id == android.R.id.home) {
-                startActivity(new Intent(getActivity(), SettingsActivity.class));
-                return true;
-            }
-            return super.onOptionsItemSelected(item);
-        }
-    }
-
-    /**
-     * This fragment shows data and sync preferences only. It is used when the
-     * activity is showing a two-pane settings UI.
-     */
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    public static class DataSyncPreferenceFragment extends PreferenceFragment {
-        @Override
-        public void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            addPreferencesFromResource(R.xml.pref_data_sync);
-            setHasOptionsMenu(true);
-
-            // Bind the summaries of EditText/List/Dialog/Ringtone preferences
-            // to their values. When their values change, their summaries are
-            // updated to reflect the new value, per the Android Design
-            // guidelines.
-            bindPreferenceSummaryToValue(findPreference("sync_frequency"));
-        }
-
-        @Override
-        public boolean onOptionsItemSelected(MenuItem item) {
-            int id = item.getItemId();
-            if (id == android.R.id.home) {
-                startActivity(new Intent(getActivity(), SettingsActivity.class));
-                return true;
-            }
-            return super.onOptionsItemSelected(item);
-        }
-    }
 
 
 }

@@ -24,9 +24,10 @@ public class Language {
             myLocale = new Locale(lang.toString());
         }
 
-        DisplayMetrics dm = res.getDisplayMetrics();
-        Configuration conf = res.getConfiguration();
-        conf.locale = myLocale;
-        res.updateConfiguration(conf, dm);
+        Locale.setDefault(myLocale);
+        Configuration config = new Configuration();
+        config.locale = myLocale;
+        res.updateConfiguration(config, res.getDisplayMetrics());
+
     }
 }

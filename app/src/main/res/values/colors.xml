@@ -16,4 +16,9 @@
     <color name="nightDrawerPrimaryText">#FFFFFF</color>
     <color name="nightDrawerSecondaryText">#B3FFFFFF</color>
     <color name="nightDrawerPrimaryIcon">#80FFFFFF</color>
+
+    <!-- primary text color -->
+    <color name="my_text_dark">#ffffff</color>
+    <!-- same as primary text color but a little bit transparent -->
+    <color name="my_sec_text_dark">#B1ffffff</color>
 </resources>

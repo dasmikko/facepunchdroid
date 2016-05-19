@@ -13,6 +13,10 @@
         android:title="@string/pref_header_styles" />
 
     <header
+        android:fragment="com.apps.anker.facepunchdroid.SettingsActivity$UserscriptPreferenceFragment"
+        android:title="@string/pref_header_userscripts" />
+
+    <header
         android:fragment="com.apps.anker.facepunchdroid.SettingsActivity$AboutPreferenceFragment"
         android:title="@string/pref_header_about"/>
 

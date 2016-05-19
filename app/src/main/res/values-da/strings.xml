@@ -25,7 +25,7 @@
     <string name="nav_read">Læst</string>
     <string name="navigation_drawer_close">Luk skuffe</string>
     <string name="navigation_drawer_open">Åbn skuffe</string>
-    <string name="pref_default_startpage"></string>
+    <string name="pref_default_startpage">https://facepunch.com</string>
     <string name="not_logged_in">Ikke logget ind</string>
     <string name="pref_description_enable_styles">Brug egen tema fil</string>
     <string name="pref_header_about">Om</string>
@@ -61,4 +61,17 @@
     <string name="lang_system">Systemets sprog</string>
     <string name="of"> af </string>
     <string name="currentpage">Nuværende side</string>
+
+    <string-array name="donation_google_catalog_values">
+        <item>1 Dollar</item>
+        <item>2 Dollars</item>
+        <item>5 Dollars</item>
+        <item>10 Dollars</item>
+    </string-array>
+    <string-array name="languages_vals">
+        <item>system</item>
+        <item>en</item>
+        <item>da</item>
+    </string-array>
+
 </resources>

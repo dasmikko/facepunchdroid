@@ -17,6 +17,7 @@ import android.graphics.drawable.Drawable;
 import android.net.MailTo;
 import android.net.Uri;
 import android.os.Build;
+import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.design.widget.Snackbar;
@@ -55,6 +56,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.apps.anker.facepunchdroid.Migrations.MainMigration;
+import com.apps.anker.facepunchdroid.RealmObjects.UserScript;
 import com.apps.anker.facepunchdroid.Tools.Assets;
 import com.apps.anker.facepunchdroid.Tools.Language;
 import com.apps.anker.facepunchdroid.Tools.UriHandling;
@@ -128,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
 
     boolean useCustomStyles;
     boolean enableDarkTheme;
+    boolean enableUserscripts;
     String selectedLang;
 
     SwipeRefreshLayout mSwipeRefreshLayout;
@@ -135,8 +139,13 @@ public class MainActivity extends AppCompatActivity {
     private String mActivityTitle;
 
     // Pinned items
-    RealmConfiguration realmConfig;
+    static RealmConfiguration realmConfig;
     Realm realm;
+
+    // Userscripts
+    RealmResults<UserScript> userScripts;
+
+
 
     // Drawer
     Drawer drawer;
@@ -146,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
     // Drawer items
     PrimaryDrawerItem nav_logout;
 
-    Activity mActivity;
+    static Activity mActivity;
     Context mContext;
 
     Boolean dissableAllImages = false;
@@ -157,6 +166,11 @@ public class MainActivity extends AppCompatActivity {
 
         enableDarkTheme = sharedPref.getBoolean("enable_dark_theme", false);
         Log.d("DarkTheme", String.valueOf(enableDarkTheme));
+
+        enableUserscripts = sharedPref.getBoolean("enable_userscripts", false);
+        Log.d("Userscript", String.valueOf(enableUserscripts));
+
+
 
         // Update language
         selectedLang = sharedPref.getString("language", "system");
@@ -174,9 +188,15 @@ public class MainActivity extends AppCompatActivity {
         mContext = getApplicationContext();
 
         // Create the Realm configuration
-        realmConfig = new RealmConfiguration.Builder(this).build();
+        realmConfig = new RealmConfiguration.Builder(this)
+                .schemaVersion(Constants.schemaVersion) // Must be bumped when the schema changes
+                .migration(MainMigration.getMigration()) // Migration to run instead of throwing an exception
+                .build();
+
         // Open the Realm for the UI thread.
         realm = Realm.getInstance(realmConfig);
+
+
 
 
 
@@ -347,21 +367,73 @@ public class MainActivity extends AppCompatActivity {
                 return new WebResourceResponse("text/css", "UTF-8", new ByteArrayInputStream(CSS.getBytes(StandardCharsets.UTF_8)));
             }
 
+            private WebResourceResponse stringToWebResourceJS(String JS) {
+                return new WebResourceResponse("text/javascript", "UTF-8", new ByteArrayInputStream(JS.getBytes(StandardCharsets.UTF_8)));
+            }
+
             private WebResourceResponse getUtf8EncodedCssAndCustomWebResourceResponse(InputStream data, String CSS) {
                 return new WebResourceResponse("text/css", "UTF-8", new SequenceInputStream(data, new ByteArrayInputStream(CSS.getBytes(StandardCharsets.UTF_8))));
             }
 
             private WebResourceResponse getUtf8EncodedJsWebResourceResponse(InputStream data) {
-                return new WebResourceResponse("text/javascript ", "UTF-8", data);
+                return new WebResourceResponse("text/javascript", "UTF-8", data);
             }
 
             private WebResourceResponse getJsWebResourceResponseFromAsset() {
-                try {
+                /*try {
                     Log.d("Intercept", getUtf8EncodedJsWebResourceResponse(getAssets().open("fp-mobile.js")).toString());
                     return getUtf8EncodedJsWebResourceResponse(getAssets().open("fp-mobile.js"));
                 } catch (IOException e) {
                     return null;
+                }*/
+
+                WebResourceResponse fullJS = null;
+                String fullJSString = "";
+
+                try {
+                    // Inject Mobile Javascript
+                    fullJSString += customCSS.cssToString(getAssets().open("fp-mobile.js"));
+
+                    // Inject UserScripts
+                    if(enableUserscripts) {
+                        Log.d("Userscript", "USE USERSCRIPTS");
+
+
+                        // Create the Realm configuration
+                        RealmConfiguration realmConfigNew = new RealmConfiguration.Builder(mActivity)
+                                .schemaVersion(Constants.schemaVersion) // Must be bumped when the schema changes
+                                .migration(MainMigration.getMigration()) // Migration to run instead of throwing an exception
+                                .build();
+
+                        // Open the Realm for the UI thread.
+                        Realm realmNew = Realm.getInstance(realmConfigNew);
+
+                        // Get all userscripts
+                        userScripts = realmNew.where(UserScript.class).findAll();
+
+
+                        if(userScripts.size() > 0) {
+                            for (UserScript uScript : userScripts)
+                            {
+                                Log.d("USCRIPT", uScript.getJavascript());
+                                fullJSString += uScript.getJavascript();
+                            }
+
+                        }
+                    }
+
+
+
+
+                    Log.d("FullJS", fullJSString);
+                    fullJS = stringToWebResourceJS(fullJSString);
+
+                    return fullJS;
+                } catch (IOException e) {
+                    return null;
                 }
+
+
             }
 
             @Override

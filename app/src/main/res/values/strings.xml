@@ -26,64 +26,16 @@
     <!-- Example General settings -->
     <string name="pref_header_general">General</string>
 
-    <string name="pref_title_social_recommendations">Enable social recommendations</string>
-    <string name="pref_description_social_recommendations">Recommendations for people to contact
-        based on your message history
-    </string>
 
     <string name="pref_title_startpage">Change start page</string>
-    <string name="pref_default_startpage" translatable="false">https://facepunch.com</string>
+    <string name="pref_default_startpage">https://facepunch.com</string>
 
-    <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
-    <string-array name="pref_example_list_titles">
-        <item>Always</item>
-        <item>When possible</item>
-        <item>Never</item>
-    </string-array>
-    <string-array name="pref_example_list_values">
-        <item>1</item>
-        <item>0</item>
-        <item>-1</item>
-    </string-array>
-
-    <!-- Example settings for Data & Sync -->
-    <string name="pref_header_data_sync">Data &amp; sync</string>
-
-    <string name="pref_title_sync_frequency">Sync frequency</string>
-    <string-array name="pref_sync_frequency_titles">
-        <item>15 minutes</item>
-        <item>30 minutes</item>
-        <item>1 hour</item>
-        <item>3 hours</item>
-        <item>6 hours</item>
-        <item>Never</item>
-    </string-array>
-    <string-array name="pref_sync_frequency_values">
-        <item>15</item>
-        <item>30</item>
-        <item>60</item>
-        <item>180</item>
-        <item>360</item>
-        <item>-1</item>
-    </string-array>
-
-    <string name="pref_title_system_sync_settings">System sync settings</string>
-
-    <!-- Example settings for Notifications -->
-    <string name="pref_header_notifications">Notifications</string>
-
-    <string name="pref_title_new_message_notifications">New message notifications</string>
-
-    <string name="pref_title_ringtone">Ringtone</string>
-    <string name="pref_ringtone_silent">Silent</string>
-
-    <string name="pref_title_vibrate">Vibrate</string>
 
     <string name="pref_header_styles">Custom themes</string>
     <string name="pref_title_enable_styles">Enable custom style</string>
     <string name="pref_description_enable_styles">Use your own custom styles</string>
 
-    <string-array name="donation_google_catalog_values">
+    <string-array name="donation_google_catalog_values" translateable="false">
         <item>1 Dollar</item>
         <item>2 Dollars</item>
         <item>5 Dollars</item>
@@ -136,6 +88,12 @@
     <string name="currentpage">Current page</string>
 
     <string name="of"> of </string>
+    <string name="pref_header_userscripts">Userscripts</string>
+    <string name="pref_description_enable_userscripts">Use userscripts, that can enhance the user experience</string>
+    <string name="pref_title_enable_userscripts">Enable userscripts</string>
+    <string name="add_userscript">Add Userscript</string>
+    <string name="userscript_dialog_title">Select</string>
+    <string name="dialog_enternewtitle_title">Enter new title</string>
 
     <string-array name="languages">
         <item>@string/lang_system</item>
@@ -147,6 +105,11 @@
         <item>system</item>
         <item>en</item>
         <item>da</item>
+    </string-array>
+
+    <string-array name="userscript_options">
+        <item>Rename</item>
+        <item>Delete</item>
     </string-array>
 
 

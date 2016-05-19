@@ -76,11 +76,11 @@ jQuery(function() {
 
        if ( $(".pagination").length || $("#pagination_top").length ) {
 
-            console.log("Show pagination!")
+            console.log("Show pagination!");
 
             console.log("found it");
             var currentPage = 1;
-            // Get current page
+            /* Get current page*/
             if(getUrlParameter('page') == null) {
                 console.log(pagination.first().find('.selected a').text());
                 currentPage = pagination.first().find('.selected a').text();
@@ -91,7 +91,7 @@ jQuery(function() {
                currentPage = getUrlParameter('page');
             }
 
-            // Get link url
+            /* Get link url */
             var lastpage = pagination.find('span').last().find('a').attr("href");
             console.log(lastpage);
             if(lastpage.indexOf("javascript://") > -1) {
@@ -105,7 +105,7 @@ jQuery(function() {
             Android.setupPagination(currentPage, lastpage);
             Android.showPagination();
 
-            // Detect scrolled at bottom
+            /* Detect scrolled at bottom */
             $(window).scroll(function() {
                if($(window).scrollTop() + $(window).height() == $(document).height()) {
                    Android.showPagination();

@@ -1,0 +1,18 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="enable_userscripts"
+        android:summary="@string/pref_description_enable_userscripts"
+        android:title="@string/pref_title_enable_userscripts" />
+
+    <Preference
+        android:title="@string/add_userscript"
+        android:key="add_userscript"/>
+
+    <PreferenceCategory
+        android:title="Userscripts"
+        android:key="userscript_list">
+    </PreferenceCategory>
+
+</PreferenceScreen>
