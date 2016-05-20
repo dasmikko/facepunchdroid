@@ -29,6 +29,9 @@ It works the usual way CSS works.
 
 
 ## Changelog
+    1.5.4
+    - Quick fix for userscripts not working
+    
     1.5.3
     - Added userscript support
     - Minor fixes and translations
