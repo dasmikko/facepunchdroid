@@ -79,6 +79,9 @@
     <string name="answer_yes">Yes</string>
     <string name="answer_no">No</string>
 
+    <string name="answer_ok">Ok</string>
+    <string name="answer_cancel">Cancel</string>
+
     <string name="language">Language</string>
     <string name="language_description">Change the langauge of the app</string>
     <string name="lang_system">System language</string>
@@ -94,6 +97,8 @@
     <string name="add_userscript">Add Userscript</string>
     <string name="userscript_dialog_title">Select</string>
     <string name="dialog_enternewtitle_title">Enter new title</string>
+    <string name="userscript_was_deleted">Userscript was deleted</string>
+    <string name="userscript_was_added">Userscript was added</string>
 
     <string-array name="languages">
         <item>@string/lang_system</item>
@@ -107,9 +112,12 @@
         <item>da</item>
     </string-array>
 
+    <string name="userscript_rename">Rename</string>
+    <string name="userscript_delete">Delete</string>
+
     <string-array name="userscript_options">
-        <item>Rename</item>
-        <item>Delete</item>
+        <item>@string/userscript_rename</item>
+        <item>@string/userscript_delete</item>
     </string-array>
 
 

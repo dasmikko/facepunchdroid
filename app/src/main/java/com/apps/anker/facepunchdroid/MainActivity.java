@@ -144,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Userscripts
     RealmResults<UserScript> userScripts;
-
+    String fullJSUserScriptsString = "";
 
 
     // Drawer
@@ -193,10 +193,32 @@ public class MainActivity extends AppCompatActivity {
                 .migration(MainMigration.getMigration()) // Migration to run instead of throwing an exception
                 .build();
 
+        Realm.setDefaultConfiguration(realmConfig);
+
         // Open the Realm for the UI thread.
-        realm = Realm.getInstance(realmConfig);
+        realm = Realm.getDefaultInstance();
 
 
+
+
+        // Inject UserScripts
+        if(enableUserscripts) {
+            // Get all userscripts
+            userScripts = realm.where(UserScript.class).findAll();
+
+            Log.d("Userscript", "USE USERSCRIPTS");
+
+            if(userScripts.size() > 0) {
+                fullJSUserScriptsString += "jQuery(function() { \n";
+                for (UserScript uScript : userScripts)
+                {
+                    Log.d("USCRIPT", uScript.getJavascript());
+                    fullJSUserScriptsString += uScript.getJavascript();
+                }
+                fullJSUserScriptsString += "}); \n";
+
+            }
+        }
 
 
 
@@ -263,12 +285,10 @@ public class MainActivity extends AppCompatActivity {
                 {
                     Log.d("Scroll pos", "Changed");
                     if (oldScrollPos < t) {
-                        Log.d("Scroll pos", "Scrolling down");
                         if(paginationEnabled && !paginationHidden) { hideViews(); }
 
                     }
                     else if (oldScrollPos > t) {
-                        Log.d("Scroll pos", "Scrolling up");
                         if(paginationEnabled && paginationHidden) { showViews(); }
                     }
                 }
@@ -398,28 +418,7 @@ public class MainActivity extends AppCompatActivity {
                     if(enableUserscripts) {
                         Log.d("Userscript", "USE USERSCRIPTS");
 
-
-                        // Create the Realm configuration
-                        RealmConfiguration realmConfigNew = new RealmConfiguration.Builder(mActivity)
-                                .schemaVersion(Constants.schemaVersion) // Must be bumped when the schema changes
-                                .migration(MainMigration.getMigration()) // Migration to run instead of throwing an exception
-                                .build();
-
-                        // Open the Realm for the UI thread.
-                        Realm realmNew = Realm.getInstance(realmConfigNew);
-
-                        // Get all userscripts
-                        userScripts = realmNew.where(UserScript.class).findAll();
-
-
-                        if(userScripts.size() > 0) {
-                            for (UserScript uScript : userScripts)
-                            {
-                                Log.d("USCRIPT", uScript.getJavascript());
-                                fullJSString += uScript.getJavascript();
-                            }
-
-                        }
+                        fullJSString += fullJSUserScriptsString;
                     }
 
 

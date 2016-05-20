@@ -8,11 +8,13 @@
 
     <Preference
         android:title="@string/add_userscript"
-        android:key="add_userscript"/>
+        android:key="add_userscript"
+        android:dependency="enable_userscripts"/>
 
     <PreferenceCategory
         android:title="Userscripts"
-        android:key="userscript_list">
+        android:key="userscript_list"
+        android:dependency="enable_userscripts">
     </PreferenceCategory>
 
 </PreferenceScreen>

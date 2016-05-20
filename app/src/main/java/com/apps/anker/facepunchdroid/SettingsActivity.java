@@ -516,7 +516,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                                                     builder.setView(input);
 
                                                     // Set up the buttons
-                                                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                                    builder.setPositiveButton(R.string.answer_ok, new DialogInterface.OnClickListener() {
                                                         @Override
                                                         public void onClick(DialogInterface dialog, int which) {
                                                             realm.beginTransaction();
@@ -524,10 +524,10 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                                                             preference.setTitle(input.getText().toString());
                                                             realm.commitTransaction();
 
-                                                            Snackbar.make(getView() ,"Item was renamed", Snackbar.LENGTH_LONG).show();
+                                                            Snackbar.make(getView() , R.string.userscript_was_added, Snackbar.LENGTH_LONG).show();
                                                         }
                                                     });
-                                                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                                    builder.setNegativeButton(R.string.answer_cancel, new DialogInterface.OnClickListener() {
                                                         @Override
                                                         public void onClick(DialogInterface dialog, int which) {
                                                             dialog.cancel();
@@ -545,7 +545,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                                                     realm.commitTransaction();
 
                                                     userscriptList.removePreference(preference);
-                                                    Snackbar.make(getView() ,"Item was deleted", Snackbar.LENGTH_LONG).show();
+                                                    Snackbar.make(getView() , R.string.userscript_was_deleted, Snackbar.LENGTH_LONG).show();
                                                     break;
                                             }
                                         }
@@ -660,7 +660,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                                                     builder.setView(input);
 
                                                     // Set up the buttons
-                                                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                                    builder.setPositiveButton(R.string.answer_ok, new DialogInterface.OnClickListener() {
                                                         @Override
                                                         public void onClick(DialogInterface dialog, int which) {
                                                             realm.beginTransaction();
@@ -671,7 +671,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                                                             Snackbar.make(getView() ,"Item was renamed", Snackbar.LENGTH_LONG).show();
                                                         }
                                                     });
-                                                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                                    builder.setNegativeButton(R.string.answer_cancel, new DialogInterface.OnClickListener() {
                                                         @Override
                                                         public void onClick(DialogInterface dialog, int which) {
                                                             dialog.cancel();
@@ -689,7 +689,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                                                     realm.commitTransaction();
 
                                                     userscriptList.removePreference(preference);
-                                                    Snackbar.make(getView() ,"Item was deleted", Snackbar.LENGTH_LONG).show();
+                                                    Snackbar.make(getView() , R.string.userscript_was_deleted, Snackbar.LENGTH_LONG).show();
                                                     break;
                                             }
                                         }
@@ -701,7 +701,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
                     userscriptList.addPreference(dummy);
 
-                    Snackbar.make(getView(), "Userscript was added", Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(getView(), R.string.userscript_was_added, Snackbar.LENGTH_LONG).show();
 
                 }
                 if (resultCode == Activity.RESULT_CANCELED) {

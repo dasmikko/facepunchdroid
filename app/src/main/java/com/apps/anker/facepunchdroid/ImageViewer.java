@@ -4,12 +4,14 @@ import android.Manifest;
 import android.app.ActionBar;
 import android.app.DownloadManager;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.apps.anker.facepunchdroid.Tools.Language;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.nbsp.materialfilepicker.MaterialFilePicker;
@@ -38,10 +41,19 @@ public class ImageViewer extends AppCompatActivity {
     String url;
     String fileType;
 
+    private SharedPreferences sharedPref;
+    String selectedLang;
+
     ProgressBar pb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
+        // Update language
+        selectedLang = sharedPref.getString("language", "system");
+        Language.setLanguage(selectedLang, getResources());
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_viewer);
 

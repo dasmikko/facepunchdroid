@@ -64,6 +64,7 @@ public class EditPinnedItemsActivity extends AppCompatActivity {
                     pinnedItems.remove(position);
                     realm.commitTransaction();
 
+
                     adapter.notifyDataSetChanged();
 
                 }
