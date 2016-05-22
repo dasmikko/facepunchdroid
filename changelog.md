@@ -1,4 +1,7 @@
 # Full changelog
+    1.5.5
+    - Quick fix for Edit pinned pages, page not working
+    
     1.5.4
     - Quick fix for userscripts not working
     
