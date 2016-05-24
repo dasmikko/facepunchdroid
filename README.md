@@ -27,6 +27,15 @@ https://facepunch.com/showthread.php?t=1472287
 ## Making custom stylesheets for Facepunch Droid
 It works the usual way CSS works. 
 
+## Translation
+If the app isn't in your native language, feel free to contact me on Facepunch, and I will send you an XML file to translate.
+
+Current supported languages:
+- English
+- Danish
+- German
+
+
 
 ## Changelog
     1.5.6 (next update)
