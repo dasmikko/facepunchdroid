@@ -386,9 +386,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-            private WebResourceResponse getUtf8EncodedCssWebResourceResponse(InputStream data) {
-                return new WebResourceResponse("text/css", "UTF-8", data);
-            }
 
             private WebResourceResponse stringToWebResource(String CSS) {
                 return new WebResourceResponse("text/css", "UTF-8", new ByteArrayInputStream(CSS.getBytes(StandardCharsets.UTF_8)));
@@ -398,22 +395,8 @@ public class MainActivity extends AppCompatActivity {
                 return new WebResourceResponse("text/javascript", "UTF-8", new ByteArrayInputStream(JS.getBytes(StandardCharsets.UTF_8)));
             }
 
-            private WebResourceResponse getUtf8EncodedCssAndCustomWebResourceResponse(InputStream data, String CSS) {
-                return new WebResourceResponse("text/css", "UTF-8", new SequenceInputStream(data, new ByteArrayInputStream(CSS.getBytes(StandardCharsets.UTF_8))));
-            }
-
-            private WebResourceResponse getUtf8EncodedJsWebResourceResponse(InputStream data) {
-                return new WebResourceResponse("text/javascript", "UTF-8", data);
-            }
 
             private WebResourceResponse getJsWebResourceResponseFromAsset() {
-                /*try {
-                    Log.d("Intercept", getUtf8EncodedJsWebResourceResponse(getAssets().open("fp-mobile.js")).toString());
-                    return getUtf8EncodedJsWebResourceResponse(getAssets().open("fp-mobile.js"));
-                } catch (IOException e) {
-                    return null;
-                }*/
-
                 WebResourceResponse fullJS = null;
                 String fullJSString = "";
 
@@ -694,23 +677,23 @@ public class MainActivity extends AppCompatActivity {
                 // Menu options for an image.
                 //set the header title to the image url
                 menu.setHeaderTitle(result.getExtra());
-                menu.add(0, 1, 0, "Save Image").setOnMenuItemClickListener(handler);
-                menu.add(0, 2, 0, "View Image").setOnMenuItemClickListener(handler);
+                menu.add(0, 1, 0, R.string.context_menu_save_image).setOnMenuItemClickListener(handler);
+                menu.add(0, 2, 0, R.string.context_menu_view_image).setOnMenuItemClickListener(handler);
             } else if (result.getType() == WebView.HitTestResult.ANCHOR_TYPE ||
                     result.getType() == WebView.HitTestResult.SRC_ANCHOR_TYPE) {
                 // Menu options for a hyperlink.
                 //set the header title to the link url
                 menu.setHeaderTitle(result.getExtra());
-                menu.add(0, 3, 0, "Open").setOnMenuItemClickListener(handler);
-                menu.add(0, 4, 0, "Open in browser").setOnMenuItemClickListener(handler);
-                menu.add(0, 1, 0, "Save Link").setOnMenuItemClickListener(handler);
-                menu.add(0, 5, 0, "Share Link").setOnMenuItemClickListener(handler);
+                menu.add(0, 3, 0, R.string.context_menu_open).setOnMenuItemClickListener(handler);
+                menu.add(0, 4, 0, R.string.context_menu_open_in_browser).setOnMenuItemClickListener(handler);
+                menu.add(0, 1, 0, R.string.context_menu_save_link).setOnMenuItemClickListener(handler);
+                menu.add(0, 5, 0, R.string.context_menu_share_link).setOnMenuItemClickListener(handler);
             }
         } else {
             menu.setHeaderTitle(videoContextUrl);
-            menu.add(0, 7, 0, "Open in other app").setOnMenuItemClickListener(handler);
-            menu.add(0, 8, 0, "Save Video").setOnMenuItemClickListener(handler);
-            menu.add(0, 6, 0, "Share video").setOnMenuItemClickListener(handler);
+            menu.add(0, 7, 0, R.string.context_menu_open_in_other_app).setOnMenuItemClickListener(handler);
+            menu.add(0, 8, 0, R.string.context_menu_save_video).setOnMenuItemClickListener(handler);
+            menu.add(0, 6, 0, R.string.context_menu_share_video).setOnMenuItemClickListener(handler);
         }
     }
 
@@ -762,7 +745,7 @@ public class MainActivity extends AppCompatActivity {
         if(sharedPref.getBoolean("isLoggedIn", false)) {
             String username = sharedPref.getString("username", "Not logged in");
             String userid = sharedPref.getString("userid", "");
-            defaultProfile = new ProfileDrawerItem().withName(username).withIcon("https://facepunch.com/image.php?u="+userid);;
+            defaultProfile = new ProfileDrawerItem().withName(username).withIcon("https://facepunch.com/image.php?u="+userid);
         } else {
             defaultProfile = new ProfileDrawerItem().withName(getString(R.string.not_logged_in));
         }
