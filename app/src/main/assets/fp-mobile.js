@@ -161,6 +161,20 @@ jQuery(function() {
     }
 
 
+    // Video click handling
+    $("video").each(function () {
+        var thisSrc = $(this).attr("src");
+        $(this).wrap("<div class='videoContainer'></div>");
+        $(this).after( '<a class="videoOptions" style="display: block;" data-url="'+ thisSrc +'">Click for options</a>' );
+    });
+
+    $(".videoOptions").click(function(){
+        var videoURL = $(this).prev().attr("src");
+        console.log(videoURL);
+        Android.openVideoContextMenu(videoURL);
+        return false;
+    });
+
 
 });
 

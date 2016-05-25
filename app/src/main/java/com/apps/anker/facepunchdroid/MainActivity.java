@@ -1,5 +1,6 @@
 package com.apps.anker.facepunchdroid;
 
+import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
@@ -30,6 +31,7 @@ import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.Toolbar;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -59,6 +61,7 @@ import android.widget.Toast;
 import com.apps.anker.facepunchdroid.Migrations.MainMigration;
 import com.apps.anker.facepunchdroid.RealmObjects.UserScript;
 import com.apps.anker.facepunchdroid.Tools.Assets;
+import com.apps.anker.facepunchdroid.Tools.Downloading;
 import com.apps.anker.facepunchdroid.Tools.Language;
 import com.apps.anker.facepunchdroid.Tools.UriHandling;
 import com.apps.anker.facepunchdroid.Webview.ObservableWebView;
@@ -159,6 +162,10 @@ public class MainActivity extends AppCompatActivity {
     Context mContext;
 
     Boolean dissableAllImages = false;
+
+    // Video handling variables
+    Boolean shouldDownloadVideo = false;
+    String videoContextUrl = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -273,7 +280,7 @@ public class MainActivity extends AppCompatActivity {
         pb = (ProgressBar) findViewById(R.id.toolbarProgressbar);
         webview = (com.apps.anker.facepunchdroid.Webview.ObservableWebView) findViewById(R.id.webView);
 
-
+        mActivity.registerForContextMenu(webview);
 
 
         // On Scroll handling
@@ -538,6 +545,8 @@ public class MainActivity extends AppCompatActivity {
             }
 
 
+
+
         });
 
         webview.setWebChromeClient(new WebChromeClient());
@@ -609,7 +618,101 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
 
+        WebView cWebview = (WebView) v;
+        final WebView.HitTestResult result = cWebview.getHitTestResult();
+        //Log.d("HitTestResult", result.getExtra());
+
+        MenuItem.OnMenuItemClickListener handler = new MenuItem.OnMenuItemClickListener() {
+            public boolean onMenuItemClick(MenuItem item) {
+                // do the menu action
+
+                switch (item.getItemId()) {
+                    case 1:
+                        Downloading.downloadImage(getIntent(), result.getExtra().toString(), mActivity);
+                        break;
+                    case 2:
+                        Log.d("ImageView", "Starting imageviewer intent!");
+                        Intent i = new Intent(mActivity, ImageViewer.class);
+                        i.putExtra("url", result.getExtra());
+                        mActivity.startActivity(i);
+                        break;
+                    case 3:
+                        // Open
+                        webview.loadUrl(result.getExtra());
+                        break;
+                    case 4:
+                        // Open in browser
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(result.getExtra()));
+                        startActivity(intent);
+                        break;
+                    case 5:
+                        // Share link
+                        Intent sendIntent = new Intent();
+                        sendIntent.setAction(Intent.ACTION_SEND);
+                        sendIntent.putExtra(Intent.EXTRA_TEXT, result.getExtra());
+                        sendIntent.setType("text/plain");
+                        startActivity(sendIntent);
+                        break;
+                    case 6:
+                        // Share video
+                        Intent sendVideoIntent = new Intent();
+                        sendVideoIntent.setAction(Intent.ACTION_SEND);
+                        sendVideoIntent.putExtra(Intent.EXTRA_TEXT, result.getExtra());
+                        sendVideoIntent.setType("video/*");
+                        startActivity(sendVideoIntent);
+                        break;
+                    case 7:
+                        // Open video in other app
+                        Intent videoIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(videoContextUrl));
+                        videoIntent.setDataAndType(Uri.parse(videoContextUrl), "video/*");
+                        startActivity(videoIntent);
+                        break;
+                    case 8:
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, Constants.DOWNLOAD_VIDEO_PERMISSION);
+                        } else {
+                            // Download video
+                            Downloading.downloadUrl(getIntent(), videoContextUrl, mActivity);
+                        }
+
+                        break;
+                }
+
+                shouldDownloadVideo = false;
+                return true;
+            }
+        };
+
+        if(!shouldDownloadVideo) {
+            Log.d("ContextType", String.valueOf(result.getType()));
+            if (result.getType() == WebView.HitTestResult.IMAGE_TYPE ||
+                    result.getType() == WebView.HitTestResult.SRC_IMAGE_ANCHOR_TYPE) {
+                // Menu options for an image.
+                //set the header title to the image url
+                menu.setHeaderTitle(result.getExtra());
+                menu.add(0, 1, 0, "Save Image").setOnMenuItemClickListener(handler);
+                menu.add(0, 2, 0, "View Image").setOnMenuItemClickListener(handler);
+            } else if (result.getType() == WebView.HitTestResult.ANCHOR_TYPE ||
+                    result.getType() == WebView.HitTestResult.SRC_ANCHOR_TYPE) {
+                // Menu options for a hyperlink.
+                //set the header title to the link url
+                menu.setHeaderTitle(result.getExtra());
+                menu.add(0, 3, 0, "Open").setOnMenuItemClickListener(handler);
+                menu.add(0, 4, 0, "Open in browser").setOnMenuItemClickListener(handler);
+                menu.add(0, 1, 0, "Save Link").setOnMenuItemClickListener(handler);
+                menu.add(0, 5, 0, "Share Link").setOnMenuItemClickListener(handler);
+            }
+        } else {
+            menu.setHeaderTitle(videoContextUrl);
+            menu.add(0, 7, 0, "Open in other app").setOnMenuItemClickListener(handler);
+            menu.add(0, 8, 0, "Save Video").setOnMenuItemClickListener(handler);
+            menu.add(0, 6, 0, "Share video").setOnMenuItemClickListener(handler);
+        }
+    }
 
     @Override
     public void onDestroy() {
@@ -631,6 +734,18 @@ public class MainActivity extends AppCompatActivity {
         webview.onResume();
         refreshDrawerItems();
         sharedPref.registerOnSharedPreferenceChangeListener(spChanged);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case Constants.DOWNLOAD_VIDEO_PERMISSION: {
+                // Download video
+                Downloading.downloadUrl(getIntent(), videoContextUrl, mActivity);
+                return;
+            }
+        }
     }
 
 
@@ -1065,6 +1180,24 @@ public class MainActivity extends AppCompatActivity {
             Intent i = new Intent(mContext, ImageViewer.class);
             i.putExtra("url", url);
             mContext.startActivity(i);
+        }
+
+        @JavascriptInterface
+        public void openVideoContextMenu(String url) {
+            final String videourl = url;
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    //stuff that updates ui
+                    shouldDownloadVideo = true;
+                    videoContextUrl = videourl;
+                    openContextMenu(webview);
+
+
+
+                }
+            });
+
         }
 
         @JavascriptInterface

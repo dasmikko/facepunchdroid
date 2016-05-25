@@ -225,6 +225,40 @@ ol#posts .postbitlegacy .postdetails .video {
 	/*height: auto;*/
 }
 
+ol#posts .postbitlegacy .postdetails .videoContainer {
+   	background: #EEEEEE;
+	display: inline-block;
+    padding: 15px;
+    text-align: center;
+    border-radius: 5px;
+    border: 2px solid #BDBDBD;
+}
+
+ol#posts .postbitlegacy .postdetails .videoContainer .videoOptions {
+    display: block;
+    background-color: #E0E0E0;
+    border: 1px solid #BDBDBD;
+    color: #444;
+    /* float: right; */
+	font-size: 0.7rem;
+    font-weight: 700;
+    margin: 0 0px 4px;
+    padding: 5px 10px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+ol#posts .postbitlegacy .postdetails .videoContainer .videoOptions:hover {
+    background-color: #ffa;
+    color: #222;
+    text-decoration: none;
+}
+
+
+ol#posts .postbitlegacy .postdetails .videoContainer video {
+	margin-bottom: 10px;
+}
+
 DIV.quote img, DIV.quote video, IMG.thumbnail {
 	max-width: 100% !important;
 }

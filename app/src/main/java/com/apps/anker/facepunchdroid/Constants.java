@@ -5,4 +5,6 @@ package com.apps.anker.facepunchdroid;
  */
 public class Constants {
      public static final int schemaVersion = 2;
+
+     public static final int DOWNLOAD_VIDEO_PERMISSION = 1000;
 }
