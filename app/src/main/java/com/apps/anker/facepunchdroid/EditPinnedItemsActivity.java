@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.apps.anker.facepunchdroid.Adapters.PinnedItemsAdapter;
+import com.apps.anker.facepunchdroid.Migrations.MainMigration;
 
 import java.util.List;
 import java.util.UUID;
@@ -35,9 +36,15 @@ public class EditPinnedItemsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_pinned_items_activity);
 
         // Create the Realm configuration
-        realmConfig = new RealmConfiguration.Builder(this).build();
+        realmConfig = new RealmConfiguration.Builder(this)
+                .schemaVersion(Constants.schemaVersion) // Must be bumped when the schema changes
+                .migration(MainMigration.getMigration()) // Migration to run instead of throwing an exception
+                .build();
+
+        Realm.setDefaultConfiguration(realmConfig);
+
         // Open the Realm for the UI thread.
-        realm = Realm.getInstance(realmConfig);
+        realm = Realm.getDefaultInstance();
 
         final RelativeLayout mlayout = (RelativeLayout) findViewById(R.id.mainLayout);
 
