@@ -37,7 +37,7 @@ Current supported languages:
 
 
 ## Q&A
-**Q:** You're probably wondering, how the fuck is going to survive more than the other versions?
+**Q:** You're probably wondering, how is this app going to survive more than the other versions?
 
 **A:** My app doesn't rely on an API, it simply injects some styling to the website, to make it more mobile friendly, and do other stuff more natively. So as long Facepunch is up, my app will continue to work, unless they start to change the HTML to much (This is easily fixed though)
 
