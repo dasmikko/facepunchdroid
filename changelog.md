@@ -1,6 +1,7 @@
 # Full changelog
     1.5.6 (next update)
     - Added German translation (Thanks to FP user Coolboy)
+    - Added Context menu for images, links and [media] video tags
     
     1.5.5
     - Quick fix for Edit pinned pages, page not working
