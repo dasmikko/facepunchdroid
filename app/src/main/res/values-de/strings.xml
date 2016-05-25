@@ -1,0 +1,129 @@
+<resources>
+    <string name="app_name">Facepunch Droid</string>
+    <string name="drawer_open">Öffne Navigations-Übersicht</string>
+    <string name="drawer_close">Schließe Navigations-Übersicht</string>
+
+    <string name="navigation_drawer_open">Öffne Navigations-Übersicht</string>
+    <string name="navigation_drawer_close">Schließe Navigations-Übersicht</string>
+
+    <string name="action_settings">Einstellungen</string>
+    <string name="action_refresh">Neu laden</string>
+    <string name="action_forward">Eine Seite vor</string>
+    <string name="action_pin_to_drawer">An Übersicht anheften</string>
+    <string name="action_open_in_browser">Im Browser öffnen</string>
+    <string name="action_share">Teilen</string>
+    <string name="action_set_as_start_page">Als Startseite festlegen</string>
+    <string name="action_disable_images">Bilder deaktivieren</string>
+
+    <string name="not_logged_in">Nicht eingeloggt</string>
+    <string name="title_activity_settings">Einstellungen</string>
+
+    <!-- Strings related to Settings -->
+
+    <string name="title_activity_edit_pinned_items">Angeheftete Seiten editieren</string>
+
+
+    <!-- Example General settings -->
+    <string name="pref_header_general">Allgemein</string>
+
+
+    <string name="pref_title_startpage">Startseite verändern</string>
+    <string name="pref_default_startpage">https://facepunch.com</string>
+
+
+    <string name="pref_header_styles">Eigene Styles</string>
+    <string name="pref_title_enable_styles">Aktiviere angepasste Styles</string>
+    <string name="pref_description_enable_styles">Benutze deine eigens angepassten Styles</string>
+
+    <string-array name="donation_google_catalog_values" translateable="false">
+        <item>1 Dollar</item>
+        <item>2 Dollar</item>
+        <item>5 Dollar</item>
+        <item>10 Dollar</item>
+    </string-array>
+
+    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-5812854208273602/3052753581</string>
+    <string name="pref_header_about">Über</string>
+    <string name="enable_dark_theme_description">Benutze dunkles Thema, welches die Augen entlastet</string>
+    <string name="enable_custom_startpage_description">Beim öffnen der App, eigene Startseite benutzen</string>
+    <string name="enable_dark_theme">Nutze dunkles Thema</string>
+    <string name="enable_custom_startpage">Nutze eigene Startseite</string>
+    <string name="reset_startpage">Startseite zurücksetzen</string>
+    <string name="current_startpage">Momentane Startseite</string>
+    <string name="custom_style_file">Eigene Style-datei</string>
+    <string name="custom_style_file_description">Wähle deine eigens angepassten CSS-Style</string>
+    <string name="reset_startpage_description">Setze die momentane Startseite auf die Facepunch-Homepage zurück</string>
+    <string name="nav_home">Start</string>
+    <string name="nav_events">Events</string>
+    <string name="nav_popular">Populär</string>
+    <string name="nav_read">Lesezeichen</string>
+    <string name="nav_search">Suche</string>
+    <string name="nav_messages">Nachrichten</string>
+    <string name="nav_controlpanel">Control Panel</string>
+    <string name="nav_ticker">Ticker</string>
+    <string name="nav_logout">Ausloggen</string>
+    <string name="nav_donate">Spenden</string>
+    <string name="nav_settings">Einstellungen</string>
+    <string name="nav_pinnedpages">Angehefte Seiten</string>
+    <string name="nav_editpinnedpages">Editiere Angehefte Seiten</string>
+
+    <string name="action_download">Download</string>
+
+    <string name="logout_description">Sind Sie sicher das Sie sich ausloggen wollen?</string>
+    <string name="new_startpage_set">Neue Startseite ist jetzt festgelegt</string>
+    <string name="go_to_page">Gehe zu Seite</string>
+    <string name="paged_was_pinned">Seite wurde angeheftet</string>
+    <string name="select_smiley">Smiley auswählen</string>
+    <string name="action_close">Schließen</string>
+
+    <string name="answer_yes">Ja</string>
+    <string name="answer_no">Nein</string>
+
+    <string name="answer_ok">Ok</string>
+    <string name="answer_cancel">Abbrechen</string>
+
+    <string name="language">Sprache</string>
+    <string name="language_description">Ändere die Sprache der App</string>
+    <string name="lang_system">System-weite Sprache</string>
+    <string name="lang_english">Englisch</string>
+    <string name="lang_danish">Dänisch</string>
+    <string name="lang_german">Deutsch</string>
+	
+
+    <string name="currentpage">Momentane Seite</string>
+
+    <string name="of"> von </string>
+    <string name="pref_header_userscripts">Userskripte</string>
+    <string name="pref_description_enable_userscripts">Benutze Userskripte, die die Benutzung der App erweitern kann</string>
+    <string name="pref_title_enable_userscripts">Aktiviere Userskripte</string>
+    <string name="add_userscript">Userskript hinzufügen</string>
+    <string name="userscript_dialog_title">Auswählen</string>
+    <string name="dialog_enternewtitle_title">Neuen Titel eingeben</string>
+    <string name="userscript_was_deleted">Userskript wurde gelöscht</string>
+    <string name="userscript_was_added">Userskript wurde hinzugefügt</string>
+
+    <string-array name="languages">
+        <item>@string/lang_system</item>
+        <item>@string/lang_english</item>
+        <item>@string/lang_danish</item>
+        <item>@string/lang_german</item>
+    </string-array>
+
+    <string-array name="languages_vals">
+        <item>system</item>
+        <item>en</item>
+        <item>da</item>
+        <item>de</item>
+    </string-array>
+
+    <string name="userscript_rename">Umbenennen</string>
+    <string name="userscript_delete">Löschen</string>
+
+    <string-array name="userscript_options">
+        <item>@string/userscript_rename</item>
+        <item>@string/userscript_delete</item>
+    </string-array>
+
+
+
+</resources>
