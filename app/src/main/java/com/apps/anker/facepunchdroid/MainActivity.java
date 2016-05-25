@@ -661,7 +661,26 @@ public class MainActivity extends AppCompatActivity {
                             // Download video
                             Downloading.downloadUrl(getIntent(), videoContextUrl, mActivity);
                         }
+                        break;
+                    case 9:
+                        ClipboardManager clipboard = (ClipboardManager)
+                                getSystemService(Context.CLIPBOARD_SERVICE);
 
+                        ClipData clip = ClipData.newPlainText("simple text", result.getExtra());
+
+                        clipboard.setPrimaryClip(clip);
+
+                        Snackbar.make((SwipeRefreshLayout) findViewById(R.id.refresh), R.string.snackbar_copied, Snackbar.LENGTH_LONG).show();
+                        break;
+                    case 10:
+                        ClipboardManager clipboard2 = (ClipboardManager)
+                                getSystemService(Context.CLIPBOARD_SERVICE);
+
+                        ClipData clip2 = ClipData.newPlainText("simple text", videoContextUrl);
+
+                        clipboard2.setPrimaryClip(clip2);
+
+                        Snackbar.make((SwipeRefreshLayout) findViewById(R.id.refresh), R.string.snackbar_copied, Snackbar.LENGTH_LONG).show();
                         break;
                 }
 
@@ -677,6 +696,7 @@ public class MainActivity extends AppCompatActivity {
                 // Menu options for an image.
                 //set the header title to the image url
                 menu.setHeaderTitle(result.getExtra());
+                menu.add(0, 9, 0, R.string.context_menu_copy_url).setOnMenuItemClickListener(handler);
                 menu.add(0, 1, 0, R.string.context_menu_save_image).setOnMenuItemClickListener(handler);
                 menu.add(0, 2, 0, R.string.context_menu_view_image).setOnMenuItemClickListener(handler);
             } else if (result.getType() == WebView.HitTestResult.ANCHOR_TYPE ||
@@ -686,12 +706,14 @@ public class MainActivity extends AppCompatActivity {
                 menu.setHeaderTitle(result.getExtra());
                 menu.add(0, 3, 0, R.string.context_menu_open).setOnMenuItemClickListener(handler);
                 menu.add(0, 4, 0, R.string.context_menu_open_in_browser).setOnMenuItemClickListener(handler);
+                menu.add(0, 9, 0, R.string.context_menu_copy_url).setOnMenuItemClickListener(handler);
                 menu.add(0, 1, 0, R.string.context_menu_save_link).setOnMenuItemClickListener(handler);
                 menu.add(0, 5, 0, R.string.context_menu_share_link).setOnMenuItemClickListener(handler);
             }
         } else {
             menu.setHeaderTitle(videoContextUrl);
             menu.add(0, 7, 0, R.string.context_menu_open_in_other_app).setOnMenuItemClickListener(handler);
+            menu.add(0, 10, 0, R.string.context_menu_copy_url).setOnMenuItemClickListener(handler);
             menu.add(0, 8, 0, R.string.context_menu_save_video).setOnMenuItemClickListener(handler);
             menu.add(0, 6, 0, R.string.context_menu_share_video).setOnMenuItemClickListener(handler);
         }
