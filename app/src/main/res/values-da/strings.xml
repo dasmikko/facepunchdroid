@@ -72,6 +72,7 @@
         <item>system</item>
         <item>en</item>
         <item>da</item>
+        <item>de</item>
     </string-array>
     <string name="add_userscript">Tilføj Userscript</string>
     <string name="answer_cancel">Annuller</string>
@@ -85,5 +86,6 @@
     <string name="userscript_was_deleted">Userscript blev slettet</string>
     <string name="userscript_delete">Slet</string>
     <string name="userscript_rename">Omdøb</string>
+    <string name="lang_german">Tysk</string>
 
 </resources>
