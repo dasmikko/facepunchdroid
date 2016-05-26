@@ -1,5 +1,5 @@
 # Full changelog
-    1.5.6 (next update)
+    1.5.6
     - Added German translation (Thanks to FP user Coolboy)
     - Added Context menu for images, links and [media] video tags
     
