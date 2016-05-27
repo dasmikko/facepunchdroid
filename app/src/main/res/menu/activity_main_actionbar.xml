@@ -31,4 +31,9 @@
             app:showAsAction="never"
                 />
 
+        <item
+            android:id="@+id/debugcookies"
+            android:title="Debug cookies get messages"
+            app:showAsAction="never" />
+
 </menu>

@@ -65,7 +65,10 @@ import com.apps.anker.facepunchdroid.Tools.Downloading;
 import com.apps.anker.facepunchdroid.Tools.Language;
 import com.apps.anker.facepunchdroid.Tools.UriHandling;
 import com.apps.anker.facepunchdroid.Webview.ObservableWebView;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.async.http.Headers;
 import com.koushikdutta.ion.Ion;
+import com.koushikdutta.ion.cookie.CookieMiddleware;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
@@ -90,18 +93,23 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.SequenceInputStream;
+import java.net.CookiePolicy;
+import java.net.CookieStore;
+import java.net.HttpCookie;
+import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ExecutionException;
 import java.util.logging.Logger;
 
 import biz.kasual.materialnumberpicker.MaterialNumberPicker;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
-
 
 public class MainActivity extends AppCompatActivity {
 
@@ -167,6 +175,8 @@ public class MainActivity extends AppCompatActivity {
     Boolean shouldDownloadVideo = false;
     String videoContextUrl = null;
 
+    Boolean wauterboiMode;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -177,7 +187,7 @@ public class MainActivity extends AppCompatActivity {
         enableUserscripts = sharedPref.getBoolean("enable_userscripts", false);
         Log.d("Userscript", String.valueOf(enableUserscripts));
 
-
+        wauterboiMode = false;
 
         // Update language
         selectedLang = sharedPref.getString("language", "system");
@@ -344,6 +354,15 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
 
+                if(wauterboiMode) {
+                    if (url.contains("css.php")) {
+                        return new WebResourceResponse("text/css", "UTF-8", null);
+                    }
+                    if (url.contains("fp-2013.css")) {
+                        return new WebResourceResponse("text/css", "UTF-8", null);
+                    }
+                }
+
                 if (url.contains("small.css")) {
                     return getCssWebResourceResponseFromAsset();
                 } else if (url.contains("fp.js")) {
@@ -359,6 +378,23 @@ public class MainActivity extends AppCompatActivity {
                     WebResourceResponse fullCSS = null;
                     String fullCSSString = "";
 
+
+
+                    if(wauterboiMode) {
+                        try {
+                            fullCSSString = Ion.with(mContext)
+                                .load("https://raw.githubusercontent.com/waut3r/fp-mobile-css/master/assets/css/main.min.css")
+                                .asString().get();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        } catch (ExecutionException e) {
+                            e.printStackTrace();
+                        }
+
+                        fullCSS = stringToWebResource(fullCSSString);
+
+                        return fullCSS;
+                    }
 
                     // Inject darktheme
                     if(enableDarkTheme) {
@@ -767,7 +803,7 @@ public class MainActivity extends AppCompatActivity {
         if(sharedPref.getBoolean("isLoggedIn", false)) {
             String username = sharedPref.getString("username", "Not logged in");
             String userid = sharedPref.getString("userid", "");
-            defaultProfile = new ProfileDrawerItem().withName(username).withIcon("https://facepunch.com/image.php?u="+userid);
+            defaultProfile = new ProfileDrawerItem().withName(username).withIcon("https://facepunch.com/image.php?u="+userid+"&");
         } else {
             defaultProfile = new ProfileDrawerItem().withName(getString(R.string.not_logged_in));
         }
@@ -1033,6 +1069,28 @@ public class MainActivity extends AppCompatActivity {
                         }
                         mActivity.invalidateOptionsMenu();
                         webview.reload();
+                        return true;
+                    case R.id.debugcookies:
+                        /*String cookies = CookieManager.getInstance().getCookie("https://facepunch.com");
+                        Log.d("COOKIES", "All the cookies in a string:" + cookies);
+
+                        Ion.with(mContext)
+                                .load("https://facepunch.com/private.php?folderid=0");
+
+                        HttpClient httpClient = new DefaultHttpClient();
+
+                        CookieStore cookieStore = new BasicCookieStore();
+                        Cookie cookie = new BasicClientCookie("name", "value");
+                        cookieStore.addCookie(cookie);
+
+                        HttpContext localContext = new BasicHttpContext();
+                        localContext.setAttribute(ClientContext.COOKIE_STORE, cookieStore);
+
+                        HttpGet httpGet = new HttpGet("http://www.domain.com/");
+
+                        HttpResponse response = httpClient.execute(httpGet, localContext);
+                        */
+
                         return true;
                     default:
                         return false;
@@ -1310,7 +1368,7 @@ public class MainActivity extends AppCompatActivity {
                         editor.putString("userid", userid);
                         editor.apply();
 
-                        defaultProfile.withName(username).withIcon("https://facepunch.com/image.php?u="+userid);
+                        defaultProfile.withName(username).withIcon("https://facepunch.com/image.php?u="+userid+"&");
                         headerResult.updateProfile(defaultProfile);
                     }
                 });
