@@ -99,6 +99,9 @@
     <string name="userscript_was_deleted">Userscript was deleted</string>
     <string name="userscript_was_added">Userscript was added</string>
 
+    <string name="dialog_enternewurl_title">Enter new URL</string>
+    <string name="pinned_item_was_updated">Pinned item was updated</string>
+
     <string-array name="languages">
         <item>@string/lang_system</item>
         <item>@string/lang_english</item>
@@ -116,10 +119,20 @@
     <string name="userscript_rename">Rename</string>
     <string name="userscript_delete">Delete</string>
 
+    <string name="editpinneditem_edit_title">Edit title</string>
+    <string name="editpinneditem_edit_url">Edit URL</string>
+
     <string-array name="userscript_options">
         <item>@string/userscript_rename</item>
         <item>@string/userscript_delete</item>
     </string-array>
+
+    <string-array name="editpinneditem_options">
+        <item>@string/editpinneditem_edit_title</item>
+        <item>@string/editpinneditem_edit_url</item>
+        <item>@string/userscript_delete</item>
+    </string-array>
+
     <string name="lang_german">German</string>
     <string name="context_menu_save_image">Save image</string>
     <string name="context_menu_view_image">View image</string>

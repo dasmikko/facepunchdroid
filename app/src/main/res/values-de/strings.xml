@@ -133,7 +133,10 @@
         <item>@string/userscript_rename</item>
         <item>@string/userscript_delete</item>
     </string-array>
-
+    <string name="dialog_enternewurl_title">Enter new URL</string>
+    <string name="editpinneditem_edit_title">Edit title</string>
+    <string name="editpinneditem_edit_url">Edit URL</string>
+    <string name="pinned_item_was_updated">Pinned item was updated</string>
 
 
 </resources>

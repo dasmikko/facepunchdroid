@@ -176,6 +176,30 @@ jQuery(function() {
     });
 
 
+    // Mark unread confirm handling
+    /*console.log($(".author span a").attr("onclick")):
+    $(".author span a").on('click', function (e) {
+        $(this).data('onclick', this.onclick);
+
+        this.onclick = function(event) {
+            var thisConfirm = confirm("Are you sure?");
+            if(!thisConfirm) { // HERE
+                return false;
+            } else {
+                $(this).data('onclick').call(this, event || window.event);
+            };
+
+
+        };
+    });
+
+    $('.author span a').each(function() {
+        var handler = $(this).prop('onclick');
+        $(this).removeProp('onclick');
+        $(this).click(handler);
+    });*/
+
+
 });
 
 function insertAtCaret(text) {

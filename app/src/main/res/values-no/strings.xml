@@ -1,4 +1,149 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Facepunch Droid</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="action_refresh">Refresh</string>
+    <string name="action_forward">Forward</string>
+    <string name="action_pin_to_drawer">Pin to drawer</string>
+    <string name="action_open_in_browser">Open in browser</string>
+    <string name="action_share">Share</string>
+    <string name="action_set_as_start_page">Set as start page</string>
+    <string name="action_disable_images">Disable images</string>
+
+    <string name="not_logged_in">Not logged in</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Strings related to Settings -->
+
+    <string name="title_activity_edit_pinned_items">Edit pinned pages</string>
+
+
+    <!-- Example General settings -->
+    <string name="pref_header_general">General</string>
+
+
+    <string name="pref_title_startpage">Change start page</string>
+    <string name="pref_default_startpage">https://facepunch.com</string>
+
+
+    <string name="pref_header_styles">Custom themes</string>
+    <string name="pref_title_enable_styles">Enable custom style</string>
+    <string name="pref_description_enable_styles">Use your own custom styles</string>
+
+    <string-array name="donation_google_catalog_values" translateable="false">
+        <item>1 Dollar</item>
+        <item>2 Dollars</item>
+        <item>5 Dollars</item>
+        <item>10 Dollars</item>
+    </string-array>
+
+    <string name="pref_header_about">About</string>
+    <string name="enable_dark_theme_description">Use dark theme, which is easier on the eyes.</string>
+    <string name="enable_custom_startpage_description">When opening the app, use a custom start page</string>
+    <string name="enable_dark_theme">Use dark theme</string>
+    <string name="enable_custom_startpage">Use custom start page</string>
+    <string name="reset_startpage">Reset start page</string>
+    <string name="current_startpage">Current start page</string>
+    <string name="custom_style_file">Custom style file</string>
+    <string name="custom_style_file_description">Select your own custom css style</string>
+    <string name="reset_startpage_description">Reset the current startpage to the Facepunch homepage</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_events">Events</string>
+    <string name="nav_popular">Popular</string>
+    <string name="nav_read">Read</string>
+    <string name="nav_search">Search</string>
+    <string name="nav_messages">Messages</string>
+    <string name="nav_controlpanel">Control Panel</string>
+    <string name="nav_ticker">Ticker</string>
+    <string name="nav_logout">Logout</string>
+    <string name="nav_donate">Donate</string>
+    <string name="nav_settings">Settings</string>
+    <string name="nav_pinnedpages">Pinned pages</string>
+    <string name="nav_editpinnedpages">Edit pinned pages</string>
+
+    <string name="action_download">Download</string>
+
+    <string name="logout_description">Are you sure you want to log out?</string>
+    <string name="new_startpage_set">New startpage is now set</string>
+    <string name="go_to_page">Go to page</string>
+    <string name="paged_was_pinned">Paged was pinned</string>
+    <string name="select_smiley">Select smiley</string>
+    <string name="action_close">Close</string>
+
+    <string name="answer_yes">Yes</string>
+    <string name="answer_no">No</string>
+
+    <string name="answer_ok">Ok</string>
+    <string name="answer_cancel">Cancel</string>
+
+    <string name="language">Language</string>
+    <string name="language_description">Change the langauge of the app</string>
+    <string name="lang_system">System language</string>
+    <string name="lang_english">English</string>
+    <string name="lang_danish">Danish</string>
+
+    <string name="currentpage">Current page</string>
+
+    <string name="of"> of </string>
+    <string name="pref_header_userscripts">Userscripts</string>
+    <string name="pref_description_enable_userscripts">Use userscripts, that can enhance the user experience</string>
+    <string name="pref_title_enable_userscripts">Enable userscripts</string>
+    <string name="add_userscript">Add Userscript</string>
+    <string name="userscript_dialog_title">Select</string>
+    <string name="dialog_enternewtitle_title">Enter new title</string>
+    <string name="userscript_was_deleted">Userscript was deleted</string>
+    <string name="userscript_was_added">Userscript was added</string>
+
+    <string name="dialog_enternewurl_title">Enter new URL</string>
+    <string name="pinned_item_was_updated">Pinned item was updated</string>
+
+    <string-array name="languages">
+        <item>@string/lang_system</item>
+        <item>@string/lang_english</item>
+        <item>@string/lang_danish</item>
+        <item>@string/lang_german</item>
+    </string-array>
+
+    <string-array name="languages_vals">
+        <item>system</item>
+        <item>en</item>
+        <item>da</item>
+        <item>de</item>
+    </string-array>
+
+    <string name="userscript_rename">Rename</string>
+    <string name="userscript_delete">Delete</string>
+
+    <string name="editpinneditem_edit_title">Edit title</string>
+    <string name="editpinneditem_edit_url">Edit URL</string>
+
+    <string-array name="userscript_options">
+        <item>@string/userscript_rename</item>
+        <item>@string/userscript_delete</item>
+    </string-array>
+
+    <string-array name="editpinneditem_options">
+        <item>@string/editpinneditem_edit_title</item>
+        <item>@string/editpinneditem_edit_url</item>
+        <item>@string/userscript_delete</item>
+    </string-array>
+
+    <string name="lang_german">German</string>
+    <string name="context_menu_save_image">Save image</string>
+    <string name="context_menu_view_image">View image</string>
+    <string name="context_menu_open">Open</string>
+    <string name="context_menu_open_in_browser">Open in browser</string>
+    <string name="context_menu_save_link">Save as</string>
+    <string name="context_menu_share_link">Share</string>
+    <string name="context_menu_open_in_other_app">Open in other app</string>
+    <string name="context_menu_save_video">Save video</string>
+    <string name="context_menu_share_video">Share</string>
+    <string name="context_menu_copy_url">Copy url address</string>
+    <string name="snackbar_copied">Copied!</string>
 </resources>

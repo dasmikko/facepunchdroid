@@ -86,6 +86,18 @@ import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.protocol.ClientContext;
+import org.apache.http.cookie.Cookie;
+import org.apache.http.impl.client.BasicCookieStore;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.cookie.BasicClientCookie;
+import org.apache.http.protocol.BasicHttpContext;
+import org.apache.http.protocol.HttpContext;
+import org.apache.http.util.EntityUtils;
+
 import java.io.ByteArrayInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -1069,28 +1081,6 @@ public class MainActivity extends AppCompatActivity {
                         }
                         mActivity.invalidateOptionsMenu();
                         webview.reload();
-                        return true;
-                    case R.id.debugcookies:
-                        /*String cookies = CookieManager.getInstance().getCookie("https://facepunch.com");
-                        Log.d("COOKIES", "All the cookies in a string:" + cookies);
-
-                        Ion.with(mContext)
-                                .load("https://facepunch.com/private.php?folderid=0");
-
-                        HttpClient httpClient = new DefaultHttpClient();
-
-                        CookieStore cookieStore = new BasicCookieStore();
-                        Cookie cookie = new BasicClientCookie("name", "value");
-                        cookieStore.addCookie(cookie);
-
-                        HttpContext localContext = new BasicHttpContext();
-                        localContext.setAttribute(ClientContext.COOKIE_STORE, cookieStore);
-
-                        HttpGet httpGet = new HttpGet("http://www.domain.com/");
-
-                        HttpResponse response = httpClient.execute(httpGet, localContext);
-                        */
-
                         return true;
                     default:
                         return false;
