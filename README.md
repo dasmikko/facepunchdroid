@@ -55,6 +55,9 @@ Current supported languages:
 
 
 ## Changelog
+    1.5.7
+    - Added: You can now edit title/url of your pinned items!
+    
     1.5.6
     - Added German translation (Thanks to FP user Coolboy)
     - Added Context menu for images, links and [media] video tags
