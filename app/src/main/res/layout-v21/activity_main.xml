@@ -37,7 +37,7 @@
     <!-- View where the video will be shown when video goes fullscreen -->
     <RelativeLayout
         android:id="@+id/videoLayout"
-
+        android:background="#000000"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 

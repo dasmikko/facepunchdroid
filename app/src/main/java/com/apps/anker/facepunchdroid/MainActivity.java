@@ -310,7 +310,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Initialize the VideoEnabledWebChromeClient and set event handlers
         View nonVideoLayout = findViewById(R.id.refresh); // Your own view, read class comments
-        ViewGroup videoLayout = (ViewGroup)findViewById(R.id.videoLayout); // Your own view, read class comments
+        final ViewGroup videoLayout = (ViewGroup)findViewById(R.id.videoLayout); // Your own view, read class comments
         //noinspection all
         View loadingView = getLayoutInflater().inflate(R.layout.view_loading_video, null); // Your own view, read class comments
 
@@ -611,6 +611,7 @@ public class MainActivity extends AppCompatActivity {
                     attrs.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
                     attrs.flags |= WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
                     getWindow().setAttributes(attrs);
+                    videoLayout.setBackgroundColor(Color.parseColor("#000000"));
                     if (android.os.Build.VERSION.SDK_INT >= 14)
                     {
                         //noinspection all
