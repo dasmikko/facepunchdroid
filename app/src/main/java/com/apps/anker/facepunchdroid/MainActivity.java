@@ -21,6 +21,7 @@ import android.os.Build;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
+import android.support.customtabs.CustomTabsIntent;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -63,6 +64,7 @@ import android.widget.Toast;
 import com.apps.anker.facepunchdroid.Migrations.MainMigration;
 import com.apps.anker.facepunchdroid.RealmObjects.UserScript;
 import com.apps.anker.facepunchdroid.Tools.Assets;
+import com.apps.anker.facepunchdroid.Tools.CustomTabsHelper;
 import com.apps.anker.facepunchdroid.Tools.Downloading;
 import com.apps.anker.facepunchdroid.Tools.Language;
 import com.apps.anker.facepunchdroid.Tools.UriHandling;
@@ -551,8 +553,23 @@ public class MainActivity extends AppCompatActivity {
                     case "www.facepunch.com":
                         return false;
                     default:
-                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                        startActivity(intent);
+                        String thepackage = CustomTabsHelper.getPackageNameToUse(mActivity);
+
+                        if (thepackage == null) {
+                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                            startActivity(intent);
+                        } else {
+                            CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+                            builder.setToolbarColor(ContextCompat.getColor(mContext, R.color.colorPrimary))
+                                    .setShowTitle(true)
+                                    .setSecondaryToolbarColor(ContextCompat.getColor(mContext, R.color.colorPrimaryDark));
+                            builder.setStartAnimations(mActivity, R.anim.slide_in_right, R.anim.slide_out_left);
+                            builder.setExitAnimations(mActivity, R.anim.slide_in_left, R.anim.slide_out_right);
+
+                            CustomTabsIntent customTabsIntent = builder.build();
+                            customTabsIntent.launchUrl(mActivity, Uri.parse(url));
+
+                        }
                         return true;
                 }
             }

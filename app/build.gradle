@@ -51,6 +51,7 @@ dependencies {
     }
     compile 'com.mikepenz:google-material-typeface:2.2.0.1.original@aar'
     compile 'biz.kasual:materialnumberpicker:1.2.0'
+    compile 'com.android.support:customtabs:23.3.0'
 }
 
 apply plugin: 'realm-android'
