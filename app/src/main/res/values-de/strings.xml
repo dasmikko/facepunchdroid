@@ -137,6 +137,8 @@
     <string name="editpinneditem_edit_title">Edit title</string>
     <string name="editpinneditem_edit_url">Edit URL</string>
     <string name="pinned_item_was_updated">Pinned item was updated</string>
+    <string name="settings_clear_image_cache">Clear image cache</string>
+    <string name="settings_snackbar_image_cache_was_cleared">Cache was cleared</string>
 
 
 </resources>

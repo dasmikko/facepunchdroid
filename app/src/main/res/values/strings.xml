@@ -146,5 +146,7 @@
     <string name="context_menu_copy_url">Copy url address</string>
     <string name="snackbar_copied">Copied!</string>
 
+    <string name="settings_clear_image_cache">Clear image cache</string>
+    <string name="settings_snackbar_image_cache_was_cleared">Cache was cleared</string>
 
 </resources>

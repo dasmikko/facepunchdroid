@@ -41,6 +41,7 @@ import android.widget.Toast;
 import com.apps.anker.facepunchdroid.Migrations.MainMigration;
 import com.apps.anker.facepunchdroid.RealmObjects.UserScript;
 import com.apps.anker.facepunchdroid.Tools.Language;
+import com.koushikdutta.ion.Ion;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
@@ -260,6 +261,16 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
             addPreferencesFromResource(R.xml.pref_general);
             setHasOptionsMenu(true);
+
+            final Preference clear_image_cache = findPreference("clear_image_cache");
+            clear_image_cache.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    Ion.getDefault(mContext).getCache().clear();
+                    Snackbar.make(getView(), R.string.settings_snackbar_image_cache_was_cleared, Snackbar.LENGTH_LONG).show();
+                    return false;
+                }
+            });
 
             // Bind the summaries of EditText/List/Dialog/Ringtone preferences
             // to their values. When their values change, their summaries are

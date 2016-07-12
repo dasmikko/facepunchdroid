@@ -39,4 +39,10 @@
         android:key="current_startpage">
     </Preference>
 
+    <Preference
+        android:title="@string/settings_clear_image_cache"
+        android:summary="Clear the image cache (Can be needed if you changed your avatar)"
+        android:key="clear_image_cache">
+    </Preference>
+
 </PreferenceScreen>

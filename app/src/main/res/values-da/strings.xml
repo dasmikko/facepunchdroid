@@ -102,5 +102,7 @@
     <string name="editpinneditem_edit_title">Ret titel</string>
     <string name="editpinneditem_edit_url">Ret URL</string>
     <string name="pinned_item_was_updated">Fastgjorte side blev rettet</string>
+    <string name="settings_clear_image_cache">Ryd billed cache</string>
+    <string name="settings_snackbar_image_cache_was_cleared">Cache blev ryddet</string>
 
 </resources>
