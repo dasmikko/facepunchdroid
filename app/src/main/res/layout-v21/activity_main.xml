@@ -25,7 +25,7 @@
         android:layout_height="match_parent"
         android:layout_below="@id/mActionbar"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
-        <com.apps.anker.facepunchdroid.Webview.ObservableWebView
+        <com.apps.anker.facepunchdroid.Webview.VideoEnabledWebView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
@@ -33,6 +33,26 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true" />
     </android.support.v4.widget.SwipeRefreshLayout>
+
+    <!-- View where the video will be shown when video goes fullscreen -->
+    <RelativeLayout
+        android:id="@+id/videoLayout"
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <!-- View that will be shown while the fullscreen video loads. For example you could include
+        a "Loading..." message. However, in this particular example this view is actually defined in
+        view_loading_video.xml and inflated programmatically in ExampleActivity.java. The reason for
+        this is to keep the main layout (this file) cleaner. -->
+        <!-- <View
+            android:id="@+id/videoLoading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="invisible" /> -->
+
+    </RelativeLayout>
 
     <ProgressBar
         android:layout_width="match_parent"

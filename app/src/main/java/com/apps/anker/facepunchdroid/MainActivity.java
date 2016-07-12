@@ -38,6 +38,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.webkit.CookieManager;
@@ -64,7 +66,8 @@ import com.apps.anker.facepunchdroid.Tools.Assets;
 import com.apps.anker.facepunchdroid.Tools.Downloading;
 import com.apps.anker.facepunchdroid.Tools.Language;
 import com.apps.anker.facepunchdroid.Tools.UriHandling;
-import com.apps.anker.facepunchdroid.Webview.ObservableWebView;
+import com.apps.anker.facepunchdroid.Webview.VideoEnabledWebChromeClient;
+import com.apps.anker.facepunchdroid.Webview.VideoEnabledWebView;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.async.http.Headers;
 import com.koushikdutta.ion.Ion;
@@ -126,7 +129,8 @@ import io.realm.RealmResults;
 public class MainActivity extends AppCompatActivity {
 
     String baseURL = "https://facepunch.com/";
-    ObservableWebView webview;
+    VideoEnabledWebView webview;
+    private VideoEnabledWebChromeClient webChromeClient;
     ProgressBar pb;
     RelativeLayout pbc;
     private boolean isInjected;
@@ -134,6 +138,8 @@ public class MainActivity extends AppCompatActivity {
     String JSfromfile;
     String Jquery;
     Boolean loginStatus;
+
+    boolean isFullscreen = false;
 
     Toolbar toolbar_bottom;
 
@@ -300,13 +306,21 @@ public class MainActivity extends AppCompatActivity {
 
         // Progressbar and WebView
         pb = (ProgressBar) findViewById(R.id.toolbarProgressbar);
-        webview = (com.apps.anker.facepunchdroid.Webview.ObservableWebView) findViewById(R.id.webView);
+        webview = (com.apps.anker.facepunchdroid.Webview.VideoEnabledWebView) findViewById(R.id.webView);
+
+        // Initialize the VideoEnabledWebChromeClient and set event handlers
+        View nonVideoLayout = findViewById(R.id.refresh); // Your own view, read class comments
+        ViewGroup videoLayout = (ViewGroup)findViewById(R.id.videoLayout); // Your own view, read class comments
+        //noinspection all
+        View loadingView = getLayoutInflater().inflate(R.layout.view_loading_video, null); // Your own view, read class comments
+
+
 
         mActivity.registerForContextMenu(webview);
 
 
         // On Scroll handling
-        webview.setOnScrollChangedCallback(new ObservableWebView.OnScrollChangedCallback(){
+        webview.setOnScrollChangedCallback(new VideoEnabledWebView.OnScrollChangedCallback(){
             public void onScroll(int l, int t,int oldl, int oldt){
                 //Do stuff
 
@@ -580,7 +594,47 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-        webview.setWebChromeClient(new WebChromeClient());
+        webChromeClient = new VideoEnabledWebChromeClient(nonVideoLayout, videoLayout, loadingView, webview);
+        webview.setWebChromeClient(webChromeClient);
+
+        webChromeClient.setOnToggledFullscreen(new VideoEnabledWebChromeClient.ToggledFullscreenCallback()
+        {
+            @Override
+            public void toggledFullscreen(boolean fullscreen)
+            {
+                isFullscreen = fullscreen;
+
+                // Your code to handle the full-screen change, for example showing and hiding the title bar. Example:
+                if (fullscreen)
+                {
+                    WindowManager.LayoutParams attrs = getWindow().getAttributes();
+                    attrs.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
+                    attrs.flags |= WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
+                    getWindow().setAttributes(attrs);
+                    if (android.os.Build.VERSION.SDK_INT >= 14)
+                    {
+                        //noinspection all
+                        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
+                    }
+                    toolbar.setVisibility(View.GONE);
+                }
+                else
+                {
+                    WindowManager.LayoutParams attrs = getWindow().getAttributes();
+                    attrs.flags &= ~WindowManager.LayoutParams.FLAG_FULLSCREEN;
+                    attrs.flags &= ~WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
+                    getWindow().setAttributes(attrs);
+                    if (android.os.Build.VERSION.SDK_INT >= 14)
+                    {
+                        //noinspection all
+                        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
+                    }
+                    toolbar.setVisibility(View.VISIBLE);
+                }
+
+            }
+        });
+
         webview.setWebContentsDebuggingEnabled(true);
         webview.addJavascriptInterface(new WebAppInterface(this), "Android");
         webview.getSettings().setJavaScriptEnabled(true);
@@ -1197,13 +1251,14 @@ public class MainActivity extends AppCompatActivity {
         if (event.getAction() == KeyEvent.ACTION_DOWN) {
             switch (keyCode) {
                 case KeyEvent.KEYCODE_BACK:
-                    if(drawer.isDrawerOpen()) {
-                        drawer.closeDrawer();
-                    }
-                    else if (webview.canGoBack()) {
-                        webview.goBack();
-                    } else {
-                        finish();
+                    if (!webChromeClient.onBackPressed()) { // Handle fullscreen
+                        if (drawer.isDrawerOpen()) {
+                            drawer.closeDrawer();
+                        } else if (webview.canGoBack()) {
+                            webview.goBack();
+                        } else {
+                            finish();
+                        }
                     }
                     return true;
             }
