@@ -55,6 +55,9 @@ Current supported languages:
 
 
 ## Changelog
+    1.5.8
+    - Added: New option to clear image cache (Useful for when you have updated your avatar)
+
     1.5.7
     - Added: You can now edit title/url of your pinned items!
     
