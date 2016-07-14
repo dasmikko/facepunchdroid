@@ -58,6 +58,10 @@ Current supported languages:
     1.6.0
     - Fix: There was a bug on Android kitkat, where was a black bar at the top.
 
+    1.5.9
+    - Added: Fullscreen video capability (Including YouTube videos)
+    - Added: Chrome Custom Tabs. This means faster and better link viewing.
+
     1.5.8
     - Added: New option to clear image cache (Useful for when you have updated your avatar)
 
