@@ -635,6 +635,7 @@ public class MainActivity extends AppCompatActivity {
                         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
                     }
                     toolbar.setVisibility(View.GONE);
+                    videoLayout.setVisibility(View.VISIBLE);
                 }
                 else
                 {
@@ -648,6 +649,7 @@ public class MainActivity extends AppCompatActivity {
                         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
                     }
                     toolbar.setVisibility(View.VISIBLE);
+                    videoLayout.setVisibility(View.GONE);
                 }
 
             }
