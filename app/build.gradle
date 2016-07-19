@@ -9,8 +9,8 @@ android {
         applicationId "com.apps.anker.facepunchdroid"
         minSdkVersion 19
         targetSdkVersion 23
-        versionCode 39
-        versionName "1.6.0"
+        versionCode 40
+        versionName "1.6.1"
     }
 
 
@@ -46,7 +46,7 @@ dependencies {
     compile 'com.android.support:support-v4:23.2.1'
     compile 'com.nbsp:library:1.07'
     compile 'org.sufficientlysecure:donations:2.4'
-    compile('com.mikepenz:materialdrawer:5.1.6@aar') {
+    compile('com.mikepenz:materialdrawer:5.3.6@aar') {
         transitive = true
     }
     compile 'com.mikepenz:google-material-typeface:2.2.0.1.original@aar'
