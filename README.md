@@ -55,6 +55,9 @@ Current supported languages:
 
 
 ## Changelog
+    1.6.1
+    - Fixed bug on Android N where the drawer icons would get cut off
+
     1.6.0
     - Fix: There was a bug on Android kitkat, where was a black bar at the top.
 
