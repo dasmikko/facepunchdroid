@@ -148,4 +148,6 @@
     <string name="snackbar_copied">Copied!</string>
     <string name="settings_clear_image_cache">Clear image cache</string>
     <string name="settings_snackbar_image_cache_was_cleared">Cache was cleared</string>
+    <string name="action_find">Find on page</string>
+    <string name="dialog_find">Find on page</string>
 </resources>

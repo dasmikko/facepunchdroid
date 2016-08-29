@@ -31,6 +31,9 @@ import android.os.Bundle;
 import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.Toolbar;
 import android.telephony.TelephonyManager;
+import android.text.Editable;
+import android.text.InputType;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.KeyEvent;
@@ -43,6 +46,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
+import android.view.inputmethod.InputMethodManager;
 import android.webkit.CookieManager;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
@@ -53,6 +57,8 @@ import android.webkit.WebViewClient;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.ProgressBar;
@@ -88,40 +94,16 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader;
 import com.mikepenz.materialdrawer.util.DrawerImageLoader;
-import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 
-
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.protocol.ClientContext;
-import org.apache.http.cookie.Cookie;
-import org.apache.http.impl.client.BasicCookieStore;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.impl.cookie.BasicClientCookie;
-import org.apache.http.protocol.BasicHttpContext;
-import org.apache.http.protocol.HttpContext;
-import org.apache.http.util.EntityUtils;
 
 import java.io.ByteArrayInputStream;
-import java.io.FileNotFoundException;
+
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.io.SequenceInputStream;
-import java.net.CookiePolicy;
-import java.net.CookieStore;
-import java.net.HttpCookie;
-import java.net.URI;
+
 import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+
 import java.util.concurrent.ExecutionException;
-import java.util.logging.Logger;
+
 
 import biz.kasual.materialnumberpicker.MaterialNumberPicker;
 import io.realm.Realm;
@@ -196,6 +178,15 @@ public class MainActivity extends AppCompatActivity {
     String videoContextUrl = null;
 
     Boolean wauterboiMode;
+
+
+    // Search toolbar
+    EditText search_input;
+    ImageButton search_next_button;
+    ImageButton search_previous_button;
+    ImageButton search_close;
+    Toolbar search_toolbar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -291,6 +282,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
         mActivityTitle = getTitle().toString();
 
         // Generate strings for CSS and JS
@@ -353,6 +345,8 @@ public class MainActivity extends AppCompatActivity {
                     useCustomStyles = sharedPref.getBoolean("enable_custom_styles", false);
                     Log.d("useCustomStyles", String.valueOf(useCustomStyles));
                 }
+
+                hideSearchViews();
 
                 // Show progressbar
                 pb.setProgress(0);
@@ -719,6 +713,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         setupBottomToolbar();
+        setupSearchToolbar();
 
 
     }
@@ -1156,6 +1151,42 @@ public class MainActivity extends AppCompatActivity {
                         mActivity.invalidateOptionsMenu();
                         webview.reload();
                         return true;
+                    case R.id.find:
+                        /*android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(mActivity);
+                        builder.setTitle(R.string.dialog_find);
+
+
+                        // Set up the input
+                        final EditText input = new EditText(mActivity);
+
+                        // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+                        input.setInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES | InputType.TYPE_TEXT_FLAG_AUTO_CORRECT);
+
+                        builder.setView(input);
+
+                        // Set up the buttons
+                        builder.setPositiveButton(R.string.answer_ok, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                webview.findAllAsync(input.getText().toString());
+                                showSearchViews();
+                            }
+                        });
+                        builder.setNegativeButton(R.string.answer_cancel, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+
+                        builder.show();
+
+                        input.requestFocus();
+                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.showSoftInput(input, InputMethodManager.SHOW_IMPLICIT);
+                        */
+
+                        showSearchViews();
                     default:
                         return false;
                 }
@@ -1459,6 +1490,62 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void setupSearchToolbar() {
+        search_next_button = (ImageButton) findViewById(R.id.search_next);
+        search_previous_button = (ImageButton) findViewById(R.id.search_previous);
+        search_close = (ImageButton) findViewById(R.id.search_close);
+        search_input = (EditText) findViewById(R.id.search_input);
+        search_toolbar = (Toolbar) findViewById(R.id.mActionbarSearch);
+
+
+        search_input.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                webview.findAllAsync(charSequence.toString());
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        search_next_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("search", "searching next...");
+                webview.findNext(true);
+            }
+        });
+
+        search_previous_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("search", "searching previous...");
+                webview.findNext(false);
+            }
+        });
+
+        search_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("search", "Closing...");
+                search_input.setText("");
+                hideSearchViews();
+            }
+        });
+
+        //hideSearchViews();
+        //search_toolbar.setVisibility(View.VISIBLE);
+
+    }
+
     private void hideViews() {
         if(!paginationHidden) {
             Log.d("Bottom Toolbar", "Hide toolbar");
@@ -1467,11 +1554,33 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
     private void showViews() {
         if(paginationHidden && paginationEnabled) {
             Log.d("Bottom Toolbar", "show toolbar");
             paginationHidden = false;
             toolbar_bottom.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2)).start();
         }
+    }
+
+    private void hideSearchViews() {
+        Log.d("Search Toolbar", "Hide toolbar");
+        //search_toolbar.animate().translationY(search_toolbar.getHeight()).setInterpolator(new DecelerateInterpolator(2)).start();
+        search_toolbar.animate().alpha(0).setInterpolator(new DecelerateInterpolator(2)).start();
+        toolbar.animate().alpha(1).setInterpolator(new DecelerateInterpolator(2)).start();
+
+        toolbar.setVisibility(View.VISIBLE);
+        search_toolbar.setVisibility(View.GONE);
+
+        webview.findAllAsync("");
+    }
+    private void showSearchViews() {
+        Log.d("Search  Toolbar", "show toolbar");
+        //search_toolbar.animate().translationY(0).setInterpolator(new AccelerateInterpolator(2)).start();
+        search_toolbar.animate().alpha(1).setInterpolator(new DecelerateInterpolator(2)).start();
+        toolbar.animate().alpha(0).setInterpolator(new DecelerateInterpolator(2)).start();
+
+        toolbar.setVisibility(View.GONE);
+        search_toolbar.setVisibility(View.VISIBLE);
     }
 }

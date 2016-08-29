@@ -104,5 +104,7 @@
     <string name="pinned_item_was_updated">Fastgjorte side blev rettet</string>
     <string name="settings_clear_image_cache">Ryd billed cache</string>
     <string name="settings_snackbar_image_cache_was_cleared">Cache blev ryddet</string>
+    <string name="action_find">Find på siden</string>
+    <string name="dialog_find">Find på siden</string>
 
 </resources>
