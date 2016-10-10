@@ -884,7 +884,7 @@ public class MainActivity extends AppCompatActivity {
         if(sharedPref.getBoolean("isLoggedIn", false)) {
             String username = sharedPref.getString("username", "Not logged in");
             String userid = sharedPref.getString("userid", "");
-            defaultProfile = new ProfileDrawerItem().withName(username).withIcon("https://facepunch.com/image.php?u="+userid+"&");
+            defaultProfile = new ProfileDrawerItem().withName(username).withIcon("https://facepunch.com/image.php?u="+userid);
         } else {
             defaultProfile = new ProfileDrawerItem().withName(getString(R.string.not_logged_in));
         }
@@ -1573,6 +1573,10 @@ public class MainActivity extends AppCompatActivity {
         search_toolbar.setVisibility(View.GONE);
 
         webview.findAllAsync("");
+
+        search_input.requestFocus();
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(search_input.getWindowToken(), 0);
     }
     private void showSearchViews() {
         Log.d("Search  Toolbar", "show toolbar");
@@ -1582,5 +1586,9 @@ public class MainActivity extends AppCompatActivity {
 
         toolbar.setVisibility(View.GONE);
         search_toolbar.setVisibility(View.VISIBLE);
+
+        search_input.requestFocus();
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
     }
 }
