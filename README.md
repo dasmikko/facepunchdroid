@@ -55,6 +55,10 @@ Current supported languages:
 
 
 ## Changelog
+    1.6.2
+    - Added: Android Nougat Multi-window support
+    - Added: Find on page.
+    
     1.6.1
     - Fixed bug on Android N where the drawer icons would get cut off
 
