@@ -1574,7 +1574,7 @@ public class MainActivity extends AppCompatActivity {
 
         webview.findAllAsync("");
 
-        search_input.requestFocus();
+        search_input.clearFocus();
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(search_input.getWindowToken(), 0);
     }
