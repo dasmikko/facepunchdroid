@@ -18,6 +18,8 @@ If you don't trust me, you are more than welcome to build the app yourself.
 - No ads! 
 - Multilingual! 
 - Userscript support!
+- Multi window support on Android Nougat
+- Finding on page
 - New features added frequently.
 
 
@@ -55,6 +57,18 @@ Current supported languages:
 
 
 ## Changelog
+    1.6.4
+    - Fixed: Keyboard popping up, each time you returned to the app.
+    - Fixed: Dark theme now actually works.
+    - Update: German translation
+
+    1.6.3
+    - Updated: German translations
+    - Updated: Dark theme
+    - New and sweet splash screen
+    - Fixed: No more reload when going Splitscreen on Android N!
+    - Fixed: Small bug when finding on page, search field wouldn't get focus
+
     1.6.2
     - Added: Android Nougat Multi-window support
     - Added: Find on page.
