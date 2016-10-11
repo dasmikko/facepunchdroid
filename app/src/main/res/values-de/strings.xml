@@ -88,7 +88,6 @@
     <string name="lang_danish">Dänisch</string>
     <string name="lang_german">Deutsch</string>
 
-
     <string name="currentpage">Momentane Seite</string>
 
     <string name="of"> von </string>
@@ -103,7 +102,7 @@
 
     <string name="dialog_enternewurl_title">Neue Addresse eingeben</string>
     <string name="pinned_item_was_updated">Angeheftete Seite wurde aktualisiert</string>
-	
+
     <string-array name="languages">
         <item>@string/lang_system</item>
         <item>@string/lang_english</item>
@@ -120,24 +119,21 @@
 
     <string name="userscript_rename">Umbenennen</string>
     <string name="userscript_delete">Löschen</string>
-	
-	<string name="editpinneditem_edit_title">Titel editieren</string>
+
+    <string name="editpinneditem_edit_title">Titel editieren</string>
     <string name="editpinneditem_edit_url">Addresse editieren</string>
-	
-	<string-array name="userscript_options">
+
+    <string-array name="userscript_options">
         <item>@string/userscript_rename</item>
         <item>@string/userscript_delete</item>
     </string-array>
 
-    <string name="action_find">Find on page</string>
-    <string name="dialog_find">Find on page</string>
-	
-	<string-array name="editpinneditem_options">
+    <string-array name="editpinneditem_options">
         <item>@string/editpinneditem_edit_title</item>
         <item>@string/editpinneditem_edit_url</item>
         <item>@string/userscript_delete</item>
     </string-array>
-	
+
     <string name="context_menu_save_image">Bild speichern</string>
     <string name="context_menu_view_image">Bild ansehen</string>
     <string name="context_menu_open">Öffnen</string>
@@ -147,11 +143,12 @@
     <string name="context_menu_open_in_other_app">In anderer App öffnen</string>
     <string name="context_menu_save_video">Video speichern</string>
     <string name="context_menu_share_video">Teilen</string>
-	<string name="context_menu_copy_url">Addresse kopieren</string>
-	<string name="snackbar_copied">Kopiert!</string>
+    <string name="context_menu_copy_url">Addresse kopieren</string>
+    <string name="snackbar_copied">Kopiert!</string>
 
     <string name="settings_clear_image_cache">Bild-Zwischenspeicher leeren</string>
     <string name="settings_snackbar_image_cache_was_cleared">Zwischenspeicher geleert</string>
-
+    <string name="action_find">Suche in der Seite</string>
+    <string name="dialog_find">Suche in der Seite</string>
 
 </resources>
