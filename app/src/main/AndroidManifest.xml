@@ -72,7 +72,7 @@
             android:name=".DonationsActivity"
             android:excludeFromRecents="true"
             android:label="Donations"
-            android:theme="@style/Theme.AppCompat.Dialog.Alert"
+            android:theme="@style/DonationDialogStyle"
             android:configChanges="locale">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

@@ -59,4 +59,15 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@drawable/background_splash</item>
     </style>
+
+
+    <style name="DonationDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <!-- Used for the buttons -->
+        <item name="colorAccent">@color/colorAccent</item>
+        <!-- Used for the title and text -->
+        <item name="android:textColorPrimary">#FFFFFF</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <!-- Used for the background -->
+        <item name="android:background">@color/colorPrimary</item>
+    </style>
 </resources>
