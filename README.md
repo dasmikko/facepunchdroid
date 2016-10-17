@@ -57,6 +57,9 @@ Current supported languages:
 
 
 ## Changelog
+    1.6.5
+    - Fixed: Donation dialog now actually works.
+
     1.6.4
     - Fixed: Keyboard popping up, each time you returned to the app.
     - Fixed: Dark theme now actually works.
