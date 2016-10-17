@@ -649,11 +649,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // Config webview
         webview.setWebContentsDebuggingEnabled(true);
         webview.addJavascriptInterface(new WebAppInterface(this), "Android");
         webview.getSettings().setJavaScriptEnabled(true);
         webview.getSettings().setLoadWithOverviewMode(true);
         webview.getSettings().setUseWideViewPort(false);
+
+        // Allow Zoom on tablet!
+        if(isTablet(mContext)) {
+            webview.getSettings().setBuiltInZoomControls(true);
+            webview.getSettings().setDisplayZoomControls(false);
+        }
 
         if(enableDarkTheme) {
             webview.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.nightDrawerBackground));
@@ -1590,5 +1597,12 @@ public class MainActivity extends AppCompatActivity {
         search_input.requestFocus();
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+    }
+
+    // Test if tablet or phone
+    public static boolean isTablet(Context context) {
+        return (context.getResources().getConfiguration().screenLayout
+                & Configuration.SCREENLAYOUT_SIZE_MASK)
+                >= Configuration.SCREENLAYOUT_SIZE_LARGE;
     }
 }
