@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -179,6 +180,9 @@ public class MainActivity extends AppCompatActivity {
 
     Boolean wauterboiMode;
 
+
+    String tempImageDownloadUrl;
+    String tempDownloadUrl;
 
     // Search toolbar
     EditText search_input;
@@ -740,6 +744,7 @@ public class MainActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case 1:
                         Downloading.downloadImage(getIntent(), result.getExtra().toString(), mActivity);
+                        tempImageDownloadUrl = result.getExtra().toString();
                         break;
                     case 2:
                         Log.d("ImageView", "Starting imageviewer intent!");
@@ -870,9 +875,19 @@ public class MainActivity extends AppCompatActivity {
                                            String permissions[], int[] grantResults) {
         switch (requestCode) {
             case Constants.DOWNLOAD_VIDEO_PERMISSION: {
-                // Download video
-                Downloading.downloadUrl(getIntent(), videoContextUrl, mActivity);
-                return;
+                if(grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // Download video
+                    Downloading.downloadUrl(getIntent(), videoContextUrl, mActivity);
+                    return;
+                }
+            }
+            case Constants.DOWNLOAD_IMAGE_PERMISSION: {
+                if(grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Downloading.downloadImage(getIntent(), tempImageDownloadUrl, mActivity);
+                    return;
+                }
             }
         }
     }

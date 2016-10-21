@@ -1,17 +1,37 @@
 package com.apps.anker.facepunchdroid.Tools;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.DownloadManager;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
+import android.support.v4.content.ContextCompat;
+
+import com.apps.anker.facepunchdroid.Constants;
 
 /**
  * Created by Mikkel on 20-05-2016.
  */
 public class Downloading {
+
+
     public static void downloadImage(Intent i, String url, Activity activity ) {
         Intent intent = i;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(activity,
+                    Manifest.permission.READ_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED) {
+
+                activity.requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, Constants.DOWNLOAD_IMAGE_PERMISSION);
+                return;
+            }
+        }
+
+
         DownloadManager downloadManager = (DownloadManager)activity.getSystemService(activity.DOWNLOAD_SERVICE);
         Uri Download_Uri = Uri.parse(url);
 
@@ -34,6 +54,16 @@ public class Downloading {
         Intent intent = i;
         DownloadManager downloadManager = (DownloadManager)activity.getSystemService(activity.DOWNLOAD_SERVICE);
         Uri Download_Uri = Uri.parse(url);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(activity,
+                    Manifest.permission.READ_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED) {
+
+                activity.requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, Constants.DOWNLOAD_URL_PERMISSION);
+                return;
+            }
+        }
 
         DownloadManager.Request request = new DownloadManager.Request(Download_Uri);
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
