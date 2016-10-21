@@ -40,12 +40,16 @@ public class Downloading {
 
         //Restrict the types of networks over which this download may proceed.
         request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
+
         //Set whether this download may proceed over a roaming connection.
         request.setAllowedOverRoaming(false);
+
         //Set the title of this download, to be displayed in notifications.
         request.setTitle(url.substring(url.lastIndexOf('/') + 1));
+
         //Set the local destination for the downloaded file to a path within the application's external files directory
-        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS.toString(), url.substring(url.lastIndexOf('/') + 1));
+        request.setDestinationInExternalPublicDir("Facepunch Droid", url.substring(url.lastIndexOf('/') + 1));
+
         //Enqueue a new download and same the referenceId
         Long downloadReference = downloadManager.enqueue(request);
     }
@@ -70,12 +74,18 @@ public class Downloading {
 
         //Restrict the types of networks over which this download may proceed.
         request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
+
         //Set whether this download may proceed over a roaming connection.
         request.setAllowedOverRoaming(false);
+
         //Set the title of this download, to be displayed in notifications.
         request.setTitle(url.substring(url.lastIndexOf('/') + 1));
+
         //Set the local destination for the downloaded file to a path within the application's external files directory
-        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS.toString(), url.substring(url.lastIndexOf('/') + 1));
+        // For download folder use: Environment.DIRECTORY_DOWNLOADS
+
+        request.setDestinationInExternalPublicDir("Facepunch Droid", url.substring(url.lastIndexOf('/') + 1));
+
         //Enqueue a new download and same the referenceId
         Long downloadReference = downloadManager.enqueue(request);
     }

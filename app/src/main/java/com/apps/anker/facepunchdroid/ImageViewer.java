@@ -5,6 +5,7 @@ import android.app.ActionBar;
 import android.app.DownloadManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -25,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.apps.anker.facepunchdroid.Tools.Downloading;
 import com.apps.anker.facepunchdroid.Tools.Language;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
@@ -115,25 +117,6 @@ public class ImageViewer extends AppCompatActivity {
         finish();
     }
 
-    private void downloadImage() {
-        Intent intent = getIntent();
-        DownloadManager downloadManager = (DownloadManager)getSystemService(DOWNLOAD_SERVICE);
-        Uri Download_Uri = Uri.parse(url);
-
-        DownloadManager.Request request = new DownloadManager.Request(Download_Uri);
-        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-
-        //Restrict the types of networks over which this download may proceed.
-        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
-        //Set whether this download may proceed over a roaming connection.
-        request.setAllowedOverRoaming(false);
-        //Set the title of this download, to be displayed in notifications.
-        request.setTitle(url.substring(url.lastIndexOf('/') + 1));
-        //Set the local destination for the downloaded file to a path within the application's external files directory
-        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS.toString(), url.substring(url.lastIndexOf('/') + 1));
-        //Enqueue a new download and same the referenceId
-        Long downloadReference = downloadManager.enqueue(request);
-    }
 
 
     @Override
@@ -153,7 +136,7 @@ public class ImageViewer extends AppCompatActivity {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 2);
                 } else {
-                    downloadImage();
+                    Downloading.downloadImage(getIntent(), Uri.parse(url).toString(), this);
                 }
                 break;
             case R.id.openinbrowser:
@@ -176,8 +159,11 @@ public class ImageViewer extends AppCompatActivity {
                                            String permissions[], int[] grantResults) {
         switch (requestCode) {
             case 2: {
-                downloadImage();
-                return;
+                if(grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Downloading.downloadImage(getIntent(), Uri.parse(url).toString(), this);
+                    return;
+                }
             }
         }
     }
