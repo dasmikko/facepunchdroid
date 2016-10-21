@@ -57,6 +57,11 @@ Current supported languages:
 
 
 ## Changelog
+    1.6.6
+    - Fix: Unable to save images through long press of an image.
+    - Fix: Images and files, now saves to a seperate folder called "Facepunch Droid"
+    - New: Zoom is now allowed on tablets!
+
     1.6.5
     - Fixed: Donation dialog now actually works.
 
