@@ -139,7 +139,7 @@ table.forums .forumhead h2 {
 }
 
 table#threads h3.threadtitle .title {
- 	font-size: 1rem !important;
+ 	font-size: 0.9rem !important;
     display: block;
     margin-bottom: 10px;
     word-break: break-word !important;
