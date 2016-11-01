@@ -7,4 +7,7 @@
     <dimen name="nav_header_height">160dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="actionBarSizeMinus">-56dp</dimen>
+
+    <dimen name="app_defaultsize_w">500dp</dimen>
+    <dimen name="app_defaultsize_h">700dp</dimen>
 </resources>
