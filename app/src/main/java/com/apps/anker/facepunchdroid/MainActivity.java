@@ -659,6 +659,8 @@ public class MainActivity extends AppCompatActivity {
         webview.getSettings().setJavaScriptEnabled(true);
         webview.getSettings().setLoadWithOverviewMode(true);
         webview.getSettings().setUseWideViewPort(false);
+        //webview.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
+        webview.setLayerType(View.LAYER_TYPE_HARDWARE, null);
 
         // Allow Zoom on tablet!
         if(isTablet(mContext)) {
@@ -1077,6 +1079,16 @@ public class MainActivity extends AppCompatActivity {
                 drawer.addItem(new PrimaryDrawerItem().withName(pitem.getTitle()).withSelectable(false).withTag(pitem.getUrl()).withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+
+                        if(sharedPref.getBoolean("settings_pagepinning_goto_newest_post", true)) {
+                            if(drawerItem.getTag().toString().contains("?")) {
+                                webview.loadUrl(drawerItem.getTag().toString() + "&goto=newpost");
+                            } else {
+                                webview.loadUrl(drawerItem.getTag().toString() + "?goto=newpost");
+                            }
+                            return false;
+                        }
+
                         webview.loadUrl(drawerItem.getTag().toString());
                         return false;
                     }
@@ -1135,8 +1147,10 @@ public class MainActivity extends AppCompatActivity {
                         // Add a person
                         PinnedItem pinitem = realm.createObject(PinnedItem.class);
 
+
                         pinitem.setTitle(webview.getTitle());
                         pinitem.setUrl(webview.getUrl());
+
                         realm.commitTransaction();
 
                         SwipeRefreshLayout mlayout = (SwipeRefreshLayout) findViewById(R.id.refresh);

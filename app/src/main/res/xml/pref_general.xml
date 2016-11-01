@@ -44,5 +44,13 @@
         android:summary="Clear the image cache (Can be needed if you changed your avatar)"
         android:key="clear_image_cache">
     </Preference>
+    <PreferenceCategory android:title="@string/settings_category_title_pagepinning">
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:title="@string/settings_pagepinning_goto_newest_post"
+            android:key="settings_pagepinning_goto_newest_post"
+            android:summary="@string/settings_pagepinning_goto_newest_post_description" />
+    </PreferenceCategory>
 
 </PreferenceScreen>

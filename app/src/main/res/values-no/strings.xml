@@ -150,4 +150,7 @@
     <string name="settings_snackbar_image_cache_was_cleared">Cache was cleared</string>
     <string name="action_find">Find on page</string>
     <string name="dialog_find">Find on page</string>
+    <string name="settings_category_title_pagepinning">Page pinning</string>
+    <string name="settings_pagepinning_goto_newest_post">Go to newest post on threads</string>
+    <string name="settings_pagepinning_goto_newest_post_description">When pinning threads, you will be navigated to the newest post, when returning.</string>
 </resources>

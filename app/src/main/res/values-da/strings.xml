@@ -106,5 +106,8 @@
     <string name="settings_snackbar_image_cache_was_cleared">Cache blev ryddet</string>
     <string name="action_find">Find på siden</string>
     <string name="dialog_find">Find på siden</string>
+    <string name="settings_category_title_pagepinning">Page pinning</string>
+    <string name="settings_pagepinning_goto_newest_post">Gå til nyeste post i tråde</string>
+    <string name="settings_pagepinning_goto_newest_post_description">Når du fastgør en tråd, så vil du komme til den nyeste post når du vender tilbage.</string>
 
 </resources>
