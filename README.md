@@ -57,6 +57,10 @@ Current supported languages:
 
 
 ## Changelog
+	1.6.7 (To be released)
+	- New: When opening a pinned thread, it will go to the latest post (You can change this from the settings)
+	- New: Now supports Samsung Multi-Windows
+	
     1.6.6
     - Fix: Unable to save images through long press of an image.
     - Fix: Images and files, now saves to a seperate folder called "Facepunch Droid"
