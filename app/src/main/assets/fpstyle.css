@@ -54,7 +54,7 @@ TD.last_post_column {
 }
 
 table.forums .forumbit_post td.alt {
-    padding: 2px !important;
+    padding: 5px !important;
 }
 
 DIV.LastPostAvatar {
@@ -139,7 +139,7 @@ table.forums .forumhead h2 {
 }
 
 table#threads h3.threadtitle .title {
- 	font-size: 0.9rem !important;
+ 	font-size: 1rem !important;
     display: block;
     margin-bottom: 10px;
     word-break: break-word !important;
@@ -172,7 +172,7 @@ TD.threadicon IMG {
 table#threads tr.threadbit td.threadinfo .newposts {
     right: 0px;
     margin-bottom: 10px;
-    font-size: 1rem !important;
+    font-size: 0.84rem !important;
     font-weight: bold !important;
     padding: 5px;
 }
@@ -188,8 +188,15 @@ table#threads tr.threadlisthead td {
 }
 
 .newcontent_textcontrol {
-	position: relative !important;
+    position: relative !important;
     font-size: 1rem;
+    width: calc(100% - 52px);
+    margin-top: 6px;
+    margin-left: 10px;
+    margin-right: 10px;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 /* Thread list END */
