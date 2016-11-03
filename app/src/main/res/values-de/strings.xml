@@ -43,9 +43,9 @@
     </string-array>
 
     <string name="pref_header_about">Über</string>
-    <string name="enable_dark_theme_description">Benutze dunkles Thema, welches die Augen entlastet</string>
+    <string name="enable_dark_theme_description">Benutze dunkles Benutzer-Interface, welches die Augen entlastet</string>
     <string name="enable_custom_startpage_description">Beim öffnen der App, eigene Startseite benutzen</string>
-    <string name="enable_dark_theme">Nutze dunkles Thema</string>
+    <string name="enable_dark_theme">Nutze dunkles Interface</string>
     <string name="enable_custom_startpage">Nutze eigene Startseite</string>
     <string name="reset_startpage">Startseite zurücksetzen</string>
     <string name="current_startpage">Momentane Startseite</string>
@@ -58,13 +58,13 @@
     <string name="nav_read">Lesezeichen</string>
     <string name="nav_search">Suche</string>
     <string name="nav_messages">Nachrichten</string>
-    <string name="nav_controlpanel">Control Panel</string>
+    <string name="nav_controlpanel">Kontroll-Panel</string>
     <string name="nav_ticker">Ticker</string>
     <string name="nav_logout">Ausloggen</string>
     <string name="nav_donate">Spenden</string>
     <string name="nav_settings">Einstellungen</string>
-    <string name="nav_pinnedpages">Angehefte Seiten</string>
-    <string name="nav_editpinnedpages">Editiere Angehefte Seiten</string>
+    <string name="nav_pinnedpages">Angeheftete Seiten</string>
+    <string name="nav_editpinnedpages">Editiere Angeheftete Seiten</string>
 
     <string name="action_download">Download</string>
 
@@ -150,8 +150,9 @@
     <string name="settings_snackbar_image_cache_was_cleared">Zwischenspeicher geleert</string>
     <string name="action_find">Suche in der Seite</string>
     <string name="dialog_find">Suche in der Seite</string>
-    <string name="settings_category_title_pagepinning">Page pinning</string>
-    <string name="settings_pagepinning_goto_newest_post">Go to newest post on threads</string>
-    <string name="settings_pagepinning_goto_newest_post_description">When pinning threads, you will be navigated to the newest post, when returning.</string>
+    
+    <string name="settings_category_title_pagepinning">Seiten-Anheftung</string>
+    <string name="settings_pagepinning_goto_newest_post">Zu neuesten Beiträgen in Themen gehen</string>
+    <string name="settings_pagepinning_goto_newest_post_description">Bei angehefteten Themen wird, bei der Rückkehr, automatisch zum neuesten Beitrag navigiert.</string>
 
 </resources>
