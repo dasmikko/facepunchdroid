@@ -57,6 +57,9 @@ Current supported languages:
 
 
 ## Changelog
+	1.6.8
+	- Fix: New thread button is back at the top of thread lists.
+
 	1.6.7
 	- New: When opening a pinned thread, it will go to the latest post (You can change this from the settings)
 	- New: Now supports Samsung Multi-Windows
