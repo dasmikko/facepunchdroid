@@ -57,8 +57,9 @@ Current supported languages:
 
 
 ## Changelog
-	1.6.8
+	1.6.8 (To be released)
 	- Fix: New thread button is back at the top of thread lists.
+	- Fix: New post indicator now better on the Dark theme (Thanks for the quickfix Diwako)
 
 	1.6.7
 	- New: When opening a pinned thread, it will go to the latest post (You can change this from the settings)
