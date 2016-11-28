@@ -128,7 +128,7 @@ table.forums .forumhead h2 {
     margin: 0px 0px;
 }
 .above_threadlist {
-
+    height: 54px;
 }
 
 /* Thread list */
@@ -728,3 +728,36 @@ div#footer .footer_links a:last-child {
     line-height: 17px;
 }
 /* Poll end */
+
+/* Ticker */
+
+#TickerBox .ticker_item {
+ 	margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    overflow: hidden;
+}
+
+#TickerBox .ticker_item>div {
+    padding: 5px !important;
+}
+
+#TickerBox .ticker_item>div>div {
+    display: block;
+    float: none !important;
+    margin-bottom: 5px;
+    font-size: 1.2em;
+}
+
+
+#TickerBox .ticker_item>div>a {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 1.2em;
+}
+
+#TickerBox .ticker_item .ticker_last_read {
+    margin-bottom: 0px;
+    border-radius: 5px;
+    padding: 5px;
+/* Ticker end*/
