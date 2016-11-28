@@ -12,10 +12,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.pm.ShortcutInfo;
+import android.content.pm.ShortcutManager;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.Icon;
 import android.net.MailTo;
 import android.net.Uri;
 import android.os.Build;
@@ -103,6 +106,7 @@ import java.io.IOException;
 
 import java.nio.charset.StandardCharsets;
 
+import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
 
 
@@ -728,6 +732,15 @@ public class MainActivity extends AppCompatActivity {
         setupBottomToolbar();
         setupSearchToolbar();
 
+
+        /**
+         *
+         * ON CREATE END
+         *
+         * TODO Make this a shit tonne more clean
+         *
+         * sorry everyone :<
+         */
 
     }
 
