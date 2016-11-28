@@ -86,6 +86,7 @@ public class ImageViewer extends AppCompatActivity {
                         mAttacher = new PhotoViewAttacher(imgView);
                     }
                     mAttacher.setOnPhotoTapListener(new PhotoTapListener());
+                    mAttacher.setMaximumScale(5);
                 }
             }
         };
@@ -109,6 +110,11 @@ public class ImageViewer extends AppCompatActivity {
             float xPercentage = x * 100f;
             float yPercentage = y * 100f;
 
+            finish();
+        }
+
+        @Override
+        public void onOutsidePhotoTap() {
             finish();
         }
     }
