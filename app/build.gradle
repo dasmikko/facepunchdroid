@@ -3,7 +3,6 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 25
     buildToolsVersion "25"
-    useLibrary 'org.apache.http.legacy'
 
     defaultConfig {
         applicationId "com.apps.anker.facepunchdroid"
@@ -42,7 +41,6 @@ dependencies {
     compile 'com.android.support:design:25.0.1'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.github.chrisbanes:PhotoView:1.3.1'
-    compile 'com.mikhaellopez:circularprogressbar:1.1.0'
     compile 'com.koushikdutta.ion:ion:2.+'
     compile 'com.android.support:support-compat:25.0.1'
     compile 'com.nbsp:library:1.07'
@@ -53,6 +51,8 @@ dependencies {
     compile 'com.mikepenz:google-material-typeface:2.2.0.1.original@aar'
     compile 'biz.kasual:materialnumberpicker:1.2.0'
     compile 'com.android.support:customtabs:25.0.1'
+    compile 'org.jsoup:jsoup:1.10.1'
+    compile 'io.hypertrack:smart-scheduler:0.0.3'
 }
 
 apply plugin: 'realm-android'

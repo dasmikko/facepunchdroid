@@ -73,6 +73,7 @@ import android.widget.Toast;
 
 import com.apps.anker.facepunchdroid.Migrations.MainMigration;
 import com.apps.anker.facepunchdroid.RealmObjects.UserScript;
+import com.apps.anker.facepunchdroid.Services.PrivateMessageService;
 import com.apps.anker.facepunchdroid.Tools.Assets;
 import com.apps.anker.facepunchdroid.Tools.CustomTabsHelper;
 import com.apps.anker.facepunchdroid.Tools.Downloading;
@@ -199,6 +200,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
+        startService(new Intent(this, PrivateMessageService.class));
+
+
+        Intent messageintent = getIntent();
+
+
 
         enableDarkTheme = sharedPref.getBoolean("enable_dark_theme", false);
         Log.d("DarkTheme", String.valueOf(enableDarkTheme));
@@ -731,6 +739,14 @@ public class MainActivity extends AppCompatActivity {
 
         setupBottomToolbar();
         setupSearchToolbar();
+
+        //Log.d("Extras", intent.getExtras().toString());
+        if(intent.getStringExtra("viewMessage") != null) {
+            Log.d("Extra", "NEW MESSAGE OPEN IT");
+            webview.loadUrl("https://facepunch.com/" + messageintent.getStringExtra("viewMessage"));
+        } else {
+            Log.d("Extra", "no new message");
+        }
 
 
         /**

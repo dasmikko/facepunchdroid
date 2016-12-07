@@ -85,6 +85,8 @@
             android:theme="@style/AppThemeEditPinnedItems"
             android:parentActivityName=".MainActivity"></activity>
 
+        <service android:name=".Services.PrivateMessageService" />
+
 
         <uses-library android:required="false" android:name="com.sec.android.app.multiwindow" />
         <meta-data android:name="com.sec.android.support.multiwindow" android:value="true" />
