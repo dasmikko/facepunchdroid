@@ -20,6 +20,7 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
+import android.preference.SwitchPreference;
 import android.provider.OpenableColumns;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
@@ -236,7 +237,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 || GeneralPreferenceFragment.class.getName().equals(fragmentName)
                 || StylePreferenceFragment.class.getName().equals(fragmentName)
                 || UserscriptPreferenceFragment.class.getName().equals(fragmentName)
-                || AboutPreferenceFragment.class.getName().equals(fragmentName);
+                || AboutPreferenceFragment.class.getName().equals(fragmentName)
+                || NotificationsPreferenceFragment.class.getName().equals(fragmentName);
     }
 
     /**
@@ -791,6 +793,52 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                     return true;
                 }
             });
+        }
+
+        @Override
+        public boolean onOptionsItemSelected(MenuItem item) {
+            int id = item.getItemId();
+            if (id == android.R.id.home) {
+                startActivity(new Intent(getActivity(), SettingsActivity.class));
+                return true;
+            }
+            return super.onOptionsItemSelected(item);
+        }
+
+    }
+
+
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public static class NotificationsPreferenceFragment extends PreferenceFragment {
+        private SharedPreferences sharedPref;
+        private Preference licenseItem;
+
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(mContext);
+
+
+
+            super.onCreate(savedInstanceState);
+            addPreferencesFromResource(R.xml.pref_notifications);
+            setHasOptionsMenu(true);
+            sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+
+
+            ((SettingsActivity) getActivity()).setActionBarTitle(getString(R.string.pref_header_notifications));
+
+            final SwitchPreference useNotifications = (SwitchPreference) findPreference("useNotifications");
+            useNotifications.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    Log.d("Pref", newValue.toString() );
+                    //if(preference.isEnabled())
+
+                    return true;
+                }
+            });
+
+
         }
 
         @Override

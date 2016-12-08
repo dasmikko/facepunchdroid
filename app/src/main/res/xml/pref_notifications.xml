@@ -1,0 +1,24 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="Private messages">
+        <SwitchPreference
+            android:title="Enable notifications"
+            android:key="useNotifications" />
+
+        <ListPreference
+            android:title="@string/check_interval_title"
+            android:summary="@string/check_interval_summary"
+            android:entryValues="@array/pm_check_interval_values"
+            android:entries="@array/pm_check_interval"
+            android:dependency="useNotifications"
+            android:dialogTitle="@string/check_interval_dialog_title"
+            />
+        <Preference
+            android:title="License"
+            android:key="license">
+        </Preference>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

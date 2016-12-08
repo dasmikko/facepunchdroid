@@ -9,6 +9,10 @@
         android:title="@string/pref_header_general"/>
 
     <header
+        android:fragment="com.apps.anker.facepunchdroid.SettingsActivity$NotificationsPreferenceFragment"
+        android:title="@string/pref_header_notifications"/>
+
+    <header
         android:fragment="com.apps.anker.facepunchdroid.SettingsActivity$StylePreferenceFragment"
         android:title="@string/pref_header_styles" />
 

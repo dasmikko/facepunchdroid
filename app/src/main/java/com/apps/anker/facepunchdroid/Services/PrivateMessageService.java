@@ -51,10 +51,6 @@ public class PrivateMessageService extends Service {
             }
         };
 
-        // Display a notification about us starting.  We put an icon in the status bar.
-        //showNotification();
-        getUnreadMessages();
-
         SmartScheduler jobScheduler = SmartScheduler.getInstance(getApplicationContext());
 
 
@@ -89,31 +85,6 @@ public class PrivateMessageService extends Service {
     @Override
     public IBinder onBind(Intent intent) {
         return null;
-    }
-
-    /**
-     * Show a notification while this service is running.
-     */
-    private void showNotification() {
-        // In this sample, we'll use the same text for the ticker and the expanded notification
-        CharSequence text = "Service started!";
-
-        // The PendingIntent to launch our activity if the user selects this notification
-        PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
-                new Intent(this, MainActivity.class), 0);
-
-        // Set the info for the views that show in the notification panel.
-        Notification notification = new Notification.Builder(this)
-                .setSmallIcon(R.mipmap.ic_launcher)  // the status icon
-                .setTicker(text)  // the status text
-                .setWhen(System.currentTimeMillis())  // the time stamp
-                .setContentTitle("Facepunch Droid - New private message")  // the label of the entry
-                .setContentText(text)  // the contents of the entry
-                .setContentIntent(contentIntent)  // The intent to send when the entry is clicked
-                .build();
-
-        // Send the notification.
-        mNM.notify(NOTIFICATION, notification);
     }
 
     private void getUnreadMessages() {
