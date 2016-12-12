@@ -63,7 +63,9 @@ Current supported languages:
     - Updated: Dark theme styling.
     - Updated: Ticker page styling. (Material-ish)
     - Fix: Tweaked zoom level when viewing images.
+    - Fix: Splash screen image is now 200% more sharp and better looking
     - Updated: Libraries and SDK levels
+    - NEW: You can now recive notifications when you have new private messages or when there is new posts in a thread you have subscribed to!
 
 	1.6.7
 	- New: When opening a pinned thread, it will go to the latest post (You can change this from the settings)
