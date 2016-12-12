@@ -6,6 +6,7 @@
     <item>
         <bitmap
             android:gravity="center"
-            android:src="@drawable/placeholdertrans"/>
+            android:dither="true"
+            android:src="@drawable/ic_splash_logo"/>
     </item>
 </layer-list>
