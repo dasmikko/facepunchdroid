@@ -110,4 +110,34 @@
     <string name="settings_pagepinning_goto_newest_post">Gå til nyeste post i tråde</string>
     <string name="settings_pagepinning_goto_newest_post_description">Når du fastgør en tråd, så vil du komme til den nyeste post når du vender tilbage.</string>
 
+    <!-- Notification strings -->
+
+    <string name="pref_header_notifications">Notifications</string>
+    <string name="check_interval_title">Check interval</string>
+    <string name="check_interval_summary">How often should the app check for new messages.</string>
+    <string name="check_interval_dialog_title">Check every</string>
+
+    <string name="interval_5min">5 Minutes</string>
+    <string name="interval_15min">15 Minutes</string>
+    <string name="interval_30min">30 Minutes</string>
+    <string name="interval_60min">60 Minutes</string>
+
+    <string name="interval_value_15min">900000</string>
+    <string name="interval_value_30min">1800000</string>
+    <string name="interval_value_60min">3600000</string>
+
+
+    <string-array name="pm_check_interval">
+        <item>@string/interval_5min</item>
+        <item>@string/interval_15min</item>
+        <item>@string/interval_30min</item>
+        <item>@string/interval_60min</item>
+    </string-array>
+    <string-array name="pm_check_interval_values">
+        <item>300000</item> <!-- 5 min -->
+        <item>900000</item> <!-- 15 min -->
+        <item>1800000</item> <!-- 30 min -->
+        <item>3600000</item> <!-- 60 min -->
+    </string-array>
+
 </resources>

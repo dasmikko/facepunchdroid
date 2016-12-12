@@ -5,6 +5,8 @@ import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,6 +16,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -41,6 +44,7 @@ import android.widget.Toast;
 
 import com.apps.anker.facepunchdroid.Migrations.MainMigration;
 import com.apps.anker.facepunchdroid.RealmObjects.UserScript;
+import com.apps.anker.facepunchdroid.Services.PrivateMessageService;
 import com.apps.anker.facepunchdroid.Tools.Language;
 import com.koushikdutta.ion.Ion;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
@@ -72,6 +76,8 @@ import io.realm.RealmResults;
 public class SettingsActivity extends AppCompatPreferenceActivity {
     static Context mContext;
     static Activity mActivity;
+
+    private static NotificationManager mNM;
 
     /**
      * A preference value change listener that updates the preference's summary
@@ -139,6 +145,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
+        mNM = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
 
         Boolean enableDarkTheme = sharedPref.getBoolean("enable_dark_theme", false);
         Log.d("DarkTheme", String.valueOf(enableDarkTheme));
@@ -832,12 +840,162 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
                     Log.d("Pref", newValue.toString() );
-                    //if(preference.isEnabled())
+                    if(!Boolean.valueOf(newValue.toString())) {
+                        MainActivity.serviceManager.stopPrivateMessageService();
+                    }
+
+                    if(Boolean.valueOf(newValue.toString()) ) {
+                        MainActivity.serviceManager.startPrivateMessageService();
+                    }
+                    return true;
+                }
+            });
+
+            final ListPreference checkinterval = (ListPreference) findPreference("pm_check_interval");
+            checkinterval.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    MainActivity.serviceManager.restartPrivateMessageService();
+                    return true;
+                }
+            });
+
+            final SwitchPreference pm_check_vibrate = (SwitchPreference) findPreference("pm_check_vibrate");
+            pm_check_vibrate.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    MainActivity.serviceManager.restartPrivateMessageService();
+                    return true;
+                }
+            });
+
+            final SwitchPreference pm_check_sound = (SwitchPreference) findPreference("pm_check_sound");
+            pm_check_sound.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    MainActivity.serviceManager.restartPrivateMessageService();
+                    return true;
+                }
+            });
+
+            final SwitchPreference pm_check_light = (SwitchPreference) findPreference("pm_check_light");
+            pm_check_light.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    MainActivity.serviceManager.restartPrivateMessageService();
+                    return true;
+                }
+            });
+
+            final Preference testnotification = findPreference("testnotification");
+            testnotification.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+
+
+                    // Get notification settings
+                    SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(mContext);
+                    Boolean shouldVibrate = sharedPref.getBoolean("pm_check_vibrate", true);
+                    Boolean shouldPlaySound = sharedPref.getBoolean("pm_check_sound", true);
+                    Boolean shouldUseLight = sharedPref.getBoolean("pm_check_light", true);
+
+                    // Set the info for the views that show in the notification panel.
+                    Notification.Builder notificationbuilder = new Notification.Builder(mContext)
+                            .setSmallIcon(R.drawable.ic_stat_placeholder_trans)  // the status icon
+                            .setTicker("From: Test")  // the status text
+                            .setWhen(System.currentTimeMillis())  // the time stamp
+                            .setContentTitle("This is a test")  // the label of the entry
+                            .setContentText("From: Test")  // the contents of the entry
+                            .setPriority(Notification.PRIORITY_MAX)
+                            .setAutoCancel(true);
+
+
+                    // set notification ligt
+                    if(shouldUseLight) {
+                        notificationbuilder.setLights(0xff00ff00, 300, 100);
+                    }
+
+                    final Notification notification = notificationbuilder.build();
+
+                    // Set notification sound
+                    if(shouldPlaySound) {
+                        notification.defaults |= Notification.DEFAULT_SOUND;
+                    }
+
+                    // Set notification vibration
+                    if(shouldVibrate) {
+                        notification.defaults |= Notification.DEFAULT_VIBRATE;
+                    }
+
+                    Toast.makeText(mContext, "Sending test notification in 5 seconds", Toast.LENGTH_SHORT).show();
+
+                    final Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            // Send the notification.
+                            mNM.notify(0, notification);
+                        }
+                    }, 5000);
 
                     return true;
                 }
             });
 
+            /**
+             * Subscribed Threads
+             */
+            final SwitchPreference useSubThreadsNotifications = (SwitchPreference) findPreference("useNotifications");
+            useSubThreadsNotifications.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    Log.d("Pref", newValue.toString() );
+                    if(!Boolean.valueOf(newValue.toString())) {
+                        MainActivity.serviceManager.stopSubscribedThreadsService();
+                    }
+
+                    if(Boolean.valueOf(newValue.toString()) ) {
+                        MainActivity.serviceManager.startSubscribedThreadsService();
+                    }
+                    return true;
+                }
+            });
+
+            final ListPreference subthreads_checkinterval = (ListPreference) findPreference("subthreads_check_interval");
+            subthreads_checkinterval.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    MainActivity.serviceManager.restartSubscribedThreadsService();
+                    return true;
+                }
+            });
+
+            final SwitchPreference subthreads_check_vibrate = (SwitchPreference) findPreference("subthreads_check_vibrate");
+            subthreads_check_vibrate.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    MainActivity.serviceManager.restartSubscribedThreadsService();
+                    return true;
+                }
+            });
+
+            final SwitchPreference subthreads_check_sound = (SwitchPreference) findPreference("subthreads_check_sound");
+            subthreads_check_sound.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    MainActivity.serviceManager.restartSubscribedThreadsService();
+                    return true;
+                }
+            });
+
+            final SwitchPreference subthreads_check_light = (SwitchPreference) findPreference("subthreads_check_light");
+            subthreads_check_light.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    MainActivity.serviceManager.restartSubscribedThreadsService();
+                    return true;
+                }
+            });
 
         }
 

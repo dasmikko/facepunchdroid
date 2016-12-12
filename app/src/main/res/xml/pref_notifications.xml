@@ -4,7 +4,8 @@
         android:title="Private messages">
         <SwitchPreference
             android:title="Enable notifications"
-            android:key="useNotifications" />
+            android:key="useNotifications"
+            android:defaultValue="false"/>
 
         <ListPreference
             android:title="@string/check_interval_title"
@@ -13,12 +14,84 @@
             android:entries="@array/pm_check_interval"
             android:dependency="useNotifications"
             android:dialogTitle="@string/check_interval_dialog_title"
+            android:defaultValue="@string/interval_value_15min"
+            android:key="pm_check_interval"
             />
-        <Preference
-            android:title="License"
-            android:key="license">
-        </Preference>
 
+        <SwitchPreference
+            android:title="Vibrate"
+            android:summaryOn="Will vibrate"
+            android:summaryOff="Will not vibrate"
+            android:dependency="useNotifications"
+            android:key="pm_check_vibrate"
+            android:defaultValue="true"/>
+
+        <SwitchPreference
+            android:title="Sound"
+            android:summaryOn="Will play notification sound"
+            android:summaryOff="Will not notification sound"
+            android:dependency="useNotifications"
+            android:key="pm_check_sound"
+            android:defaultValue="true"/>
+
+        <SwitchPreference
+            android:title="Light"
+            android:summaryOn="Will use notification light"
+            android:summaryOff="Will not use notification light"
+            android:dependency="useNotifications"
+            android:key="pm_check_light"
+            android:defaultValue="true"/>
+
+        <Preference
+            android:title="Test notification settings"
+            android:key="testnotification"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="Subscribed threads">
+        <SwitchPreference
+            android:title="Enable notifications"
+            android:key="useSubThreadsNotifications"
+            android:defaultValue="false"/>
+
+        <ListPreference
+            android:title="@string/check_interval_title"
+            android:summary="@string/check_interval_summary"
+            android:entryValues="@array/pm_check_interval_values"
+            android:entries="@array/pm_check_interval"
+            android:dependency="useSubThreadsNotifications"
+            android:dialogTitle="@string/check_interval_dialog_title"
+            android:defaultValue="@string/interval_value_15min"
+            android:key="subthreads_check_interval"
+            />
+
+        <SwitchPreference
+            android:title="Vibrate"
+            android:summaryOn="Will vibrate"
+            android:summaryOff="Will not vibrate"
+            android:key="subthreads_check_vibrate"
+            android:dependency="useSubThreadsNotifications"
+            android:defaultValue="true"/>
+
+        <SwitchPreference
+            android:title="Sound"
+            android:summaryOn="Will play notification sound"
+            android:summaryOff="Will not notification sound"
+            android:key="subthreads_check_sound"
+            android:dependency="useSubThreadsNotifications"
+            android:defaultValue="true"/>
+
+        <SwitchPreference
+            android:title="Light"
+            android:summaryOn="Will use notification light"
+            android:summaryOff="Will not use notification light"
+            android:key="subthreads_check_light"
+            android:dependency="useSubThreadsNotifications"
+            android:defaultValue="true"/>
+
+        <Preference
+            android:title="Test notification settings"
+            android:key="testsubthreadnotification"/>
     </PreferenceCategory>
 
 </PreferenceScreen>

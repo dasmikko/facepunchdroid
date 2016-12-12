@@ -74,6 +74,7 @@ import android.widget.Toast;
 import com.apps.anker.facepunchdroid.Migrations.MainMigration;
 import com.apps.anker.facepunchdroid.RealmObjects.UserScript;
 import com.apps.anker.facepunchdroid.Services.PrivateMessageService;
+import com.apps.anker.facepunchdroid.Services.ServiceManager;
 import com.apps.anker.facepunchdroid.Tools.Assets;
 import com.apps.anker.facepunchdroid.Tools.CustomTabsHelper;
 import com.apps.anker.facepunchdroid.Tools.Downloading;
@@ -196,12 +197,14 @@ public class MainActivity extends AppCompatActivity {
     ImageButton search_close;
     Toolbar search_toolbar;
 
+    public static ServiceManager serviceManager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
-        startService(new Intent(this, PrivateMessageService.class));
+
 
 
         Intent messageintent = getIntent();
@@ -749,6 +752,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
+        // Init services
+        serviceManager = new ServiceManager();
+        serviceManager.initServices(getApplicationContext());
+
+
         /**
          *
          * ON CREATE END
@@ -1027,6 +1035,7 @@ public class MainActivity extends AppCompatActivity {
                                                 CookieManager.getInstance().flush();
                                             }
 
+                                            serviceManager.killServices();
                                             webview.loadUrl(baseURL);
                                         }
                                     })

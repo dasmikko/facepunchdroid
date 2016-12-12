@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.MANAGE_DOCUMENTS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="com.android.vending.BILLING" />
 
 
@@ -83,9 +84,10 @@
             android:name=".EditPinnedItemsActivity"
             android:label="@string/title_activity_edit_pinned_items"
             android:theme="@style/AppThemeEditPinnedItems"
-            android:parentActivityName=".MainActivity"></activity>
+            android:parentActivityName=".MainActivity"/>
 
         <service android:name=".Services.PrivateMessageService" />
+        <service android:name=".Services.SubscribedThreadsService" />
 
 
         <uses-library android:required="false" android:name="com.sec.android.app.multiwindow" />

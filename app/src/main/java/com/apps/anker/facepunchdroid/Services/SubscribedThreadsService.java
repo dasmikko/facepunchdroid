@@ -11,7 +11,6 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
-import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.webkit.CookieManager;
@@ -36,23 +35,23 @@ import io.hypertrack.smart_scheduler.SmartScheduler;
  * Created by Mikkel on 07-12-2016.
  */
 
-public class PrivateMessageService extends Service {
+public class SubscribedThreadsService extends Service {
     private NotificationManager mNM;
 
-    private int NOTIFICATION = 1;
-
-    private List<Integer> notifiedMessages = new ArrayList<>();
+    public static List<Integer> notifiedThreads = new ArrayList<>();
 
     @Override
     public void onCreate() {
         mNM = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
 
-        getUnreadMessages();
+        // Get the latest
+        getSubscribedThreads();
 
+        // Make callback
         SmartScheduler.JobScheduledCallback callback = new SmartScheduler.JobScheduledCallback() {
             @Override
             public void onJobScheduled(Context context, Job job) {
-                getUnreadMessages();
+                getSubscribedThreads();
             }
         };
 
@@ -60,9 +59,9 @@ public class PrivateMessageService extends Service {
 
         // Get saved interval
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        Integer interval = Integer.valueOf(sharedPref.getString("pm_check_interval", "900000") );
+        Integer interval = Integer.valueOf(sharedPref.getString("subthreads_check_interval", "900000") );
 
-        Job.Builder builder = new Job.Builder(1, callback, Job.Type.JOB_TYPE_PERIODIC_TASK, "com.apps.anker.facepunchdroid.JobPeriodicTask")
+        Job.Builder builder = new Job.Builder(1, callback, Job.Type.JOB_TYPE_PERIODIC_TASK, "com.apps.anker.facepunchdroid.SubThreadPeriodicTask")
                 .setIntervalMillis(interval).setPeriodic(interval);
 
         Job job = builder.build();
@@ -70,13 +69,13 @@ public class PrivateMessageService extends Service {
         boolean result = jobScheduler.addJob(job);
 
         if (result) {
-            Log.d("Job", "Job added! Interval: "+interval);
+            Log.d("Job", "Job sub thread check added! Interval: "+interval);
         }
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.i("PrivateMessageService", "Received start id " + startId + ": " + intent);
+        Log.i("SubscribedThreadService", "Received start id " + startId + ": " + intent);
         return START_STICKY;
     }
 
@@ -92,7 +91,7 @@ public class PrivateMessageService extends Service {
         return null;
     }
 
-    private void getUnreadMessages() {
+    private void getSubscribedThreads() {
         final String bb_sessionhash = getCookie("https://facepunch.com/", "bb_sessionhash");
         final String bb_password = getCookie("https://facepunch.com/", "bb_password");
         final String bb_userid = getCookie("https://facepunch.com/", "bb_userid");
@@ -100,64 +99,64 @@ public class PrivateMessageService extends Service {
         new Thread(new Runnable() {
             public void run() {
                 try {
-                    Document doc = Jsoup.connect("https://facepunch.com/private.php")
+                    Document doc = Jsoup.connect("https://facepunch.com/usercp.php")
                             .cookie("bb_sessionhash", bb_sessionhash)
                             .cookie("bb_password", bb_password)
                             .cookie("bb_userid", bb_userid)
                             .get();
 
-                    Elements messages = doc.select("#pmfolderlist .blockrow:has(.unread)");
+                    Elements threads = doc.select("#threads tr");
 
-                    if(!messages.isEmpty()) {
-                        Log.d("Service Messages", "You have unread messages");
+                    if(!threads.isEmpty()) {
+                        Log.d("ServiceSubThreads", "There is new posts in subscribed threads");
                     } else {
-                        Log.d("Service Messages", "You have NO unread messages");
+                        Log.d("Service Messages", "There is NO new posts in subscribed threads");
                     }
 
-                    for (Element message : messages) {
+                    for (Element thread : threads) {
                         //Elements unreadmessages = message.children().select(".unread");
 
-                        String subject = message.select(".unread").text();
-                        String user = message.select(".commalist").text();
-                        String messageUrl = message.select(".unread a").attr("href");
-                        Integer pmid = Integer.parseInt( messageUrl.replaceAll("[^0-9]", "") );
+                        String threadTitle = thread.select(".threadtitle .title").text();
+                        String newPostsCount = thread.select(".threadtitle .newposts").text();
+                        String threadUrl = thread.select(".threadtitle .title").attr("href");
+                        Integer threadId = Integer.parseInt( threadUrl.replaceAll("[^0-9]", "") );
 
-                        if(!notifiedMessages.contains(pmid)) {
+                        if(!notifiedThreads.contains(threadId)) {
 
 
-                            notifiedMessages.add(pmid);
+                            notifiedThreads.add(threadId);
 
-                            Log.d("Service message User", message.select(".commalist").text());
-                            Log.d("Service message Subject", message.select(".unread").text());
-                            Log.d("Service message URL", messageUrl);
-                            Log.d("Service message id", String.valueOf( pmid ));
+                            Log.d("Service Thread title", threadTitle);
+                            Log.d("Service Thread NPCount", newPostsCount);
+                            Log.d("Service Thread URL", threadUrl);
+                            Log.d("Service Thread id", String.valueOf( threadId ));
 
                             // The PendingIntent to launch our activity if the user selects this notification
-                            Intent intent = new Intent(PrivateMessageService.this, MainActivity.class);
+                            Intent intent = new Intent(SubscribedThreadsService.this, MainActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
                                     Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                            intent.putExtra("viewMessage", messageUrl);
+                            intent.putExtra("viewThreadUrl", threadUrl);
+                            intent.putExtra("viewThreadId", threadId);
 
 
-                            PendingIntent contentIntent = PendingIntent.getActivity(PrivateMessageService.this, 0,
+                            PendingIntent contentIntent = PendingIntent.getActivity(SubscribedThreadsService.this, 0,
                                     intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 
-                            Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
                             // Get notification settings
                             SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                            Boolean shouldVibrate = sharedPref.getBoolean("pm_check_vibrate", true);
-                            Boolean shouldPlaySound = sharedPref.getBoolean("pm_check_sound", true);
-                            Boolean shouldUseLight = sharedPref.getBoolean("pm_check_light", true);
+                            Boolean shouldVibrate = sharedPref.getBoolean("subthreads_check_vibrate", true);
+                            Boolean shouldPlaySound = sharedPref.getBoolean("subthreads_check_sound", true);
+                            Boolean shouldUseLight = sharedPref.getBoolean("subthreads_check_light", true);
 
                             // Set the info for the views that show in the notification panel.
-                            Notification.Builder notificationbuilder = new Notification.Builder(PrivateMessageService.this)
+                            Notification.Builder notificationbuilder = new Notification.Builder(SubscribedThreadsService.this)
                                     .setSmallIcon(R.drawable.ic_stat_placeholder_trans)  // the status icon
-                                    .setTicker("From: " + user)  // the status text
+                                    .setTicker(newPostsCount)  // the status text
                                     .setWhen(System.currentTimeMillis())  // the time stamp
-                                    .setContentTitle(subject)  // the label of the entry
-                                    .setContentText("From: " + user)  // the contents of the entry
+                                    .setContentTitle(threadTitle)  // the label of the entry
+                                    .setContentText(newPostsCount)  // the contents of the entry
                                     .setContentIntent(contentIntent)  // The intent to send when the entry is clicked
                                     .setPriority(Notification.PRIORITY_DEFAULT)
                                     .setAutoCancel(true);
@@ -180,7 +179,7 @@ public class PrivateMessageService extends Service {
                             }
 
                             // Send the notification.
-                            mNM.notify(pmid, notification);
+                            mNM.notify(threadId, notification);
                         }
                     }
                 } catch (IOException e) {
