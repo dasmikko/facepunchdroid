@@ -112,10 +112,10 @@
 
     <!-- Notification strings -->
 
-    <string name="pref_header_notifications">Notifications</string>
+    <string name="pref_header_notifications">Notifikationer</string>
     <string name="check_interval_title">Check interval</string>
     <string name="check_interval_summary">How often should the app check for new messages.</string>
-    <string name="check_interval_dialog_title">Check every</string>
+    <string name="check_interval_dialog_title">Tjek hver</string>
 
     <string name="interval_5min">5 Minutes</string>
     <string name="interval_15min">15 Minutes</string>
@@ -133,11 +133,6 @@
         <item>@string/interval_30min</item>
         <item>@string/interval_60min</item>
     </string-array>
-    <string-array name="pm_check_interval_values">
-        <item>300000</item> <!-- 5 min -->
-        <item>900000</item> <!-- 15 min -->
-        <item>1800000</item> <!-- 30 min -->
-        <item>3600000</item> <!-- 60 min -->
-    </string-array>
+
 
 </resources>

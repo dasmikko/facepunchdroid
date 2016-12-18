@@ -153,4 +153,16 @@
     <string name="settings_category_title_pagepinning">Page pinning</string>
     <string name="settings_pagepinning_goto_newest_post">Go to newest post on threads</string>
     <string name="settings_pagepinning_goto_newest_post_description">When pinning threads, you will be navigated to the newest post, when returning.</string>
+    <string name="check_interval_dialog_title">Check every</string>
+    <string name="check_interval_title">Check interval</string>
+    <string name="check_interval_summary">How often should the app check for new messages.</string>
+    <string name="interval_value_15min">900000</string>
+    <string name="interval_value_30min">1800000</string>
+    <string name="interval_value_60min">3600000</string>
+    <string name="interval_15min">15 Minutes</string>
+    <string name="interval_30min">30 Minutes</string>
+    <string name="interval_5min">5 Minutes</string>
+    <string name="interval_60min">60 Minutes</string>
+    <string name="pref_header_notifications">Notifications</string>
+
 </resources>

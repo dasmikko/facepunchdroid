@@ -832,6 +832,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             setHasOptionsMenu(true);
             sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
 
+            boolean loginState = sharedPref.getBoolean("isLoggedIn", false);
+
 
             ((SettingsActivity) getActivity()).setActionBarTitle(getString(R.string.pref_header_notifications));
 
@@ -945,7 +947,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             /**
              * Subscribed Threads
              */
-            final SwitchPreference useSubThreadsNotifications = (SwitchPreference) findPreference("useNotifications");
+            final SwitchPreference useSubThreadsNotifications = (SwitchPreference) findPreference("useSubThreadsNotifications");
             useSubThreadsNotifications.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -996,6 +998,17 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                     return true;
                 }
             });
+
+            //Preference loginPref = findPreference("needtobeloggedin");
+
+
+            if(!loginState) {
+                useNotifications.setEnabled(false);
+                useSubThreadsNotifications.setEnabled(false);
+            } else {
+                useNotifications.setEnabled(true);
+                useSubThreadsNotifications.setEnabled(true);
+            }
 
         }
 

@@ -57,7 +57,7 @@ Current supported languages:
 
 
 ## Changelog
-	1.6.8 (To be released)
+	1.6.8
 	- Fix: New thread button is back at the top of thread lists.
 	- Fix: New post indicator now better on the Dark theme (Thanks for the quickfix Diwako)
     - Updated: Dark theme styling.
@@ -66,6 +66,8 @@ Current supported languages:
     - Fix: Splash screen image is now 200% more sharp and better looking
     - Updated: Libraries and SDK levels
     - NEW: You can now recive notifications when you have new private messages or when there is new posts in a thread you have subscribed to!
+
+    Note: The notifications are still experimantal, and requires you be logged in!
 
 	1.6.7
 	- New: When opening a pinned thread, it will go to the latest post (You can change this from the settings)

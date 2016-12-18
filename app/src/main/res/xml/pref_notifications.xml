@@ -44,6 +44,7 @@
 
         <Preference
             android:title="Test notification settings"
+            android:dependency="useNotifications"
             android:key="testnotification"/>
     </PreferenceCategory>
 
@@ -91,6 +92,7 @@
 
         <Preference
             android:title="Test notification settings"
+            android:dependency="useSubThreadsNotifications"
             android:key="testsubthreadnotification"/>
     </PreferenceCategory>
 

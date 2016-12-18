@@ -1035,6 +1035,7 @@ public class MainActivity extends AppCompatActivity {
                                                 CookieManager.getInstance().flush();
                                             }
 
+                                            loginStatus = false;
                                             serviceManager.killServices();
                                             webview.loadUrl(baseURL);
                                         }

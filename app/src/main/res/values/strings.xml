@@ -173,13 +173,13 @@
     <string name="interval_value_60min">3600000</string>
 
 
-    <string-array name="pm_check_interval">
+    <string-array name="pm_check_interval" translatable="false">
         <item>@string/interval_5min</item>
         <item>@string/interval_15min</item>
         <item>@string/interval_30min</item>
         <item>@string/interval_60min</item>
     </string-array>
-    <string-array name="pm_check_interval_values">
+    <string-array name="pm_check_interval_values" translatable="false">
         <item>300000</item> <!-- 5 min -->
         <item>900000</item> <!-- 15 min -->
         <item>1800000</item> <!-- 30 min -->
