@@ -1,4 +1,67 @@
 # Full changelog
+    1.6.9
+	- Fix: Notification settings not detecting login state correctly.
+
+	1.6.8
+	- Fix: New thread button is back at the top of thread lists.
+	- Fix: New post indicator now better on the Dark theme (Thanks for the quickfix Diwako)
+    - Updated: Dark theme styling.
+    - Updated: Ticker page styling. (Material-ish)
+    - Fix: Tweaked zoom level when viewing images.
+    - Fix: Splash screen image is now 200% more sharp and better looking
+    - Updated: Libraries and SDK levels
+    - NEW: You can now recive notifications when you have new private messages or when there is new posts in a thread you have subscribed to!
+
+    Note: The notifications are still experimantal, and requires you be logged in!
+
+	1.6.7
+	- New: When opening a pinned thread, it will go to the latest post (You can change this from the settings)
+	- New: Now supports Samsung Multi-Windows
+    - Fix: Minor CSS Tweaks
+        - Better thread title sizes
+        - Removed padding from both sides for more content space
+        - New thread button tweaked
+	
+    1.6.6
+    - Fix: Unable to save images through long press of an image.
+    - Fix: Images and files, now saves to a seperate folder called "Facepunch Droid"
+    - New: Zoom is now allowed on tablets!
+
+    1.6.5
+    - Fixed: Donation dialog now actually works.
+
+    1.6.4
+    - Fixed: Keyboard popping up, each time you returned to the app.
+    - Fixed: Dark theme now actually works.
+    - Update: German translation
+
+    1.6.3
+    - Updated: German translations
+    - Updated: Dark theme
+    - New and sweet splash screen
+    - Fixed: No more reload when going Splitscreen on Android N!
+    - Fixed: Small bug when finding on page, search field wouldn't get focus
+
+    1.6.2
+    - Added: Android Nougat Multi-window support
+    - Added: Find on page.
+    
+    1.6.1
+    - Fixed bug on Android N where the drawer icons would get cut off
+
+    1.6.0
+    - Fix: There was a bug on Android kitkat, where was a black bar at the top.
+
+    1.5.9
+    - Added: Fullscreen video capability (Including YouTube videos)
+    - Added: Chrome Custom Tabs. This means faster and better link viewing.
+
+    1.5.8
+    - Added: New option to clear image cache (Useful for when you have updated your avatar)
+
+    1.5.7
+    - Added: You can now edit title/url of your pinned items!
+
     1.5.6
     - Added German translation (Thanks to FP user Coolboy)
     - Added Context menu for images, links and [media] video tags
