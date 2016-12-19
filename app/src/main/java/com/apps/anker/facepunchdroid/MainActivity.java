@@ -207,7 +207,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        Intent messageintent = getIntent();
+
 
 
 
@@ -743,12 +743,23 @@ public class MainActivity extends AppCompatActivity {
         setupBottomToolbar();
         setupSearchToolbar();
 
+        Intent messageintent = getIntent();
+
         //Log.d("Extras", intent.getExtras().toString());
         if(intent.getStringExtra("viewMessage") != null) {
             Log.d("Extra", "NEW MESSAGE OPEN IT");
             webview.loadUrl("https://facepunch.com/" + messageintent.getStringExtra("viewMessage"));
         } else {
             Log.d("Extra", "no new message");
+        }
+
+
+        //Log.d("Extras", intent.getExtras().toString());
+        if(intent.getStringExtra("viewThreadUrl") != null) {
+            Log.d("Extra", "NEW THREAD SUBSCRIPTION OPEN IT");
+            webview.loadUrl("https://facepunch.com/" + messageintent.getStringExtra("viewThreadUrl") + "&goto=newpost");
+        } else {
+            Log.d("Extra", "no new thread subscription notification click");
         }
 
 
@@ -766,6 +777,26 @@ public class MainActivity extends AppCompatActivity {
          * sorry everyone :<
          */
 
+    }
+
+    @Override
+    public void onNewIntent(Intent intent) {
+        //Log.d("Extras", intent.getExtras().toString());
+        if(intent.getStringExtra("viewMessage") != null) {
+            Log.d("Extra", "NEW MESSAGE OPEN IT");
+            webview.loadUrl("https://facepunch.com/" + intent.getStringExtra("viewMessage"));
+        } else {
+            Log.d("Extra", "no new message");
+        }
+
+
+        //Log.d("Extras", intent.getExtras().toString());
+        if(intent.getStringExtra("viewThreadUrl") != null) {
+            Log.d("Extra", "NEW THREAD SUBSCRIPTION OPEN IT");
+            webview.loadUrl("https://facepunch.com/" + intent.getStringExtra("viewThreadUrl") + "&goto=newpost");
+        } else {
+            Log.d("Extra", "no new thread subscription notification click");
+        }
     }
 
     @Override

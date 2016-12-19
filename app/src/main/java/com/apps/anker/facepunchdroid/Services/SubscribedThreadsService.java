@@ -134,10 +134,10 @@ public class SubscribedThreadsService extends Service {
 
                             // The PendingIntent to launch our activity if the user selects this notification
                             Intent intent = new Intent(SubscribedThreadsService.this, MainActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
-                                    Intent.FLAG_ACTIVITY_SINGLE_TOP);
                             intent.putExtra("viewThreadUrl", threadUrl);
                             intent.putExtra("viewThreadId", threadId);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
 
 
                             PendingIntent contentIntent = PendingIntent.getActivity(SubscribedThreadsService.this, 0,
