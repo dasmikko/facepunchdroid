@@ -57,6 +57,9 @@ Current supported languages:
 
 
 ## Changelog
+	1.6.9
+	- Fix: Notification settings not detecting login state correctly.
+
 	1.6.8
 	- Fix: New thread button is back at the top of thread lists.
 	- Fix: New post indicator now better on the Dark theme (Thanks for the quickfix Diwako)
