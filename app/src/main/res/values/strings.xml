@@ -171,6 +171,7 @@
     <string name="interval_value_15min">900000</string>
     <string name="interval_value_30min">1800000</string>
     <string name="interval_value_60min">3600000</string>
+    <string name="settings_loggedin_requirement">You need to be logged in to use these settings.</string>
 
 
     <string-array name="pm_check_interval" translatable="false">

@@ -133,6 +133,7 @@
         <item>@string/interval_30min</item>
         <item>@string/interval_60min</item>
     </string-array>
+    <string name="settings_loggedin_requirement">Du skal være logget ind for at bruge disse indstillinger.</string>
 
 
 </resources>

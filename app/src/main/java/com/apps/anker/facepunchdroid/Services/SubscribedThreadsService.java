@@ -16,6 +16,7 @@ import android.util.Log;
 import android.webkit.CookieManager;
 import android.widget.Toast;
 
+import com.apps.anker.facepunchdroid.Cookies.Cookies;
 import com.apps.anker.facepunchdroid.MainActivity;
 import com.apps.anker.facepunchdroid.R;
 
@@ -92,9 +93,9 @@ public class SubscribedThreadsService extends Service {
     }
 
     private void getSubscribedThreads() {
-        final String bb_sessionhash = getCookie("https://facepunch.com/", "bb_sessionhash");
-        final String bb_password = getCookie("https://facepunch.com/", "bb_password");
-        final String bb_userid = getCookie("https://facepunch.com/", "bb_userid");
+        final String bb_sessionhash = Cookies.getCookie("https://facepunch.com/", "bb_sessionhash");
+        final String bb_password = Cookies.getCookie("https://facepunch.com/", "bb_password");
+        final String bb_userid = Cookies.getCookie("https://facepunch.com/", "bb_userid");
 
         new Thread(new Runnable() {
             public void run() {
@@ -187,20 +188,5 @@ public class SubscribedThreadsService extends Service {
                 }
             }
         }).start();
-    }
-
-    public String getCookie(String siteName,String CookieName){
-        String CookieValue = null;
-
-        CookieManager cookieManager = CookieManager.getInstance();
-        String cookies = cookieManager.getCookie(siteName);
-        String[] temp=cookies.split(";");
-        for (String ar1 : temp ){
-            if(ar1.contains(CookieName)){
-                String[] temp1=ar1.split("=");
-                CookieValue = temp1[1];
-            }
-        }
-        return CookieValue;
     }
 }

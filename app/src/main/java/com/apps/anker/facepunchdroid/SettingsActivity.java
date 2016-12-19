@@ -42,6 +42,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.apps.anker.facepunchdroid.Cookies.Cookies;
 import com.apps.anker.facepunchdroid.Migrations.MainMigration;
 import com.apps.anker.facepunchdroid.RealmObjects.UserScript;
 import com.apps.anker.facepunchdroid.Services.PrivateMessageService;
@@ -820,10 +821,11 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     public static class NotificationsPreferenceFragment extends PreferenceFragment {
         private SharedPreferences sharedPref;
         private Preference licenseItem;
+        boolean loginState;
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
-            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(mContext);
+            sharedPref = PreferenceManager.getDefaultSharedPreferences(mActivity);
 
 
 
@@ -832,8 +834,15 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             setHasOptionsMenu(true);
             sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
 
-            boolean loginState = sharedPref.getBoolean("isLoggedIn", false);
+            if(Cookies.getCookie("https://facepunch.com/", "bb_userid") != null) {
+                Log.d("Cookie", Cookies.getCookie("https://facepunch.com/", "bb_userid"));
+                loginState = true;
+            } else {
+                Snackbar.make(getView(), R.string.settings_loggedin_requirement, Snackbar.LENGTH_LONG).show();
+                loginState = false;
+            }
 
+            Log.d("Loginstate", String.valueOf(loginState));
 
             ((SettingsActivity) getActivity()).setActionBarTitle(getString(R.string.pref_header_notifications));
 
