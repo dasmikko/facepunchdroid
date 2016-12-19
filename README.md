@@ -57,6 +57,10 @@ Current supported languages:
 
 
 ## Changelog
+    1.7.0
+    - Fix: When clicking on subscription notification, it would do nothing..
+    - Fix: When clicking on a PM/subscription notification, while the app was running, the page would not load.
+
 	1.6.9
 	- Fix: Notification settings not detecting login state correctly.
 
@@ -79,102 +83,7 @@ Current supported languages:
         - Better thread title sizes
         - Removed padding from both sides for more content space
         - New thread button tweaked
-	
-    1.6.6
-    - Fix: Unable to save images through long press of an image.
-    - Fix: Images and files, now saves to a seperate folder called "Facepunch Droid"
-    - New: Zoom is now allowed on tablets!
-
-    1.6.5
-    - Fixed: Donation dialog now actually works.
-
-    1.6.4
-    - Fixed: Keyboard popping up, each time you returned to the app.
-    - Fixed: Dark theme now actually works.
-    - Update: German translation
-
-    1.6.3
-    - Updated: German translations
-    - Updated: Dark theme
-    - New and sweet splash screen
-    - Fixed: No more reload when going Splitscreen on Android N!
-    - Fixed: Small bug when finding on page, search field wouldn't get focus
-
-    1.6.2
-    - Added: Android Nougat Multi-window support
-    - Added: Find on page.
-    
-    1.6.1
-    - Fixed bug on Android N where the drawer icons would get cut off
-
-    1.6.0
-    - Fix: There was a bug on Android kitkat, where was a black bar at the top.
-
-    1.5.9
-    - Added: Fullscreen video capability (Including YouTube videos)
-    - Added: Chrome Custom Tabs. This means faster and better link viewing.
-
-    1.5.8
-    - Added: New option to clear image cache (Useful for when you have updated your avatar)
-
-    1.5.7
-    - Added: You can now edit title/url of your pinned items!
-    
-    1.5.6
-    - Added German translation (Thanks to FP user Coolboy)
-    - Added Context menu for images, links and [media] video tags
-    
-    1.5.5
-    - Quick fix for Edit pinned pages, page not working
-    
-    1.5.4
-    - Quick fix for userscripts not working
-    
-    1.5.3
-    - Added userscript support
-    - Minor fixes and translations
-
-    1.5.2
-    - App now translatable (Is now in Danish too)
-    - Added Language selector
-    - Fixed a styling bug for dark theme
-    - Fixed a bug with pagination on search page
-
-    1.5.1
-    - Added Dark theme! (Huge credit to facepunch user Oicani Gonzales for his CSS)
-    - Fixed typo in settings
-    - Added direct image links handling
-    - Added forward menu button
-    - Fix bug with image downloader only working on Android 6 devices.
-    - Minor CSS fixes
-    
-    1.5.0
-    - Fixed bug with smiley selector on small phones
-    - Disabled cache for the avatar in drawer
-    - Fix bug with pagination
-    - Added thread and sub thread icons
-    - Minor CSS fixes
-
-    1.4.9
-    - Smiley selector now works!
-
-    1.4.8
-    - Option to disable all images
-    - Updated the navigation drawer to follow the design guidelines
-    - Fix bug with the paginator (Huge thanks to Scratch)
-    
-    1.4.7
-    - Fixed bug where the pagination would show when scrolled to bottom, even if the page didn't have pagination
-    
-    1.4.6
-    - Remove username from top
-    - Removed old pagination
-    - Native pagination now hides/shows on scroll
-    
-    1.4.5
-    - Added native pagination, with go to functionality
-
-    
+   
     
 [Full changelog here](https://github.com/dasmikko/facepunchdroid/blob/master/changelog.md)
 

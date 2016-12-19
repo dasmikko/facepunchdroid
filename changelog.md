@@ -1,4 +1,8 @@
 # Full changelog
+	1.7.0
+	- Fix: When clicking on subscription notification, it would do nothing..
+	- Fix: When clicking on a PM/subscription notification, while the app was running, the page would not load.
+
     1.6.9
 	- Fix: Notification settings not detecting login state correctly.
 
