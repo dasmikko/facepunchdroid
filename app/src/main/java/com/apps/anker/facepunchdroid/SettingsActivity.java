@@ -78,6 +78,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     static Context mContext;
     static Activity mActivity;
 
+    public static View settingsView;
+
     private static NotificationManager mNM;
 
     /**
@@ -165,6 +167,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
         mContext = getApplicationContext();
         mActivity = MainActivity.mActivity;
+
+        settingsView = getListView();
 
         setupActionBar();
     }
@@ -260,8 +264,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         public void onCreate(Bundle savedInstanceState) {
             SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(mContext);
 
-
-
             // Update language
             String selectedLang = sharedPref.getString("language", "system");
             Language.setLanguage(selectedLang, getResources());
@@ -278,7 +280,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
                     Ion.getDefault(mContext).getCache().clear();
-                    Snackbar.make(getView(), R.string.settings_snackbar_image_cache_was_cleared, Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(settingsView, R.string.settings_snackbar_image_cache_was_cleared, Snackbar.LENGTH_LONG).show();
                     return false;
                 }
             });
@@ -546,7 +548,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                                                             preference.setTitle(input.getText().toString());
                                                             realm.commitTransaction();
 
-                                                            Snackbar.make(getView() , R.string.userscript_was_added, Snackbar.LENGTH_LONG).show();
+                                                            Snackbar.make(settingsView , R.string.userscript_was_added, Snackbar.LENGTH_LONG).show();
                                                         }
                                                     });
                                                     builder.setNegativeButton(R.string.answer_cancel, new DialogInterface.OnClickListener() {
@@ -567,7 +569,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                                                     realm.commitTransaction();
 
                                                     userscriptList.removePreference(preference);
-                                                    Snackbar.make(getView() , R.string.userscript_was_deleted, Snackbar.LENGTH_LONG).show();
+                                                    Snackbar.make(settingsView , R.string.userscript_was_deleted, Snackbar.LENGTH_LONG).show();
                                                     break;
                                             }
                                         }
@@ -690,7 +692,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                                                             preference.setTitle(input.getText().toString());
                                                             realm.commitTransaction();
 
-                                                            Snackbar.make(getView() ,"Item was renamed", Snackbar.LENGTH_LONG).show();
+                                                            Snackbar.make(settingsView ,"Item was renamed", Snackbar.LENGTH_LONG).show();
                                                         }
                                                     });
                                                     builder.setNegativeButton(R.string.answer_cancel, new DialogInterface.OnClickListener() {
@@ -711,7 +713,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                                                     realm.commitTransaction();
 
                                                     userscriptList.removePreference(preference);
-                                                    Snackbar.make(getView() , R.string.userscript_was_deleted, Snackbar.LENGTH_LONG).show();
+                                                    Snackbar.make(settingsView , R.string.userscript_was_deleted, Snackbar.LENGTH_LONG).show();
                                                     break;
                                             }
                                         }
@@ -723,7 +725,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
                     userscriptList.addPreference(dummy);
 
-                    Snackbar.make(getView(), R.string.userscript_was_added, Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(settingsView, R.string.userscript_was_added, Snackbar.LENGTH_LONG).show();
 
                 }
                 if (resultCode == Activity.RESULT_CANCELED) {
@@ -838,7 +840,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 Log.d("Cookie", Cookies.getCookie("https://facepunch.com/", "bb_userid"));
                 loginState = true;
             } else {
-                Snackbar.make(getView(), R.string.settings_loggedin_requirement, Snackbar.LENGTH_LONG).show();
+                Snackbar.make(settingsView, R.string.settings_loggedin_requirement, Snackbar.LENGTH_LONG).show();
                 loginState = false;
             }
 
