@@ -57,6 +57,9 @@ Current supported languages:
 
 
 ## Changelog
+	1.7.1 (To be released)
+	- Fix: When trying to open notifications settings, while logged out, it would crash.
+
     1.7.0
     - Fix: When clicking on subscription notification, it would do nothing..
     - Fix: When clicking on a PM/subscription notification, while the app was running, the page would not load.
