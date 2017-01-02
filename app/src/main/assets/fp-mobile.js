@@ -154,7 +154,7 @@ jQuery(function() {
         var username = $( "#navbar-login>a" ).text();
         var userid = $( "#navbar-login>a" ).attr("href").replace("member.php?u=", "");
         console.log(userid);
-        Android.setLoginStatus(true, username, userid);
+        Android.setLoginStatus(true, username, userid, SECURITYTOKEN);
     }
     else {
         Android.setLoginStatus(false, "", 0);

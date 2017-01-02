@@ -1,6 +1,7 @@
 package com.apps.anker.facepunchdroid.Tools;
 
 import android.net.Uri;
+import android.net.UrlQuerySanitizer;
 
 import java.util.Set;
 
@@ -40,5 +41,10 @@ public class UriHandling {
         }
 
         return newUri.build();
+    }
+
+    public static Integer getThreadIdFromURL(String url) {
+        UrlQuerySanitizer sanitizer = new UrlQuerySanitizer(url);
+        return Integer.parseInt(sanitizer.getValue("t")); // get your value
     }
 }

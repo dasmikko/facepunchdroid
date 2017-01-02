@@ -968,7 +968,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                     }
 
                     if(Boolean.valueOf(newValue.toString()) ) {
-                        MainActivity.serviceManager.startSubscribedThreadsService();
+                        MainActivity.serviceManager.startSubscribedThreadsService(MainActivity.mActivity);
                     }
                     return true;
                 }
