@@ -154,18 +154,24 @@
     <string name="settings_category_title_pagepinning">Seiten-Anheftung</string>
     <string name="settings_pagepinning_goto_newest_post">Zu neuesten Beiträgen in Themen gehen</string>
     <string name="settings_pagepinning_goto_newest_post_description">Bei angehefteten Themen wird, bei der Rückkehr, automatisch zum neuesten Beitrag navigiert.</string>
-    <string name="check_interval_dialog_title">Check every</string>
-    <string name="check_interval_summary">Hvor tit skal appen tjekke for nye beskeder.</string>
-    <string name="check_interval_title">Tjek interval</string>
-    <string name="interval_15min">15 minutter</string>
-    <string name="interval_30min">30 minutter</string>
-    <string name="interval_5min">5 minutter</string>
-    <string name="interval_60min">60 minutter</string>
+    
+    
+    <!-- Notification strings -->
+    
+    <string name="pref_header_notifications">Benachrichtigungen</string>
+    <string name="check_interval_dialog_title">Überprüfe alle</string>
+    <string name="check_interval_summary">Wie oft soll die App auf neue Nachrichten prüfen.</string>
+    <string name="check_interval_title">Prüf-intervall</string>
+    
+    <string name="interval_15min">15 Minuten</string>
+    <string name="interval_30min">30 Minuten</string>
+    <string name="interval_5min">5 Minuten</string>
+    <string name="interval_60min">60 Minuten</string>
+    
     <string name="interval_value_15min">900000</string>
     <string name="interval_value_30min">1800000</string>
     <string name="interval_value_60min">3600000</string>
-    <string name="pref_header_notifications">Notifications</string>
-    <string name="settings_loggedin_requirement">You need to be logged in to use these settings.</string>
+    <string name="settings_loggedin_requirement">Du musst eingeloggt sein um diese Einstellungen zu nutzen.</string>
 
 
 </resources>
