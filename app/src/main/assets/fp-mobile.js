@@ -22,6 +22,19 @@ var ti = setInterval(function() {
 
 
 jQuery(function() {
+
+    // Show and hide ratings if they are in the viewport!
+    inView('.postfoot')
+      .on('enter', el => {
+        console.log("enter!");
+        jQuery(el).find('.postrating').show();
+      })
+      .on('exit', el => {
+        console.log("hidden");
+        jQuery(el).find('.postrating').hide();
+    });
+
+
     console.log("DOM READY");
     $(".content").each(function(){
         $(this).find("img").each(function() {
