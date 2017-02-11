@@ -86,7 +86,7 @@
     <string name="lang_system">System language</string>
     <string name="lang_english">English</string>
     <string name="lang_danish">Danish</string>
-	<string name="lang_german">German</string>
+    <string name="lang_german">German</string>
 
     <string name="currentpage">Current page</string>
 
@@ -167,7 +167,7 @@
     <string name="interval_15min">15 Minutes</string>
     <string name="interval_30min">30 Minutes</string>
     <string name="interval_60min">60 Minutes</string>
-    
+
     <string name="interval_value_15min">900000</string>
     <string name="interval_value_30min">1800000</string>
     <string name="interval_value_60min">3600000</string>

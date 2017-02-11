@@ -9,6 +9,7 @@ import android.util.Log;
 import com.apps.anker.facepunchdroid.Cookies.Cookies;
 import com.apps.anker.facepunchdroid.Facepunch.Objects.SubscriptionFolder;
 
+import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -22,7 +23,7 @@ import java.util.ArrayList;
  */
 
 public class Subscription {
-    ArrayList<SubscriptionFolder> subsarray = new ArrayList<>();
+    static ArrayList<SubscriptionFolder> subsarray = new ArrayList<>();
 
     public static void createSubscription(Context context, final Integer threadID) {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
@@ -83,7 +84,7 @@ public class Subscription {
         t.start();
     }
 
-    public ArrayList<SubscriptionFolder> getSubscriptionFolders() {
+    public static ArrayList<SubscriptionFolder> getSubscriptionFolders() {
         final String bb_sessionhash = Cookies.getCookie("https://facepunch.com/", "bb_sessionhash");
         final String bb_password = Cookies.getCookie("https://facepunch.com/", "bb_password");
         final String bb_userid = Cookies.getCookie("https://facepunch.com/", "bb_userid");
@@ -100,12 +101,7 @@ public class Subscription {
                             .get();
 
                     Element subscriptionbox = doc.select("#usercp_nav > div:nth-child(2) > div > ul:nth-child(1)").first();
-
-                    Log.d("Subscriptionbox", subscriptionbox.html());
-
-
                     Elements folders = subscriptionbox.select("li");
-                    Log.d("Folders", folders.html());
 
                     ArrayList<SubscriptionFolder> subsarray = new ArrayList<>();
 
@@ -122,7 +118,7 @@ public class Subscription {
 
                         subsarray.add(subscriptionfolder);
 
-                        Log.d("FolderLoop", foldername);
+                        Log.d("FolderLoop", foldername + " ("+ folderid +")");
                     }
 
 
@@ -143,6 +139,56 @@ public class Subscription {
             e.printStackTrace();
         }
         return subsarray;
+    }
+
+
+    public static void createSubscriptionFolder(Context context, final String foldername) {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+        final String securityToken = sharedPref.getString("securitytoken", null);
+        final String bb_sessionhash = Cookies.getCookie("https://facepunch.com/", "bb_sessionhash");
+        final String bb_password = Cookies.getCookie("https://facepunch.com/", "bb_password");
+        final String bb_userid = Cookies.getCookie("https://facepunch.com/", "bb_userid");
+
+        Thread t = new Thread(new Runnable() {
+            public void run() {
+                try {
+                    Connection doc = Jsoup.connect("https://facepunch.com/subscription.php?do=doeditfolders")
+                            .cookie("bb_sessionhash", bb_sessionhash)
+                            .cookie("bb_password", bb_password)
+                            .cookie("bb_userid", bb_userid)
+                            .data("folderid", "0")
+                            .data("s", "")
+                            .data("securitytoken", securityToken)
+                            .data("do", "doeditfolders");
+
+                    int Count = 0;
+
+                    final ArrayList<SubscriptionFolder> currentfolders = getSubscriptionFolders();
+
+                    for (SubscriptionFolder folder : currentfolders) {
+
+                        doc.data("folderlist["+Count+"]", folder.getName());
+
+                        Count++;
+                    }
+
+                    Log.d("oldcount", String.valueOf(Count));
+                    Count++;
+
+                    Log.d("newfolder", Count + " " + foldername);
+                    doc.data("folderlist["+Count+"]", foldername);
+
+                    doc.post();
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        });
+
+        t.start();
     }
 
     private class getSubscriptionFoldersTask extends AsyncTask<String, Void, String> {

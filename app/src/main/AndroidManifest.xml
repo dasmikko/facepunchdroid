@@ -8,17 +8,15 @@
     <uses-permission android:name="android.permission.MANAGE_DOCUMENTS" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="com.android.vending.BILLING" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:allowBackup="true"
+        android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:hardwareAccelerated="true"
         android:theme="@style/AppTheme">
-
         <activity
             android:name=".SplashActivity"
             android:theme="@style/SplashTheme">
@@ -29,11 +27,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".MainActivity"
-            android:launchMode="singleTop"
             android:configChanges="orientation|keyboardHidden|screenSize|smallestScreenSize|screenLayout"
+            android:launchMode="singleTop"
             android:resizeableActivity="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -62,7 +59,7 @@
         <activity
             android:name=".ImageViewer"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:theme="@style/Theme.Tranparent"></activity>
+            android:theme="@style/Theme.Tranparent" />
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings"
@@ -74,10 +71,10 @@
         </activity>
         <activity
             android:name=".DonationsActivity"
+            android:configChanges="locale"
             android:excludeFromRecents="true"
             android:label="Donations"
-            android:theme="@style/DonationDialogStyle"
-            android:configChanges="locale">
+            android:theme="@style/DonationDialogStyle">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.apps.anker.facepunchdroid.MainActivity" />
@@ -85,35 +82,51 @@
         <activity
             android:name=".EditPinnedItemsActivity"
             android:label="@string/title_activity_edit_pinned_items"
-            android:theme="@style/AppThemeEditPinnedItems"
-            android:parentActivityName=".MainActivity"/>
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppThemeEditPinnedItems" />
 
         <service android:name=".Services.PrivateMessageService" />
         <service android:name=".Services.SubscribedThreadsService" />
 
-        <receiver android:name=".Services.BootReciever"
+        <receiver
+            android:name=".Services.BootReciever"
             android:enabled="true">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"></action>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+        <receiver
+            android:name=".Services.SubscribedThreadsReciever"
+            android:enabled="true" />
 
-        <receiver android:name=".Services.SubscribedThreadsReciever"
-            android:enabled="true"></receiver>
+        <uses-library
+            android:name="com.sec.android.app.multiwindow"
+            android:required="false" />
 
-
-
-
-        <uses-library android:required="false" android:name="com.sec.android.app.multiwindow" />
-        <meta-data android:name="com.sec.android.support.multiwindow" android:value="true" />
-        <meta-data android:name="com.sec.android.multiwindow.DEFAULT_SIZE_W" android:value="632.0dip" />
-        <meta-data android:name="com.sec.android.multiwindow.DEFAULT_SIZE_H" android:value="598.0dip" />
-        <meta-data android:name="com.sec.android.multiwindow.MINIMUM_SIZE_W" android:value="632.0dip" />
-        <meta-data android:name="com.sec.android.multiwindow.MINIMUM_SIZE_H" android:value="598.0dip" /><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
-     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <meta-data
+            android:name="com.sec.android.support.multiwindow"
+            android:value="true" />
+        <meta-data
+            android:name="com.sec.android.multiwindow.DEFAULT_SIZE_W"
+            android:value="632.0dip" />
+        <meta-data
+            android:name="com.sec.android.multiwindow.DEFAULT_SIZE_H"
+            android:value="598.0dip" />
+        <meta-data
+            android:name="com.sec.android.multiwindow.MINIMUM_SIZE_W"
+            android:value="632.0dip" />
+        <meta-data
+            android:name="com.sec.android.multiwindow.MINIMUM_SIZE_H"
+            android:value="598.0dip" />
+        <!--
+ ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
+        -->
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
+        <activity android:name=".PinnedPagesSyncActivity"></activity>
     </application>
 
 </manifest>
