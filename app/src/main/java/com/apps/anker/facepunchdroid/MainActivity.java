@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
     String CSSfromfile;
     String JSfromfile;
     String Jquery;
-    Boolean loginStatus;
+    Boolean loginStatus = false;
 
     boolean isFullscreen = false;
 
@@ -764,11 +764,14 @@ public class MainActivity extends AppCompatActivity {
         serviceManager.initServices(getApplicationContext());
 
 
-        Subscription sub = new Subscription();
-        ArrayList<SubscriptionFolder> folders = sub.getSubscriptionFolders();
+        if(sharedPref.getBoolean("isLoggedIn", false)) {
+            Subscription sub = new Subscription();
+            ArrayList<SubscriptionFolder> folders = sub.getSubscriptionFolders();
 
-        for(SubscriptionFolder folder : folders) {
-            Log.d("Folder", folder.getName());
+            for(SubscriptionFolder folder : folders) {
+                Log.d("Folder", folder.getName());
+            }
+
         }
 
         /**

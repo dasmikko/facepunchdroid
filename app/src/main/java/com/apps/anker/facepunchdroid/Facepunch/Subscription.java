@@ -161,8 +161,8 @@ public class Subscription {
 
         @Override
         protected void onPostExecute(String result) {
-            TextView txt = (TextView) findViewById(R.id.output);
-            txt.setText("Executed"); // txt.setText(result);
+            //TextView txt = (TextView) findViewById(R.id.output);
+            //txt.setText("Executed"); // txt.setText(result);
             // might want to change "executed" for the returned string passed
             // into onPostExecute() but that is upto you
         }
