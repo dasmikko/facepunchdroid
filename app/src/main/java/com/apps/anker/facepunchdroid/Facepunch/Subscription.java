@@ -23,7 +23,7 @@ import java.util.ArrayList;
  */
 
 public class Subscription {
-    static ArrayList<SubscriptionFolder> subsarray = new ArrayList<>();
+    //static ArrayList<SubscriptionFolder> subsarray = new ArrayList<>();
 
     public static void createSubscription(Context context, final Integer threadID) {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
@@ -84,61 +84,43 @@ public class Subscription {
         t.start();
     }
 
-    public static ArrayList<SubscriptionFolder> getSubscriptionFolders() {
+    public static ArrayList<SubscriptionFolder> getSubscriptionFolders() throws IOException {
         final String bb_sessionhash = Cookies.getCookie("https://facepunch.com/", "bb_sessionhash");
         final String bb_password = Cookies.getCookie("https://facepunch.com/", "bb_password");
         final String bb_userid = Cookies.getCookie("https://facepunch.com/", "bb_userid");
 
 
 
-        Thread t = new Thread(new Runnable() {
-            public void run() {
-                try {
-                    Document doc = Jsoup.connect("https://facepunch.com/subscription.php")
-                            .cookie("bb_sessionhash", bb_sessionhash)
-                            .cookie("bb_password", bb_password)
-                            .cookie("bb_userid", bb_userid)
-                            .get();
+            Document doc = Jsoup.connect("https://facepunch.com/subscription.php")
+                    .cookie("bb_sessionhash", bb_sessionhash)
+                    .cookie("bb_password", bb_password)
+                    .cookie("bb_userid", bb_userid)
+                    .get();
 
-                    Element subscriptionbox = doc.select("#usercp_nav > div:nth-child(2) > div > ul:nth-child(1)").first();
-                    Elements folders = subscriptionbox.select("li");
+            Element subscriptionbox = doc.select("#usercp_nav > div:nth-child(2) > div > ul:nth-child(1)").first();
+            Elements folders = subscriptionbox.select("li");
 
-                    ArrayList<SubscriptionFolder> subsarray = new ArrayList<>();
+            ArrayList<SubscriptionFolder> subsarray = new ArrayList<>();
 
-                    for (Element folder : folders) {
-                        SubscriptionFolder subscriptionfolder = new SubscriptionFolder();
+            for (Element folder : folders) {
+                SubscriptionFolder subscriptionfolder = new SubscriptionFolder();
 
-                        // Folder id
-                        Integer folderid = Integer.parseInt(folder.select("a").attr("href").replace("subscription.php?folderid=", ""));
-                        subscriptionfolder.setId(folderid);
+                // Folder id
+                Integer folderid = Integer.parseInt(folder.select("a").attr("href").replace("subscription.php?folderid=", ""));
+                subscriptionfolder.setId(folderid);
 
-                        // foldername
-                        String foldername = folder.select("a").text();
-                        subscriptionfolder.setName(foldername);
+                // foldername
+                String foldername = folder.select("a").text();
+                subscriptionfolder.setName(foldername);
 
-                        subsarray.add(subscriptionfolder);
+                subsarray.add(subscriptionfolder);
 
-                        Log.d("FolderLoop", foldername + " ("+ folderid +")");
-                    }
-
-
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-
+                Log.d("FolderLoop", foldername + " ("+ folderid +")");
             }
-        });
 
-        t.start();
-        try {
-            t.join();
+
             return subsarray;
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        return subsarray;
+
     }
 
 
@@ -163,20 +145,21 @@ public class Subscription {
 
                     int Count = 0;
 
-                    final ArrayList<SubscriptionFolder> currentfolders = getSubscriptionFolders();
+                    ArrayList<SubscriptionFolder> currentfolders = getSubscriptionFolders();
+
+                    SubscriptionFolder newFolder = new SubscriptionFolder();
+                    newFolder.setId(currentfolders.size() + 1);
+                    newFolder.setName(foldername);
+
+                    currentfolders.add(newFolder);
 
                     for (SubscriptionFolder folder : currentfolders) {
 
                         doc.data("folderlist["+Count+"]", folder.getName());
+                        Log.d("folder", "folderlist["+Count+"] " + folder.getName());
 
                         Count++;
                     }
-
-                    Log.d("oldcount", String.valueOf(Count));
-                    Count++;
-
-                    Log.d("newfolder", Count + " " + foldername);
-                    doc.data("folderlist["+Count+"]", foldername);
 
                     doc.post();
 

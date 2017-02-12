@@ -1,5 +1,6 @@
 package com.apps.anker.facepunchdroid;
 
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +11,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.apps.anker.facepunchdroid.Facepunch.Subscription;
+
+import java.io.IOException;
 
 public class PinnedPagesSyncActivity extends AppCompatActivity {
 
@@ -48,8 +51,25 @@ public class PinnedPagesSyncActivity extends AppCompatActivity {
         btnGetFolder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //What to do on back clicked
-                Subscription.getSubscriptionFolders();
+                Runnable r = new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        // your code here
+                        //What to do on back clicked
+                        try {
+                            Subscription.getSubscriptionFolders();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                };
+
+                Thread t = new Thread(r);
+                t.start();
+
                 Toast.makeText(PinnedPagesSyncActivity.this, "Check log!", Toast.LENGTH_SHORT).show();
             }
         });
@@ -64,6 +84,5 @@ public class PinnedPagesSyncActivity extends AppCompatActivity {
                 Toast.makeText(PinnedPagesSyncActivity.this, "Folder created!", Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 }

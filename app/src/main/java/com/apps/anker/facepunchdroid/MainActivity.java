@@ -764,7 +764,7 @@ public class MainActivity extends AppCompatActivity {
         serviceManager.initServices(getApplicationContext());
 
 
-        if(sharedPref.getBoolean("isLoggedIn", false)) {
+        /*if(sharedPref.getBoolean("isLoggedIn", false)) {
             Subscription sub = new Subscription();
             ArrayList<SubscriptionFolder> folders = sub.getSubscriptionFolders();
 
@@ -772,7 +772,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("Folder", folder.getName());
             }
 
-        }
+        }*/
 
         /**
          *
