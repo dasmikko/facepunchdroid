@@ -25,6 +25,7 @@ import android.os.Build;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
+import android.support.annotation.RequiresApi;
 import android.support.customtabs.CustomTabsIntent;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
@@ -46,6 +47,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.AccelerateInterpolator;
@@ -242,6 +244,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
         mActivity = this;
         mContext = getApplicationContext();
 
@@ -302,6 +306,8 @@ public class MainActivity extends AppCompatActivity {
         // Setup Drawer
         setupToolbar();
         setupDrawer();
+
+
 
 
         mActivityTitle = getTitle().toString();
@@ -773,6 +779,21 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }*/
+
+
+        final RelativeLayout rlLayout = (RelativeLayout) findViewById(R.id.activityMainLayout);
+        rlLayout.post(new Runnable()
+        {
+            @Override
+            public void run(){
+                //create your anim here
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    animateRevealShow(rlLayout);
+                }
+            }
+        });
+
+
 
         /**
          *
@@ -1761,5 +1782,18 @@ public class MainActivity extends AppCompatActivity {
         return (context.getResources().getConfiguration().screenLayout
                 & Configuration.SCREENLAYOUT_SIZE_MASK)
                 >= Configuration.SCREENLAYOUT_SIZE_LARGE;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    private void animateRevealShow(View viewRoot) {
+        int cx = (viewRoot.getLeft() + viewRoot.getRight()) / 2;
+        int cy = (viewRoot.getTop() + viewRoot.getBottom()) / 2;
+        int finalRadius = Math.max(viewRoot.getWidth(), viewRoot.getHeight());
+
+        Animator anim = ViewAnimationUtils.createCircularReveal(viewRoot, cx, cy, 0, finalRadius);
+        viewRoot.setVisibility(View.VISIBLE);
+        anim.setDuration(500);
+        anim.setInterpolator(new AccelerateInterpolator());
+        anim.start();
     }
 }
