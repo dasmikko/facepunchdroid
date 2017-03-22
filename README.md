@@ -57,7 +57,7 @@ Current supported languages:
 
 
 ## Changelog
-	1.7.1 (To be released)
+	1.7.1
 	- Fix: When trying to open notifications settings, while logged out, it would crash.
 	- New: Ratings are now visible as you scroll through the threads!
 	- New: Fancy animation when starting the app.
@@ -68,26 +68,6 @@ Current supported languages:
 
 	1.6.9
 	- Fix: Notification settings not detecting login state correctly.
-
-	1.6.8
-	- Fix: New thread button is back at the top of thread lists.
-	- Fix: New post indicator now better on the Dark theme (Thanks for the quickfix Diwako)
-    - Updated: Dark theme styling.
-    - Updated: Ticker page styling. (Material-ish)
-    - Fix: Tweaked zoom level when viewing images.
-    - Fix: Splash screen image is now 200% more sharp and better looking
-    - Updated: Libraries and SDK levels
-    - NEW: You can now recive notifications when you have new private messages or when there is new posts in a thread you have subscribed to!
-
-    Note: The notifications are still experimantal, and requires you be logged in!
-
-	1.6.7
-	- New: When opening a pinned thread, it will go to the latest post (You can change this from the settings)
-	- New: Now supports Samsung Multi-Windows
-    - Fix: Minor CSS Tweaks
-        - Better thread title sizes
-        - Removed padding from both sides for more content space
-        - New thread button tweaked
    
     
 [Full changelog here](https://github.com/dasmikko/facepunchdroid/blob/master/changelog.md)
