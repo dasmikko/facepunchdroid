@@ -60,6 +60,7 @@ Current supported languages:
 	1.7.1 (To be released)
 	- Fix: When trying to open notifications settings, while logged out, it would crash.
 	- New: Ratings are now visible as you scroll through the threads!
+	- New: Fancy animation when starting the app.
 	
     1.7.0
     - Fix: When clicking on subscription notification, it would do nothing..
