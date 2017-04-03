@@ -57,6 +57,9 @@ Current supported languages:
 
 
 ## Changelog
+	1.7.2
+	- Fix: App now runs on Android 4.4 again. Sorry for the issues!
+	
 	1.7.1
 	- Fix: When trying to open notifications settings, while logged out, it would crash.
 	- New: Ratings are now visible as you scroll through the threads!
