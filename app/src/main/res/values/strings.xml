@@ -9,6 +9,8 @@
     <string name="action_settings">Settings</string>
     <string name="action_refresh">Refresh</string>
     <string name="action_forward">Forward</string>
+    <string name="action_prevpage">Previous page</string>
+    <string name="action_nextpage">Next page</string>
     <string name="action_pin_to_drawer">Pin to drawer</string>
     <string name="action_open_in_browser">Open in browser</string>
     <string name="action_share">Share</string>
