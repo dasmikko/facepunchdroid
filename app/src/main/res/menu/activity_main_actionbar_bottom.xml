@@ -11,12 +11,12 @@
             app:showAsAction="always"
             android:title="Go to page" />
         <item android:id="@+id/action_prevpage"
-            android:title="@string/action_refresh"
+            android:title="@string/action_prevpage"
             android:icon="@drawable/ic_keyboard_arrow_left_white_24dp"
             app:showAsAction="always"/>
         <item
             android:id="@+id/action_nextpage"
-            android:title="@string/action_refresh"
+            android:title="@string/action_nextpage"
             android:icon="@drawable/ic_keyboard_arrow_right_white_24dp"
             app:showAsAction="always"/>
 
