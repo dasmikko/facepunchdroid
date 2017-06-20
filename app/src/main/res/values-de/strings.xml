@@ -9,6 +9,8 @@
     <string name="action_settings">Einstellungen</string>
     <string name="action_refresh">Neu laden</string>
     <string name="action_forward">Eine Seite vor</string>
+    <string name="action_prevpage">Vorherige Seite</string>
+    <string name="action_nextpage">Nächste Seite</string>
     <string name="action_pin_to_drawer">An Übersicht anheften</string>
     <string name="action_open_in_browser">Im Browser öffnen</string>
     <string name="action_share">Teilen</string>
