@@ -5,7 +5,7 @@ Use Facepunch with a more mobile friendly design, and features.
 
 If you don't trust me, you are more than welcome to build the app yourself.
 
-**UPDATE**
+## UPDATE
 I'm currently working on a new app for the new facepunch forum, in React Native.
 I've got login to work without issues, so now, I actually only need to implement:
 
@@ -14,6 +14,8 @@ I've got login to work without issues, so now, I actually only need to implement
 - [ ] Thread Viewing
 - [ ] Thread Posting
 - [ ] Post rating
+
+Repo: https://github.com/dasmikko/react-native-facepunchdroid
 
 ## Features:
 - Material Design 
