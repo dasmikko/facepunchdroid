@@ -9,11 +9,11 @@ If you don't trust me, you are more than welcome to build the app yourself.
 I'm currently working on a new app for the new facepunch forum, in React Native.
 I've got login to work without issues, so now, I actually only need to implement:
 
-- [] Forums list
-- [] Forum Viewing
-- [] Thread Viewing
-- [] Thread Posting
-- [] Post rating
+[] Forums list
+[] Forum Viewing
+[] Thread Viewing
+[] Thread Posting
+[] Post rating
 
 ## Features:
 - Material Design 
