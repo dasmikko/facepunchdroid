@@ -69,6 +69,9 @@ Current supported languages:
 
 
 ## Changelog
+    1.7.3
+    - Disable notifications, as the service will crash the app, because of cloudflare...
+    
 	1.7.2
 	- Fix: App now runs on Android 4.4 again. Sorry for the issues!
 	
