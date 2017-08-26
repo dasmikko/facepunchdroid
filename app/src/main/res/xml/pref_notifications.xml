@@ -4,7 +4,9 @@
         android:title="Private messages">
         <SwitchPreference
             android:title="Enable notifications"
+            android:summary="Disabled because of cloudflare"
             android:key="useNotifications"
+            android:enabled="false"
             android:defaultValue="false"/>
 
         <ListPreference
@@ -53,6 +55,8 @@
         <SwitchPreference
             android:title="Enable notifications"
             android:key="useSubThreadsNotifications"
+            android:summary="Disabled because of cloudflare"
+            android:enabled="false"
             android:defaultValue="false"/>
 
         <ListPreference
@@ -67,13 +71,12 @@
             />
 
         <SwitchPreference
-            android:title="Vibrate"
-            android:summaryOn="Will vibrate"
-            android:summaryOff="Will not vibrate"
-            android:key="subthreads_check_vibrate"
+            android:defaultValue="true"
             android:dependency="useSubThreadsNotifications"
-            android:defaultValue="true"/>
-
+            android:key="subthreads_check_vibrate"
+            android:summaryOff="Will not vibrate"
+            android:summaryOn="Will vibrate"
+            android:title="Vibrate" />
         <SwitchPreference
             android:title="Sound"
             android:summaryOn="Will play notification sound"

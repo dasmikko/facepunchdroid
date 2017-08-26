@@ -766,9 +766,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         // Init services
-        serviceManager = new ServiceManager();
+        /*serviceManager = new ServiceManager();
         serviceManager.initServices(getApplicationContext());
-
+        */
 
         /*if(sharedPref.getBoolean("isLoggedIn", false)) {
             Subscription sub = new Subscription();

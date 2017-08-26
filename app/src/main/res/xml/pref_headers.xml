@@ -8,9 +8,9 @@
         android:fragment="com.apps.anker.facepunchdroid.SettingsActivity$GeneralPreferenceFragment"
         android:title="@string/pref_header_general"/>
 
-    <header
+    <!--<header
         android:fragment="com.apps.anker.facepunchdroid.SettingsActivity$NotificationsPreferenceFragment"
-        android:title="@string/pref_header_notifications"/>
+        android:title="@string/pref_header_notifications"/>-->
 
     <header
         android:fragment="com.apps.anker.facepunchdroid.SettingsActivity$StylePreferenceFragment"
