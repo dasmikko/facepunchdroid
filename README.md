@@ -69,6 +69,10 @@ Current supported languages:
 
 
 ## Changelog
+    1.7.5 (To-be-release)
+    - New: Pinned threads are now in the app shortcuts too!
+
+    
     1.7.4
     - New: Better go to dialog. You can now go to the first and last page quicker!
     - Reduction in APK size after removal of NumberPicker library.
