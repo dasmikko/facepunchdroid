@@ -84,6 +84,7 @@ import com.apps.anker.facepunchdroid.Tools.Assets;
 import com.apps.anker.facepunchdroid.Tools.CustomTabsHelper;
 import com.apps.anker.facepunchdroid.Tools.Downloading;
 import com.apps.anker.facepunchdroid.Tools.Language;
+import com.apps.anker.facepunchdroid.Tools.ShortcutsManager;
 import com.apps.anker.facepunchdroid.Tools.UriHandling;
 import com.apps.anker.facepunchdroid.Webview.VideoEnabledWebChromeClient;
 import com.apps.anker.facepunchdroid.Webview.VideoEnabledWebView;
@@ -119,6 +120,7 @@ import java.nio.charset.StandardCharsets;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import io.realm.Realm;
@@ -745,6 +747,8 @@ public class MainActivity extends AppCompatActivity {
 
         Intent messageintent = getIntent();
 
+
+
         //Log.d("Extras", intent.getExtras().toString());
         if (intent.getStringExtra("viewMessage") != null) {
             Log.d("Extra", "NEW MESSAGE OPEN IT");
@@ -792,6 +796,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+        // Update the shortcuts!
+        updateShortcuts();
+
 
         /**
          *
@@ -809,6 +816,11 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onNewIntent(Intent intent) {
+        if (intent.getStringExtra("shortcut") != null) {
+            Log.d("Extra", "SHORTCUT");
+            webview.loadUrl(intent.getStringExtra("shortcut"));
+        }
+
         //Log.d("Extras", intent.getExtras().toString());
         if (intent.getStringExtra("viewMessage") != null) {
             Log.d("Extra", "NEW MESSAGE OPEN IT");
@@ -1244,6 +1256,7 @@ public class MainActivity extends AppCompatActivity {
                         PagePinningManager.pin_page(mActivity, webview.getTitle(), webview.getUrl());
                         final SwipeRefreshLayout mlayout = (SwipeRefreshLayout) findViewById(R.id.refresh);
                         Snackbar.make(mlayout, getString(R.string.paged_was_pinned), Snackbar.LENGTH_LONG).show();
+                        updateShortcuts();
 
                         if(webview.getUrl().contains("showthread.php?t=")) {
                             Log.d("Pinning", "Is Thread");
@@ -1812,5 +1825,10 @@ public class MainActivity extends AppCompatActivity {
         anim.setDuration(500);
         anim.setInterpolator(new AccelerateInterpolator());
         anim.start();
+    }
+
+
+    private void updateShortcuts() {
+        ShortcutsManager.updateShortcuts(realm, mActivity);
     }
 }
