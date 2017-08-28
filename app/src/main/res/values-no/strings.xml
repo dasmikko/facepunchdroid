@@ -165,5 +165,7 @@
     <string name="interval_60min">60 Minutes</string>
     <string name="pref_header_notifications">Notifications</string>
     <string name="settings_loggedin_requirement">You need to be logged in to use these settings.</string>
+    <string name="action_nextpage">Next page</string>
+    <string name="action_prevpage">Previous page</string>
 
 </resources>
