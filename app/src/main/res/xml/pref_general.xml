@@ -22,6 +22,8 @@
         android:summary="@string/enable_custom_startpage_description"
         android:title="@string/enable_custom_startpage" />
 
+    <!-- NOTE: EditTextPreference accepts EditText attributes. -->
+    <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
 
     <Preference
         android:title="@string/reset_startpage"
@@ -42,7 +44,7 @@
         android:summary="Clear the image cache (Can be needed if you changed your avatar)"
         android:key="clear_image_cache"/>
 
-    <!--<PreferenceCategory android:title="@string/settings_category_title_pagepinning">
+    <PreferenceCategory android:title="@string/settings_category_title_pagepinning">
 
         <SwitchPreference
             android:defaultValue="true"
@@ -54,7 +56,7 @@
             android:title="Setup pinned pages sync"
             android:key="pinned_pages_sync"/>
 
-    </PreferenceCategory>-->
+    </PreferenceCategory>
 
 
 

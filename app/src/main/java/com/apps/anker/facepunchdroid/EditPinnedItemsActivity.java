@@ -3,11 +3,6 @@ package com.apps.anker.facepunchdroid;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.pm.ShortcutInfo;
-import android.content.pm.ShortcutManager;
-import android.graphics.drawable.Icon;
-import android.os.Build;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,9 +17,7 @@ import android.widget.Toast;
 
 import com.apps.anker.facepunchdroid.Adapters.PinnedItemsAdapter;
 import com.apps.anker.facepunchdroid.Migrations.MainMigration;
-import com.apps.anker.facepunchdroid.Tools.ShortcutsManager;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -108,7 +101,6 @@ public class EditPinnedItemsActivity extends AppCompatActivity {
                                                     realm.commitTransaction();
 
                                                     Snackbar.make(mlayout , R.string.pinned_item_was_updated, Snackbar.LENGTH_LONG).show();
-                                                    updateShortcuts();
                                                 }
                                             });
                                             titlebuilder.setNegativeButton(R.string.answer_cancel, new DialogInterface.OnClickListener() {
@@ -144,7 +136,6 @@ public class EditPinnedItemsActivity extends AppCompatActivity {
                                                     realm.commitTransaction();
 
                                                     Snackbar.make(mlayout , R.string.pinned_item_was_updated, Snackbar.LENGTH_LONG).show();
-                                                    updateShortcuts();
                                                 }
                                             });
                                             builder.setNegativeButton(R.string.answer_cancel, new DialogInterface.OnClickListener() {
@@ -166,7 +157,7 @@ public class EditPinnedItemsActivity extends AppCompatActivity {
                                             realm.commitTransaction();
 
                                             adapter.notifyDataSetChanged();
-                                            updateShortcuts();
+
 
                                             break;
                                     }
@@ -191,9 +182,5 @@ public class EditPinnedItemsActivity extends AppCompatActivity {
             });
         }
 
-    }
-
-    private void updateShortcuts() {
-        ShortcutsManager.updateShortcuts(realm, mActivity);
     }
 }
