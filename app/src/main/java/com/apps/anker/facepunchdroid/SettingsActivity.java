@@ -286,7 +286,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             });
 
 
-            final Preference pinned_pages_sync = findPreference("pinned_pages_sync");
+            /*final Preference pinned_pages_sync = findPreference("pinned_pages_sync");
             pinned_pages_sync.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
@@ -294,7 +294,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                     startActivity(intent);
                     return false;
                 }
-            });
+            });*/
 
             // Bind the summaries of EditText/List/Dialog/Ringtone preferences
             // to their values. When their values change, their summaries are

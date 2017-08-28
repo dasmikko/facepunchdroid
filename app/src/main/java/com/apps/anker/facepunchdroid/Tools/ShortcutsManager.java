@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.ShortcutInfo;
 import android.content.pm.ShortcutManager;
 import android.graphics.drawable.Icon;
+import android.net.Uri;
 import android.os.Build;
 
 import com.apps.anker.facepunchdroid.MainActivity;
@@ -39,7 +40,7 @@ public class ShortcutsManager {
                 for (PinnedItem pitem : pinnedItems) {
                     Intent linkIntent = new Intent(
                             Intent.ACTION_VIEW,
-                            null,
+                            Uri.parse(pitem.getUrl()),
                             activity,
                             activity.getClass());
 
