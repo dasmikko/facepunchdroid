@@ -121,8 +121,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
 
-
-import biz.kasual.materialnumberpicker.MaterialNumberPicker;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
@@ -1373,34 +1371,53 @@ public class MainActivity extends AppCompatActivity {
                         }
                         break;
                     case (R.id.gotopage):
-                        final MaterialNumberPicker numberPicker = new MaterialNumberPicker.Builder(getApplicationContext())
-                                .minValue(1)
-                                .maxValue(totalpages)
-                                .defaultValue(currentpage)
-                                .backgroundColor(Color.WHITE)
-                                .separatorColor(Color.TRANSPARENT)
-                                .textColor(Color.BLACK)
-                                .textSize(20)
-                                .enableFocusability(true)
-                                .wrapSelectorWheel(false)
-                                .build();
-
-                        new AlertDialog.Builder(mActivity)
+                        View dView = getLayoutInflater().inflate(R.layout.dialog_gotopage, null);
+                        final AlertDialog Adialog = new AlertDialog.Builder(mActivity)
                                 .setTitle(getString(R.string.go_to_page))
-                                .setView(numberPicker)
+                                .setView(dView)
                                 .setPositiveButton(getString(android.R.string.ok), new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         SwipeRefreshLayout mlayout = (SwipeRefreshLayout) findViewById(R.id.refresh);
-                                        //Snackbar.make(mlayout, "You picked : " + numberPicker.getValue(), Snackbar.LENGTH_LONG).show();
+                                        NumberPicker nP = (NumberPicker) ((AlertDialog) dialog).findViewById(R.id.pagenumberPicker);
+                                        Integer val = nP.getValue();
 
-                                        Uri newUrl = UriHandling.replaceUriParameter(Uri.parse(webview.getUrl()), "page", String.valueOf(numberPicker.getValue()));
+                                        Uri newUrl = UriHandling.replaceUriParameter(Uri.parse(webview.getUrl()), "page", String.valueOf(val));
 
                                         webview.loadUrl(newUrl.toString());
 
                                     }
                                 })
                                 .show();
+
+                        Button lastpageBtn = (Button) dView.findViewById(R.id.btn_gotolasttpage);
+                        lastpageBtn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Uri newUrl = UriHandling.replaceUriParameter(Uri.parse(webview.getUrl()), "page", String.valueOf(totalpages));
+                                webview.loadUrl(newUrl.toString());
+                                Adialog.dismiss();
+                            }
+                        });
+
+                        Button firstBtn = (Button) dView.findViewById(R.id.btn_gotofirstpage);
+                        firstBtn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Uri newUrl = UriHandling.replaceUriParameter(Uri.parse(webview.getUrl()), "page", String.valueOf(1));
+                                webview.loadUrl(newUrl.toString());
+                                Adialog.dismiss();
+                            }
+                        });
+
+
+
+
+
+                        NumberPicker nP = (NumberPicker) Adialog.findViewById(R.id.pagenumberPicker);
+                        nP.setMaxValue(totalpages);
+                        nP.setMinValue(1);
+                        nP.setValue(currentpage);
                         break;
                 }
 

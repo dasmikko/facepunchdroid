@@ -167,5 +167,7 @@
     <string name="settings_loggedin_requirement">You need to be logged in to use these settings.</string>
     <string name="action_nextpage">Next page</string>
     <string name="action_prevpage">Previous page</string>
+    <string name="dialog_goto_first_page">Go to first page</string>
+    <string name="dialog_goto_last_page">Go to first page</string>
 
 </resources>

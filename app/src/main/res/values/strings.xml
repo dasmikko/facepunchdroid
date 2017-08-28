@@ -189,5 +189,7 @@
         <item>3600000</item> <!-- 60 min -->
     </string-array>
 
+    <string name="dialog_goto_last_page">Go to last page</string>
+    <string name="dialog_goto_first_page">Go to first page</string>
 
 </resources>

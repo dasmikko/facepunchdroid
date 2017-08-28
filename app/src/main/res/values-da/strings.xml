@@ -136,6 +136,8 @@
     <string name="settings_loggedin_requirement">Du skal være logget ind for at bruge disse indstillinger.</string>
     <string name="action_nextpage">Next page</string>
     <string name="action_prevpage">Previous page</string>
+    <string name="dialog_goto_first_page">Gå til første side</string>
+    <string name="dialog_goto_last_page">Gå til sidste side</string>
 
 
 </resources>
