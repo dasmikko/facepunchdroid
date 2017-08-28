@@ -8,8 +8,8 @@ android {
         applicationId "com.apps.anker.facepunchdroid"
         minSdkVersion 19
         targetSdkVersion 25
-        versionCode 62
-        versionName "1.7.3"
+        versionCode 63
+        versionName "1.7.4"
         setProperty("archivesBaseName", "FPDroid $versionName")
     }
 
@@ -49,7 +49,6 @@ dependencies {
         transitive = true
     }
     compile 'com.mikepenz:google-material-typeface:2.2.0.1.original@aar'
-    compile 'biz.kasual:materialnumberpicker:1.2.0'
     compile 'com.android.support:customtabs:25.0.1'
     compile 'org.jsoup:jsoup:1.10.1'
     compile 'io.hypertrack:smart-scheduler:0.0.3'
