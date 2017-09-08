@@ -435,9 +435,9 @@ ol#posts .postbitlegacy .postfoot .postlinking {
     bottom: 30px;
     left: 7px;
 }
-ol#posts .postbitlegacy .postfoot .postlinking a {
+/*ol#posts .postbitlegacy .postfoot .postlinking a {
     display: none;
-}
+}*/
 ol#posts .postbitlegacy .postfoot .postlinking img {
 	margin-right: 2px;
 }
