@@ -69,8 +69,9 @@ Current supported languages:
 
 
 ## Changelog
-    1.7.5 (To-be-release)
+    1.7.5 (To-be-released)
     - New: Pinned threads are now in the app shortcuts too!
+    - New: Events/Report buttons are back!
 
     
     1.7.4
