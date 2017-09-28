@@ -1678,7 +1678,7 @@ public class MainActivity extends AppCompatActivity {
                         editor.putString("securitytoken", securitytoken);
                         editor.apply();
 
-                        defaultProfile.withName(username).withIcon("https://facepunch.com/image.php?u=" + userid + "&");
+                        defaultProfile.withName(username).withIcon("http://facepunch.hatt.co/image.php?u=" + userid + "&");
                         headerResult.updateProfile(defaultProfile);
                     }
                 });
