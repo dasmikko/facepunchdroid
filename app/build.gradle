@@ -8,8 +8,8 @@ android {
         applicationId "com.apps.anker.facepunchdroid"
         minSdkVersion 19
         targetSdkVersion 25
-        versionCode 64
-        versionName "1.7.5"
+        versionCode 65
+        versionName "1.7.6"
         setProperty("archivesBaseName", "FPDroid $versionName")
     }
 

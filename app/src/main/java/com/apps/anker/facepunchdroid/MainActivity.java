@@ -160,6 +160,7 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences sharedPref;
 
     boolean useCustomStyles;
+    boolean disableUserTitleImages;
     boolean enableDarkTheme;
     boolean enableUserscripts;
     String selectedLang;
@@ -223,6 +224,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
+
+        disableUserTitleImages = sharedPref.getBoolean("disable_usertitle_images", false);
+        Log.d("disableUserTitleImages", String.valueOf(disableUserTitleImages));
 
         enableDarkTheme = sharedPref.getBoolean("enable_dark_theme", false);
         Log.d("DarkTheme", String.valueOf(enableDarkTheme));
@@ -457,6 +461,11 @@ public class MainActivity extends AppCompatActivity {
                         Log.d("Darktheme", "USE DARKTHEME");
 
                         fullCSSString += customCSS.cssToString(getAssets().open("dark_theme.css"));
+                    }
+
+                    // Inject user title disablign
+                    if (disableUserTitleImages) {
+                        fullCSSString += customCSS.cssToString(getAssets().open("disableusertitleimages.css"));
                     }
 
                     // Inject Mobile style
@@ -1258,7 +1267,7 @@ public class MainActivity extends AppCompatActivity {
                         Snackbar.make(mlayout, getString(R.string.paged_was_pinned), Snackbar.LENGTH_LONG).show();
                         updateShortcuts();
 
-                        if(webview.getUrl().contains("showthread.php?t=")) {
+                        /*if(webview.getUrl().contains("showthread.php?t=")) {
                             Log.d("Pinning", "Is Thread");
                             AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
                             builder.setMessage("Do you want to recieve notifications?")
@@ -1277,7 +1286,7 @@ public class MainActivity extends AppCompatActivity {
                             // Create the AlertDialog object and return it
                             builder.create().show();
 
-                        }
+                        }*/
 
                         refreshDrawerItems();
                         return true;

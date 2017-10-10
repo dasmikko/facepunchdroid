@@ -191,5 +191,7 @@
 
     <string name="dialog_goto_last_page">Go to last page</string>
     <string name="dialog_goto_first_page">Go to first page</string>
+    <string name="disable_user_title_images_sumary">This disables backgrounds, marquee\'s and other annoying custom title elements.</string>
+    <string name="disable_user_title_images">Disable user title images</string>
 
 </resources>

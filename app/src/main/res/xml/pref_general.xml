@@ -9,6 +9,11 @@
         android:defaultValue="system"/>
 
 
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="disable_usertitle_images"
+        android:summary="@string/disable_user_title_images_sumary"
+        android:title="@string/disable_user_title_images" />
 
     <SwitchPreference
         android:defaultValue="false"
