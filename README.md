@@ -69,6 +69,11 @@ Current supported languages:
 
 
 ## Changelog
+    1.7.6
+    - New: Disable annoying user titles
+    - Fix: Navigation drawer avatar now works again.
+    - Fix: Removed the deprecated notification dialog upon pinning thread.
+
     1.7.5
     - New: Pinned threads are now in the app shortcuts too!
     - New: Events/Report buttons are back!
