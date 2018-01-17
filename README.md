@@ -69,6 +69,11 @@ Current supported languages:
 
 
 ## Changelog
+    1.7.7
+    - Fixed Twitter embeds not working.
+    - Updated a bunch of libraries and other stuff.
+
+
     1.7.6
     - New: Disable annoying user titles
     - Fix: Navigation drawer avatar now works again.
