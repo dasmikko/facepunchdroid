@@ -1269,27 +1269,6 @@ public class MainActivity extends AppCompatActivity {
                         Snackbar.make(mlayout, getString(R.string.paged_was_pinned), Snackbar.LENGTH_LONG).show();
                         updateShortcuts();
 
-                        /*if(webview.getUrl().contains("showthread.php?t=")) {
-                            Log.d("Pinning", "Is Thread");
-                            AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
-                            builder.setMessage("Do you want to recieve notifications?")
-                                    .setPositiveButton(R.string.answer_yes, new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int id) {
-                                            Log.d("Pinning", "Yes!");
-                                            Subscription.createSubscription(mActivity, UriHandling.getThreadIdFromURL(webview.getUrl()));
-                                            Snackbar.make(mlayout, "Subscribed to thread", Snackbar.LENGTH_LONG).show();
-                                        }
-                                    })
-                                    .setNegativeButton(R.string.answer_no, new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int id) {
-                                            Log.d("Pinning", "No!");
-                                        }
-                                    });
-                            // Create the AlertDialog object and return it
-                            builder.create().show();
-
-                        }*/
-
                         refreshDrawerItems();
                         return true;
                     case R.id.openinbrowser:

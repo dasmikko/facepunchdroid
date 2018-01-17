@@ -30,7 +30,7 @@ public class PagePinningManager {
         pinitem.setUrl(url);
         realm.commitTransaction();
 
-        if(url.contains("showthread.php?t=")) {
+        /*if(url.contains("showthread.php?t=")) {
             Log.d("Pinning", "Is Thread");
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
             builder.setMessage("Do you want to recieve notifications?")
@@ -48,7 +48,7 @@ public class PagePinningManager {
             // Create the AlertDialog object and return it
             builder.create().show();
 
-        }
+        }*/
 
     }
 }
