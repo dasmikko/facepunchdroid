@@ -47,12 +47,13 @@ public class EditPinnedItemsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Realm.init(this);
         setContentView(R.layout.activity_edit_pinned_items_activity);
 
         mActivity = this;
 
         // Create the Realm configuration
-        realmConfig = new RealmConfiguration.Builder(this)
+        realmConfig = new RealmConfiguration.Builder()
                 .schemaVersion(Constants.schemaVersion) // Must be bumped when the schema changes
                 .migration(MainMigration.getMigration()) // Migration to run instead of throwing an exception
                 .build();
@@ -162,7 +163,7 @@ public class EditPinnedItemsActivity extends AppCompatActivity {
                                         case 2:
                                             Snackbar.make(mlayout, "Item: " + pinnedItems.get(position).getTitle() + " was deleted", Snackbar.LENGTH_LONG).show();
                                             realm.beginTransaction();
-                                            pinnedItems.get(position).removeFromRealm(); // Delete and remove object directly
+                                            pinnedItems.get(position).deleteFromRealm(); // Delete and remove object directly
                                             realm.commitTransaction();
 
                                             adapter.notifyDataSetChanged();

@@ -172,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
     // Pinned items
     static RealmConfiguration realmConfig;
 
-    public static  Realm realm;
+    public static Realm realm;
 
     // Userscripts
     RealmResults<UserScript> userScripts;
@@ -246,6 +246,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         super.onCreate(savedInstanceState);
+        Realm.init(this);
         setContentView(R.layout.activity_main);
 
 
@@ -254,16 +255,16 @@ public class MainActivity extends AppCompatActivity {
         mContext = getApplicationContext();
 
         // Create the Realm configuration
-        realmConfig = new RealmConfiguration.Builder(this)
+        realmConfig = new RealmConfiguration.Builder()
                 .schemaVersion(Constants.schemaVersion) // Must be bumped when the schema changes
                 .migration(MainMigration.getMigration()) // Migration to run instead of throwing an exception
                 .build();
 
         Realm.setDefaultConfiguration(realmConfig);
 
+
         // Open the Realm for the UI thread.
         realm = Realm.getDefaultInstance();
-
 
         // Inject UserScripts
         if (enableUserscripts) {
@@ -689,6 +690,7 @@ public class MainActivity extends AppCompatActivity {
         webview.getSettings().setJavaScriptEnabled(true);
         webview.getSettings().setLoadWithOverviewMode(true);
         webview.getSettings().setUseWideViewPort(false);
+        webview.getSettings().setDomStorageEnabled(true);
 
 
         // Allow Zoom on tablet!

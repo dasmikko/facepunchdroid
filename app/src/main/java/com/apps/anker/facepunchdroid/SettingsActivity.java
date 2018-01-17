@@ -501,7 +501,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(mContext);
 
             // Open the Realm for the UI thread.
-            realm = Realm.getInstance(MainActivity.realmConfig);
+            realm = Realm.getDefaultInstance();
 
             // Update language
             String selectedLang = sharedPref.getString("language", "system");
@@ -576,7 +576,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                                                     break;
                                                 case 1:
                                                     realm.beginTransaction();
-                                                    uScript.removeFromRealm(); // Delete and remove object directly
+                                                    uScript.deleteFromRealm(); // Delete and remove object directly
                                                     realm.commitTransaction();
 
                                                     userscriptList.removePreference(preference);
@@ -720,7 +720,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                                                     break;
                                                 case 1:
                                                     realm.beginTransaction();
-                                                    newUserScript.removeFromRealm(); // Delete and remove object directly
+                                                    newUserScript.deleteFromRealm(); // Delete and remove object directly
                                                     realm.commitTransaction();
 
                                                     userscriptList.removePreference(preference);
