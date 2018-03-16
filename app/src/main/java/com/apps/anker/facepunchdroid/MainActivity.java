@@ -428,7 +428,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
 
-                if (url.contains("small.css")) {
+                if (url.contains("/styles/main")) {
                     return getCssWebResourceResponseFromAsset();
                 } else if (url.contains("fp.js")) {
                     Log.d("Intercept", "fp.js file");
