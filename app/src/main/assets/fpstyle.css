@@ -65,7 +65,21 @@ body.page-forum .forumhead ul .actions {
  
 }
 
+.user-card {
+    display: none;
+}
 
+.postrender .postinner>.postuser .postavatar {
+    float: left;
+    margin: 0;
+    margin-left: 5px;
+}
+
+
+.postrender .postinner>.postuser .username {
+    position: absolute;
+    margin-left: 73px;
+}
 
 .postrender .postinner>.postuser {
  	max-width: none;   
