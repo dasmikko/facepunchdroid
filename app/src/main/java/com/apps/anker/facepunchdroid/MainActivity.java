@@ -129,7 +129,7 @@ import io.realm.RealmResults;
 
 public class MainActivity extends AppCompatActivity {
 
-    String baseURL = "https://facepunch.com/";
+    String baseURL = "https://forum.facepunch.com/f/";
     VideoEnabledWebView webview;
     private VideoEnabledWebChromeClient webChromeClient;
     ProgressBar pb;
@@ -211,6 +211,9 @@ public class MainActivity extends AppCompatActivity {
 
 
     Boolean isThread = false;
+
+
+    String defaultUserAgent = "";
 
     public static ServiceManager serviceManager;
     /**
@@ -584,13 +587,34 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 }
 
+                if (url.contains("auth.google.") || url.contains("accounts.google.")) {
+                    return false;
+                }
+
+                if (url.contains("api.twitter.")) {
+                    return false;
+                }
+
+                if (url.contains("facebook.com/login") || url.contains("facebook.com/dialog/oauth")) {
+                    return false;
+                }
+
+                if (url.contains("github.com/login")) {
+                    return false;
+                }
+
+                if (url.contains("steamcommunity.com/openid/")) {
+                    return false;
+                }
 
                 String urlHost = Uri.parse(url).getHost();
                 Log.d("Webview", "ShouldOverrideURLloading " + url);
                 switch (urlHost) {
-                    case "facepunch.com":
+                    case "forum.facepunch.com":
+                        //webview.getSettings().setUserAgentString(defaultUserAgent + " FacepunchDroid");
                         return false;
-                    case "www.facepunch.com":
+                    case "auth.facepunch.com":
+                        //webview.getSettings().setUserAgentString(defaultUserAgent + " FacepunchDroid");
                         return false;
                     default:
                         String thepackage = CustomTabsHelper.getPackageNameToUse(mActivity);
@@ -705,8 +729,14 @@ public class MainActivity extends AppCompatActivity {
 
         // Set new UA
         String ua = webview.getSettings().getUserAgentString();
+
+        // Save default useragent for later switching
+        if(defaultUserAgent.equals("")) {
+            defaultUserAgent = ua;
+        }
+
         //webview.getSettings().setUserAgentString("Mozilla/5.0 (Linux; U; Android) FacepunchDroid");
-        webview.getSettings().setUserAgentString(ua + " FacepunchDroid");
+        webview.getSettings().setUserAgentString("Mozilla/5.0 Google");
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -1490,7 +1520,7 @@ public class MainActivity extends AppCompatActivity {
         Thing object = new Thing.Builder()
                 .setName("Main Page") // TODO: Define a title for the content shown.
                 // TODO: Make sure this auto-generated URL is correct.
-                .setUrl(Uri.parse("https://facepunch.com"))
+                .setUrl(Uri.parse("https://forum.facepunch.com/f/"))
                 .build();
         return new Action.Builder(Action.TYPE_VIEW)
                 .setObject(object)
