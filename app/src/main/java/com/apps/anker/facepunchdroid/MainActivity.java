@@ -323,7 +323,7 @@ public class MainActivity extends AppCompatActivity {
         // Generate strings for CSS and JS
         try {
             CSSfromfile = customCSS.cssToString(getAssets().open("fp-mobile.css")).replace('"', '\"');
-            JSfromfile = customCSS.cssToString(getAssets().open("fp-mobile.js"));
+            JSfromfile = customCSS.cssToString(getAssets().open("fp-mobile2.js"));
             Jquery = customCSS.cssToString(getAssets().open("jquery.js"));
         } catch (IOException e) {
             e.printStackTrace();
@@ -430,8 +430,8 @@ public class MainActivity extends AppCompatActivity {
 
                 if (url.contains("/styles/main")) {
                     return getCssWebResourceResponseFromAsset();
-                } else if (url.contains("fp.js")) {
-                    Log.d("Intercept", "fp.js file");
+                } else if (url.contains(".com/manifest?")) {
+                    Log.d("Intercept", "manifest file");
                     return getJsWebResourceResponseFromAsset();
                 } else {
                     return super.shouldInterceptRequest(view, url);
@@ -505,7 +505,7 @@ public class MainActivity extends AppCompatActivity {
 
                 try {
                     // Inject Mobile Javascript
-                    fullJSString += customCSS.cssToString(getAssets().open("fp-mobile.js"));
+                    fullJSString += customCSS.cssToString(getAssets().open("fp-mobile2.js"));
 
                     // Inject UserScripts
                     if (enableUserscripts) {
@@ -1681,11 +1681,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @JavascriptInterface
-        public void setLoginStatus(boolean status, final String username, final String userid, final String securitytoken) {
+        public void setLoginStatus(boolean status, final String username) {
             final SharedPreferences.Editor editor = sharedPref.edit();
 
             if (status) {
-                Log.d("Got Status update", "Username: " + username + " Userid: " + userid);
+                Log.d("Got Status update", "Username: " + username);
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -1694,11 +1694,9 @@ public class MainActivity extends AppCompatActivity {
 
                         editor.putBoolean("isLoggedIn", true);
                         editor.putString("username", username);
-                        editor.putString("userid", userid);
-                        editor.putString("securitytoken", securitytoken);
                         editor.apply();
 
-                        defaultProfile.withName(username).withIcon("http://facepunch.hatt.co/image.php?u=" + userid + "&");
+                        defaultProfile.withName(username);
                         headerResult.updateProfile(defaultProfile);
                     }
                 });
