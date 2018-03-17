@@ -1123,18 +1123,12 @@ public class MainActivity extends AppCompatActivity {
 
                         if (id == 1) { // Home
                             webview.loadUrl(baseURL);
-                        } else if (id == 2) { // Events
-                            webview.loadUrl(baseURL + "fp_events.php");
-                        } else if (id == 3) { // Popular
-                            webview.loadUrl(baseURL + "fp_popular.php");
-                        } else if (id == 4) { // Read
-                            webview.loadUrl(baseURL + "fp_read.php");
-                        } else if (id == 5) { // Search
-                            webview.loadUrl(baseURL + "search.php");
-                        } else if (id == 6) {
-                            webview.loadUrl(baseURL + "private.php"); // Private messages
-                        } else if (id == 7) { // User control panel
-                            webview.loadUrl(baseURL + "usercp.php");
+                        } else if (id == 2) { // Changes
+                            webview.loadUrl("https://forum.facepunch.com/commits");
+                        } else if (id == 3) { // Roadmap
+                            webview.loadUrl("https://forum.facepunch.com/roadmap");
+                        } else if (id == 4) { // Help
+                            webview.loadUrl("https://forum.facepunch.com/help");
                         } else if (id == 9) {
                             AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(MainActivity.this, R.style.myDialog));
                             builder.setMessage(getString(R.string.logout_description))
@@ -1166,8 +1160,6 @@ public class MainActivity extends AppCompatActivity {
                         } else if (id == 11) {
                             Intent i = new Intent(getBaseContext(), EditPinnedItemsActivity.class);
                             startActivityForResult(i, 1);
-                        } else if (id == 12) { // Ticker
-                            webview.loadUrl(baseURL + "fp_ticker.php");
                         }
 
 
@@ -1184,13 +1176,11 @@ public class MainActivity extends AppCompatActivity {
 
         //if you want to update the items at a later time it is recommended to keep it in a variable
         PrimaryDrawerItem nav_home = new PrimaryDrawerItem().withIdentifier(1).withName(getString(R.string.nav_home)).withIcon(GoogleMaterial.Icon.gmd_home).withSelectable(false);
-        PrimaryDrawerItem nav_events = new PrimaryDrawerItem().withIdentifier(2).withName(getString(R.string.nav_events)).withIcon(GoogleMaterial.Icon.gmd_event).withSelectable(false);
-        PrimaryDrawerItem nav_popular = new PrimaryDrawerItem().withIdentifier(3).withName(getString(R.string.nav_popular)).withIcon(GoogleMaterial.Icon.gmd_favorite).withSelectable(false);
-        PrimaryDrawerItem nav_read = new PrimaryDrawerItem().withIdentifier(4).withName(getString(R.string.nav_read)).withIcon(GoogleMaterial.Icon.gmd_markunread_mailbox).withSelectable(false);
-        PrimaryDrawerItem nav_search = new PrimaryDrawerItem().withIdentifier(5).withName(getString(R.string.nav_search)).withIcon(GoogleMaterial.Icon.gmd_search).withSelectable(false);
-        PrimaryDrawerItem nav_messages = new PrimaryDrawerItem().withIdentifier(6).withName(getString(R.string.nav_messages)).withIcon(GoogleMaterial.Icon.gmd_mail_outline).withSelectable(false);
-        PrimaryDrawerItem nav_cpanel = new PrimaryDrawerItem().withIdentifier(7).withName(getString(R.string.nav_controlpanel)).withIcon(GoogleMaterial.Icon.gmd_build).withSelectable(false);
-        PrimaryDrawerItem nav_ticker = new PrimaryDrawerItem().withIdentifier(12).withName(getString(R.string.nav_ticker)).withIcon(GoogleMaterial.Icon.gmd_link).withSelectable(false);
+        PrimaryDrawerItem nav_changes = new PrimaryDrawerItem().withIdentifier(2).withName(getString(R.string.nav_changes)).withIcon(GoogleMaterial.Icon.gmd_event).withSelectable(false);
+        PrimaryDrawerItem nav_roadmap = new PrimaryDrawerItem().withIdentifier(3).withName(getString(R.string.nav_roadmap)).withIcon(GoogleMaterial.Icon.gmd_favorite).withSelectable(false);
+        PrimaryDrawerItem nav_help = new PrimaryDrawerItem().withIdentifier(4).withName(getString(R.string.nav_help)).withIcon(GoogleMaterial.Icon.gmd_markunread_mailbox).withSelectable(false);
+
+
 
         PrimaryDrawerItem nav_settings = new PrimaryDrawerItem().withIdentifier(8).withName(getString(R.string.action_settings)).withIcon(GoogleMaterial.Icon.gmd_settings).withSelectable(false);
 
@@ -1206,13 +1196,9 @@ public class MainActivity extends AppCompatActivity {
 
         drawer.addItems(
                 nav_home,
-                nav_events,
-                nav_popular,
-                nav_read,
-                nav_search,
-                nav_messages,
-                nav_cpanel,
-                nav_ticker
+                nav_changes,
+                nav_roadmap,
+                nav_help
         );
 
         // Get Pinned items
