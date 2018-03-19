@@ -428,7 +428,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
 
-                if (url.contains("/styles/main")) {
+                if (url.contains("/styles/main?q")) {
                     return getCssWebResourceResponseFromAsset();
                 } else if (url.contains(".com/manifest?")) {
                     Log.d("Intercept", "manifest file");
@@ -783,7 +783,6 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-        setupBottomToolbar();
         setupSearchToolbar();
 
         Intent messageintent = getIntent();
@@ -1365,85 +1364,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void setupBottomToolbar() {
-        toolbar_bottom = (Toolbar) findViewById(R.id.toolbar_bottom);
 
-        hideViews();
-
-        toolbar_bottom.inflateMenu(R.menu.activity_main_actionbar_bottom);//changed
-        //toolbar2 menu items CallBack listener
-        toolbar_bottom.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case (R.id.action_nextpage):
-                        if (currentpage < totalpages) {
-                            Integer nextpage = currentpage + 1;
-                            webview.loadUrl(UriHandling.replaceUriParameter(Uri.parse(webview.getUrl()), "page", nextpage.toString()).toString());
-                        }
-                        break;
-                    case (R.id.action_prevpage):
-                        if (currentpage > 1) {
-                            Integer prevpage = currentpage - 1;
-                            webview.loadUrl(UriHandling.replaceUriParameter(Uri.parse(webview.getUrl()), "page", prevpage.toString()).toString());
-                        }
-                        break;
-                    case (R.id.gotopage):
-                        View dView = getLayoutInflater().inflate(R.layout.dialog_gotopage, null);
-                        final AlertDialog Adialog = new AlertDialog.Builder(mActivity)
-                                .setTitle(getString(R.string.go_to_page))
-                                .setView(dView)
-                                .setPositiveButton(getString(android.R.string.ok), new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        SwipeRefreshLayout mlayout = (SwipeRefreshLayout) findViewById(R.id.refresh);
-                                        NumberPicker nP = (NumberPicker) ((AlertDialog) dialog).findViewById(R.id.pagenumberPicker);
-                                        Integer val = nP.getValue();
-
-                                        Uri newUrl = UriHandling.replaceUriParameter(Uri.parse(webview.getUrl()), "page", String.valueOf(val));
-
-                                        webview.loadUrl(newUrl.toString());
-
-                                    }
-                                })
-                                .show();
-
-                        Button lastpageBtn = (Button) dView.findViewById(R.id.btn_gotolasttpage);
-                        lastpageBtn.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Uri newUrl = UriHandling.replaceUriParameter(Uri.parse(webview.getUrl()), "page", String.valueOf(totalpages));
-                                webview.loadUrl(newUrl.toString());
-                                Adialog.dismiss();
-                            }
-                        });
-
-                        Button firstBtn = (Button) dView.findViewById(R.id.btn_gotofirstpage);
-                        firstBtn.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Uri newUrl = UriHandling.replaceUriParameter(Uri.parse(webview.getUrl()), "page", String.valueOf(1));
-                                webview.loadUrl(newUrl.toString());
-                                Adialog.dismiss();
-                            }
-                        });
-
-
-
-
-
-                        NumberPicker nP = (NumberPicker) Adialog.findViewById(R.id.pagenumberPicker);
-                        nP.setMaxValue(totalpages);
-                        nP.setMinValue(1);
-                        nP.setValue(currentpage);
-                        break;
-                }
-
-                return false;
-            }
-        });
-    }
 
 
     @Override

@@ -9,11 +9,11 @@
         android:defaultValue="system"/>
 
 
-    <SwitchPreference
+    <!--<SwitchPreference
         android:defaultValue="false"
         android:key="disable_usertitle_images"
         android:summary="@string/disable_user_title_images_sumary"
-        android:title="@string/disable_user_title_images" />
+        android:title="@string/disable_user_title_images" />-->
 
     <SwitchPreference
         android:defaultValue="false"
@@ -21,46 +21,43 @@
         android:summary="@string/enable_dark_theme_description"
         android:title="@string/enable_dark_theme" />
 
-    <SwitchPreference
-        android:defaultValue="false"
-        android:key="enable_custom_startpage"
-        android:summary="@string/enable_custom_startpage_description"
-        android:title="@string/enable_custom_startpage" />
-
-
-    <Preference
-        android:title="@string/reset_startpage"
-        android:summary="@string/reset_startpage_description"
-        android:dependency="enable_custom_startpage"
-        android:key="reset_startpage">
-    </Preference>
-
-    <Preference
-        android:title="@string/current_startpage"
-        android:summary="Default"
-        android:enabled="false"
-        android:key="current_startpage">
-    </Preference>
-
-    <Preference
-        android:title="@string/settings_clear_image_cache"
-        android:summary="Clear the image cache (Can be needed if you changed your avatar)"
-        android:key="clear_image_cache"/>
-
-    <!--<PreferenceCategory android:title="@string/settings_category_title_pagepinning">
+    <PreferenceCategory
+        android:title="Startpage"
+        android:key="startpage_group">
 
         <SwitchPreference
-            android:defaultValue="true"
-            android:title="@string/settings_pagepinning_goto_newest_post"
-            android:key="settings_pagepinning_goto_newest_post"
-            android:summary="@string/settings_pagepinning_goto_newest_post_description" />
+            android:defaultValue="false"
+            android:key="enable_custom_startpage"
+            android:summary="@string/enable_custom_startpage_description"
+            android:title="@string/enable_custom_startpage" />
+
+
 
         <Preference
-            android:title="Setup pinned pages sync"
-            android:key="pinned_pages_sync"/>
+            android:title="@string/reset_startpage"
+            android:summary="@string/reset_startpage_description"
+            android:dependency="enable_custom_startpage"
+            android:key="reset_startpage">
+        </Preference>
 
-    </PreferenceCategory>-->
 
+        <Preference
+            android:title="@string/current_startpage"
+            android:summary="Default"
+            android:enabled="false"
+            android:key="current_startpage">
+        </Preference>
+    </PreferenceCategory>
+
+    <PreferenceCategory
+    android:title="Image cache"
+    android:key="imagecache_group">
+        <Preference
+            android:title="@string/settings_clear_image_cache"
+            android:summary="Clear the image cache (Can be needed if you changed your avatar)"
+            android:key="clear_image_cache"/>
+
+    </PreferenceCategory>
 
 
 </PreferenceScreen>
