@@ -118,19 +118,6 @@
         android:layout_marginTop="-7dp"
         android:background="@color/transparent"
         style="?android:attr/progressBarStyleHorizontal"/>
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar_bottom"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:minHeight="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:translationY="?attr/actionBarSize"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        android:layout_alignParentBottom="true">
-    </android.support.v7.widget.Toolbar>
-
-
 </RelativeLayout>
 
 
