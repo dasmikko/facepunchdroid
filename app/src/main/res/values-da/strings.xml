@@ -140,6 +140,9 @@
     <string name="dialog_goto_last_page">Gå til sidste side</string>
     <string name="disable_user_title_images_sumary">This disables backgrounds, marquee\'s and other annoying custom title elements.</string>
     <string name="disable_user_title_images">Disable user title images</string>
+    <string name="nav_changes">Changes</string>
+    <string name="nav_roadmap">Roadmap</string>
+    <string name="nav_help">Help</string>
 
 
 </resources>
