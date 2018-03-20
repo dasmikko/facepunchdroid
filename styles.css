@@ -1,11 +1,13 @@
 /* Main page */
-.drawer {
-	/*display: none;*/
-}
-
 .drawer-container {
     display: block !important;
 }
+
+
+.drawer-section {
+    display: none;
+}
+
 
 .dropdown.is-mobile-modal .dropdown-menu {
     max-height: fit-content !important;
@@ -39,8 +41,8 @@ body.page-forum .forumhead ul .actions {
 .drawer-container>.drawer {
  	padding-bottom: 0;   
 }
-.drawer-section:nth-child(2), .drawer-section:nth-child(3) {
- 	display:none;   
+.threadlistsection .drawer-section:nth-child(1) {
+ 	display:block;   
 }
 
 .threadage {
