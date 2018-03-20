@@ -4,7 +4,7 @@
 }
 
 .drawer-container {
-    display:box;
+    display: block !important;
 }
 
 .dropdown.is-mobile-modal .dropdown-menu {
@@ -36,6 +36,12 @@ body.page-forum .forumhead ul .actions {
 }
 
 /* Forum */
+.drawer-container>.drawer {
+ 	padding-bottom: 0;   
+}
+.drawer-section:nth-child(2), .drawer-section:nth-child(3) {
+ 	display:none;   
+}
 
 .threadage {
     display: none !important;
