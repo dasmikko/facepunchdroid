@@ -419,16 +419,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
 
-                if (wauterboiMode) {
-                    if (url.contains("css.php")) {
-                        return new WebResourceResponse("text/css", "UTF-8", null);
-                    }
-                    if (url.contains("fp-2013.css")) {
-                        return new WebResourceResponse("text/css", "UTF-8", null);
-                    }
-                }
-
-                if (url.contains("/styles/main")) {
+                if (url.contains("/styles/user")) {
                     return getCssWebResourceResponseFromAsset();
                 } else if (url.contains(".com/manifest?")) {
                     Log.d("Intercept", "manifest file");
@@ -443,28 +434,18 @@ public class MainActivity extends AppCompatActivity {
                     WebResourceResponse fullCSS = null;
                     String fullCSSString = "";
 
+                    //fullCSSString += customCSS.cssToString(getAssets().open("fpstyle.css"));
 
-                    if (wauterboiMode) {
-                        try {
-                            fullCSSString = Ion.with(mContext)
-                                    .load("https://raw.githubusercontent.com/waut3r/fp-mobile-css/master/assets/css/main.min.css")
-                                    .asString().get();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        } catch (ExecutionException e) {
-                            e.printStackTrace();
-                        }
-
-                        fullCSS = stringToWebResource(fullCSSString);
-
-                        return fullCSS;
-                    }
+                     // Inject Mobile style
+                    fullCSSString += "@import url('https://dasmikko.github.io/facepunchdroid/styles.css');\n";
 
                     // Inject darktheme
                     if (enableDarkTheme) {
                         Log.d("Darktheme", "USE DARKTHEME");
 
-                        fullCSSString += customCSS.cssToString(getAssets().open("dark_theme.css"));
+                        //fullCSSString += customCSS.cssToString(getAssets().open("dark_theme.css"));
+                        fullCSSString += "@import url('https://pgsil.github.io/awfullydark2/styles.css');";
+                        Log.d("Darktheme", "Injecting this: " + "@import url('https://pgsil.github.io/awfullydark2/styles.css');");
                     }
 
                     // Inject user title disablign
@@ -472,8 +453,7 @@ public class MainActivity extends AppCompatActivity {
                         fullCSSString += customCSS.cssToString(getAssets().open("disableusertitleimages.css"));
                     }
 
-                    // Inject Mobile style
-                    fullCSSString += customCSS.cssToString(getAssets().open("fpstyle.css"));
+
 
                     // Check if custom user style is enabled
                     if (useCustomStyles && sharedPref.contains("custom_style_file")) {
@@ -1019,6 +999,19 @@ public class MainActivity extends AppCompatActivity {
         webview.onResume();
         refreshDrawerItems();
         sharedPref.registerOnSharedPreferenceChangeListener(spChanged);
+        Log.d("OnResume", "Activity resumed!");
+
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
+
+        disableUserTitleImages = sharedPref.getBoolean("disable_usertitle_images", false);
+        Log.d("disableUserTitleImages", String.valueOf(disableUserTitleImages));
+
+        enableDarkTheme = sharedPref.getBoolean("enable_dark_theme", false);
+        Log.d("DarkTheme", String.valueOf(enableDarkTheme));
+
+        enableUserscripts = sharedPref.getBoolean("enable_userscripts", false);
+        Log.d("Userscript", String.valueOf(enableUserscripts));
     }
 
     @Override
