@@ -1,6 +1,10 @@
 /* Main page */
 .drawer {
-	display: none;
+	/*display: none;*/
+}
+
+.drawer-container {
+    display:box;
 }
 
 .dropdown.is-mobile-modal .dropdown-menu {
