@@ -212,8 +212,6 @@ public class MainActivity extends AppCompatActivity {
 
     Boolean isThread = false;
 
-    Boolean userHasEnabledCustomCSS = false;
-    Boolean userHasEnabledCustomCSSDialogShown = false;
 
     String defaultUserAgent = "";
 
@@ -422,7 +420,6 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 if (url.contains("/styles/user")) {
-                    userHasEnabledCustomCSS = true;
                     return getCssWebResourceResponseFromAsset();
                 } else if (url.contains(".com/manifest?")) {
                     Log.d("Intercept", "manifest file");
@@ -648,27 +645,6 @@ public class MainActivity extends AppCompatActivity {
 
                 pb.setVisibility(View.GONE);
                 mSwipeRefreshLayout.setRefreshing(false);
-
-                if(!userHasEnabledCustomCSS && !userHasEnabledCustomCSSDialogShown) {
-
-                    // Use the Builder class for convenient dialog construction
-                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-
-                    builder.setTitle("Custom CSS is not enabled!")
-                            .setMessage("You will now be redirected to settings page.\n\nSome CSS has been added to your clipboard you can paste in the textbox.")
-                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                                    ClipData clip = ClipData.newPlainText("css", "body  {}");
-                                    clipboard.setPrimaryClip(clip);
-                                    Toast.makeText(MainActivity.this, "CSS had been added to your clipboard", Toast.LENGTH_SHORT).show();
-                                    webview.loadUrl("https://forum.facepunch.com/user/options/");
-                                }
-                            });
-                    // Create the AlertDialog object and return it
-                    builder.create().show();
-                    userHasEnabledCustomCSSDialogShown = true;
-                }
 
             }
 
