@@ -1,4 +1,13 @@
 /* Main page */
+
+/* Force full width. Thanks diwako! */
+#wrapper,
+.force-wide-design #wrapper {
+    padding: 0
+}
+
+
+
 .drawer-container {
     display: block !important;
 }
