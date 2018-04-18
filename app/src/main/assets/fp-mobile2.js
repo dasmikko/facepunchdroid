@@ -1,14 +1,14 @@
-window.ratings =
+window.ratings = 
 {
   "1": { "RatingId": 1, "Name": "Agree", "Icon": "https://files.facepunch.com/garry/2017/10/23/heavy-check-mark_2714.png", "RatingGroup": "default", "Cost": 0, "Description": "" },
   "2": { "RatingId": 2, "Name": "Disagree", "Icon": "https://files.facepunch.com/garry/2017/10/23/cross-mark_274c.png", "RatingGroup": "default", "Cost": 0, "Description": "" },
   "3": { "RatingId": 3, "Name": "Funny", "Icon": "https://files.facepunch.com/garry/e06a8775-edd5-4b1e-b501-0601fa9ea3c0.png", "RatingGroup": "default", "Cost": 0, "Description": "" },
   "4": { "RatingId": 4, "Name": "Late", "Icon": "https://files.facepunch.com/garry/72ae3025-be22-407b-81ac-fc34baca3211.png", "RatingGroup": "default", "Cost": 0, "Description": "" },
-  "5": { "RatingId": 5, "Name": "Love", "Icon": "https://files.facepunch.com/garry/2017/10/23/heavy-black-heart_2764.png", "RatingGroup": "default", "Cost": 0, "Description": "" },
-  "6": { "RatingId": 6, "Name": "Sympathy", "Icon": "https://files.facepunch.com/s/4f5cfb6d1bf8.png", "RatingGroup": "default", "Cost": 0, "Description": "" },
+  "5": { "RatingId": 5, "Name": "Friendly", "Icon": "https://files.facepunch.com/garry/2017/10/23/heavy-black-heart_2764.png", "RatingGroup": "default", "Cost": 0, "Description": "" },
+  "6": { "RatingId": 6, "Name": "Sympathy", "Icon": "https://files.facepunch.com/garry/927dae08-03a2-4b1f-8267-c8c0fa4cef39.png", "RatingGroup": "default", "Cost": 0, "Description": "" },
   "7": { "RatingId": 7, "Name": "Artistic", "Icon": "https://files.facepunch.com/garry/2017/10/23/artist-palette_1f3a8.png", "RatingGroup": "default", "Cost": 0, "Description": "" },
-  "8": { "RatingId": 8, "Name": "Cookie", "Icon": "https://files.facepunch.com/garry/2017/10/23/cookie_1f36a.png", "RatingGroup": "default", "Cost": 0, "Description": "" },
-  "9": { "RatingId": 9, "Name": "Child Molester", "Icon": "https://files.facepunch.com/garry/2017/10/23/man_emoji-modifier-fitzpatrick-type-1-2_1f468-1f3fb_1f3fb.png", "RatingGroup": "default", "Cost": 0, "Description": "" },
+  "8": { "RatingId": 8, "Name": "Winner", "Icon": "https://files.facepunch.com/garry/8453fc0c-4fe0-4a68-948f-437c718205c9.png", "RatingGroup": "default", "Cost": 0, "Description": "" },
+  "9": { "RatingId": 9, "Name": "Dumb", "Icon": "https://files.facepunch.com/garry/9e90af9a-5954-411a-b8e3-5b15f2290b7c.png", "RatingGroup": "default", "Cost": 0, "Description": "" },
   "10": { "RatingId": 10, "Name": "Baby", "Icon": "https://files.facepunch.com/garry/2017/10/23/baby-bottle_1f37c.png", "RatingGroup": "default", "Cost": 0, "Description": "" },
   "11": { "RatingId": 11, "Name": "Coin", "Icon": "https://files.facepunch.com/garry/43ddf103-2b9b-4ea6-abdf-4a1ae4eb58fc.png", "RatingGroup": "rewards", "Cost": 1, "Description": "" },
   "12": { "RatingId": 12, "Name": "Good Idea", "Icon": "https://files.facepunch.com/garry/84b8da5e-ce55-420a-baab-300a14585f2b.png", "RatingGroup": "default", "Cost": 0, "Description": "" },
@@ -20,9 +20,10 @@ window.ratings =
   "18": { "RatingId": 18, "Name": "Cute", "Icon": "https://files.facepunch.com/garry/2017/11/09/koala_1f428.png", "RatingGroup": "default", "Cost": 0, "Description": "" },
   "19": { "RatingId": 19, "Name": "Lucky", "Icon": "https://files.facepunch.com/garry/2017/11/09/four-leaf-clover_1f340.png", "RatingGroup": "default", "Cost": 0, "Description": "" },
   "20": { "RatingId": 20, "Name": "Big Woop", "Icon": "https://files.facepunch.com/garry/2017/11/09/balloon_1f388.png", "RatingGroup": "default", "Cost": 0, "Description": "" },
+  "21": { "RatingId": 21, "Name": "Informative", "Icon": "https://files.facepunch.com/garry/805e1e29-7bfa-4bd7-aef8-c96d3b5cbd43.png", "RatingGroup": "default", "Cost": 0, "Description": "" },
 }
 
-window.threadicons =
+window.threadicons = 
 {
   "1": { "ThreadIconId": 1, "Name": "Thread", "Url": "https://files.facepunch.com/s/1234f00eaa56.png", "GroupName": "default" },
   "2": { "ThreadIconId": 2, "Name": "Question", "Url": "https://files.facepunch.com/garry/2017/11/17/confused-face_1f615.png", "GroupName": "default" },
@@ -45,7 +46,7 @@ window.threadicons =
   "19": { "ThreadIconId": 19, "Name": "Bug", "Url": "https://files.facepunch.com/garry/2017/11/17/bug_1f41b.png", "GroupName": "default" },
 }
 
-window.emotes =
+window.emotes = 
 {
   "1": { "EmoteId": 1, "Name": "Smile", "Url": "https://files.facepunch.com/garry/7c295d98-e496-4171-b9e9-8a1a5b9a752c.png", "Code": ":)", "Width": "17", "Height": "17" },
   "2": { "EmoteId": 2, "Name": "Shock", "Url": "https://files.facepunch.com/garry/8f54ba59-eafb-43e9-8932-37da6c7ff7d6.gif", "Code": ":o", "Width": "17", "Height": "26" },
@@ -71,6 +72,7 @@ window.emotes =
   "24": { "EmoteId": 24, "Name": "Saddowns", "Url": "https://files.facepunch.com/garry/89a83759-9ca9-460c-941e-a87f52073011.png", "Code": ":saddowns:", "Width": "17", "Height": "17" },
   "25": { "EmoteId": 25, "Name": "Garry Spin", "Url": "https://files.facepunch.com/garry/855cfed5-5e24-4f34-8289-f8b799cd93c2.gif", "Code": ":garry:", "Width": "20", "Height": "25" },
 }
+
 
 
 // ORIGIGNAL FILE END!
