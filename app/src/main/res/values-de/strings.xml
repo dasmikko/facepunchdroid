@@ -178,12 +178,15 @@
     <string name="dialog_goto_last_page">Gehe zur letzten Seite</string>
     <string name="disable_user_title_images_sumary">Dies schaltet Hintergrundbilder und andere störene Elemente ab</string>
     <string name="disable_user_title_images">Schalte Bilder in User-Titeln ab</string>
+<<<<<<< HEAD
     <string name="nav_changes">Changes</string>
     <string name="nav_roadmap">Roadmap</string>
     <string name="nav_help">Help</string>
+=======
     <string name="nav_changes">Änderungen</string>
     <string name="nav_roadmap">Entwicklungsplan</string>
     <string name="nav_help">Hilfe</string>
+>>>>>>> origin/master
 
 
 </resources>

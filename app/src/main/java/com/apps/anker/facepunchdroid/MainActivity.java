@@ -212,6 +212,8 @@ public class MainActivity extends AppCompatActivity {
 
     Boolean isThread = false;
 
+    Boolean userHasEnabledCustomCSS = false;
+    Boolean userHasEnabledCustomCSSDialogShown = false;
 
     String defaultUserAgent = "";
 
@@ -419,6 +421,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
 
+<<<<<<< HEAD
                 if (wauterboiMode) {
                     if (url.contains("css.php")) {
                         return new WebResourceResponse("text/css", "UTF-8", null);
@@ -429,8 +432,10 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 if (url.contains("/styles/main?q")) {
+=======
                 if (url.contains("/styles/user")) {
                     userHasEnabledCustomCSS = true;
+>>>>>>> origin/master
                     return getCssWebResourceResponseFromAsset();
                 } else if (url.contains(".com/manifest?")) {
                     Log.d("Intercept", "manifest file");

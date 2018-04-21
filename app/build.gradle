@@ -48,7 +48,6 @@ dependencies {
     compile 'com.koushikdutta.ion:ion:2.+'
     compile 'com.nbsp:library:1.07'
     compile 'org.sufficientlysecure:donations:2.4'
-    compile('com.mikepenz:materialdrawer:5.6.0@aar') {
     implementation("com.mikepenz:materialdrawer:6.0.6@aar") {
         transitive = true
     }
