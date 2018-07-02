@@ -420,22 +420,8 @@ public class MainActivity extends AppCompatActivity {
                         return new WebResourceResponse("text/html", "UTF-8", null);
                     }
                 }
-
-<<<<<<< HEAD
-                if (wauterboiMode) {
-                    if (url.contains("css.php")) {
-                        return new WebResourceResponse("text/css", "UTF-8", null);
-                    }
-                    if (url.contains("fp-2013.css")) {
-                        return new WebResourceResponse("text/css", "UTF-8", null);
-                    }
-                }
-
-                if (url.contains("/styles/main?q")) {
-=======
                 if (url.contains("/styles/user")) {
                     userHasEnabledCustomCSS = true;
->>>>>>> origin/master
                     return getCssWebResourceResponseFromAsset();
                 } else if (url.contains(".com/manifest?")) {
                     Log.d("Intercept", "manifest file");
@@ -799,7 +785,6 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
-
         setupSearchToolbar();
 
         Intent messageintent = getIntent();
@@ -1160,7 +1145,7 @@ public class MainActivity extends AppCompatActivity {
                             webview.loadUrl("https://forum.facepunch.com/help");
                         } else if (id == 9) {
                             AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(MainActivity.this, R.style.myDialog));
-                            builder.setMessage(getString(R.string.logout_description))
+                                builder.setMessage(getString(R.string.logout_description))
                                     .setPositiveButton(R.string.answer_yes, new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
                                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
