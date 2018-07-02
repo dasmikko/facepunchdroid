@@ -2,6 +2,7 @@
 
 @import url('https://diwako.github.io/fpcss/mobile.css');
 
+// Fix the scrolling issue in the app
 @media screen and (max-width: 759px) {
   #wrapper {
       overflow-y: unset !important;
