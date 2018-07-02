@@ -1,3 +1,9 @@
 /* Main page */
 
 @import url('https://diwako.github.io/fpcss/mobile.css');
+
+@media screen and (max-width: 759px) {
+  #wrapper {
+      overflow-y: unset !important;
+  }
+}
