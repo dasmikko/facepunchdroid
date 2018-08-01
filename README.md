@@ -78,48 +78,6 @@ Current supported languages:
 **Q:** What if Google Play pulls the app?
 
 **A:** No problem, I will simply host it myself, and make a built-in updater (Which isn't allowed on Google Play ATM)
-
-
-## Changelog
-    1.7.7
-    - Fixed Twitter embeds not working.
-    - Updated a bunch of libraries and other stuff.
-
-
-    1.7.6
-    - New: Disable annoying user titles
-    - Fix: Navigation drawer avatar now works again.
-    - Fix: Removed the deprecated notification dialog upon pinning thread.
-
-    1.7.5
-    - New: Pinned threads are now in the app shortcuts too!
-    - New: Events/Report buttons are back!
-
-    
-    1.7.4
-    - New: Better go to dialog. You can now go to the first and last page quicker!
-    - Reduction in APK size after removal of NumberPicker library.
-
-    1.7.3
-    - Disable notifications, as the service will crash the app, because of cloudflare...
-    
-	1.7.2
-	- Fix: App now runs on Android 4.4 again. Sorry for the issues!
-	
-	1.7.1
-	- Fix: When trying to open notifications settings, while logged out, it would crash.
-	- New: Ratings are now visible as you scroll through the threads!
-	- New: Fancy animation when starting the app.
-	
-    1.7.0
-    - Fix: When clicking on subscription notification, it would do nothing..
-    - Fix: When clicking on a PM/subscription notification, while the app was running, the page would not load.
-
-	1.6.9
-	- Fix: Notification settings not detecting login state correctly.
-   
-    
-[Full changelog here](https://github.com/dasmikko/facepunchdroid/blob/master/changelog.md)
-
+  
 ## Official build on Google Play
 [![Get it on Google Play](https://my.mixtape.moe/mjhsns.png)](https://play.google.com/store/apps/details?id=com.apps.anker.facepunchdroid)
