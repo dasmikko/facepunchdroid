@@ -423,8 +423,8 @@ public class MainActivity extends AppCompatActivity {
                 if (url.contains("/styles/user")) {
                     userHasEnabledCustomCSS = true;
                     return getCssWebResourceResponseFromAsset();
-                } else if (url.contains(".com/manifest?")) {
-                    Log.d("Intercept", "manifest file");
+                } else if (url.contains(".com/public/script.js?") && !url.contains(".com/public/script.js?9999999")) {
+                    Log.d("Intercept", "script file");
                     return getJsWebResourceResponseFromAsset();
                 } else {
                     return super.shouldInterceptRequest(view, url);
