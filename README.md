@@ -5,30 +5,6 @@ Use Facepunch with a more mobile friendly design, and features.
 
 If you don't trust me, you are more than welcome to build the app yourself.
 
-# UPDATE AGAIN
-Facepunch have now migrated over to the new forum, which completely breaks the app.
-I am currently working on making the app as compatible as possible with the new forum, but don't expect miracles.
-
-I've seem to get the new login working with the app now, but there is a lot of styling to be done, before I can release a new version.
-
-I can't give any estimations, as I most likely will break them, as my spare time is very limited at the moment.
-
-Hopefully when the new API is live, I can make a better app, but only time will tell.
-
-Feel free to throw some donations via the app, to show your interest in the making of a new app. (It's in the drawer at the bottom)
-
-## UPDATE
-I'm currently working on a new app for the new facepunch forum, in React Native.
-I've got login to work without issues, so now, I actually only need to implement:
-
-- [ ] Forums list
-- [ ] Forum Viewing
-- [ ] Thread Viewing
-- [ ] Thread Posting
-- [ ] Post rating
-
-Repo: https://github.com/dasmikko/react-native-facepunchdroid
-
 ## Features:
 - Material Design 
 - Native image viewer 
