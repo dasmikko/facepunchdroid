@@ -446,8 +446,8 @@ public class MainActivity extends AppCompatActivity {
                         Log.d("Darktheme", "USE DARKTHEME");
 
                         //fullCSSString += customCSS.cssToString(getAssets().open("dark_theme.css"));
-                        fullCSSString += "@import url('https://pgsil.github.io/awfullydark2/styles.css');";
-                        Log.d("Darktheme", "Injecting this: " + "@import url('https://pgsil.github.io/awfullydark2/styles.css');");
+                        fullCSSString += "@import url('https://inaciogonzalesn.bitbucket.io/styles.css');";
+                        Log.d("Darktheme", "Injecting this: " + "@import url('https://inaciogonzalesn.bitbucket.io/styles.css');");
                     }
 
                     // Inject user title disablign
